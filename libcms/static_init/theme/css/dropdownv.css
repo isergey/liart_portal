@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+/**
+ * Horizontal CSS Drop-Down Menu Module
+ *
+ * @file		dropdownv.css
+ * @package		dropdownv
+ * @version		0.8
+ * @type		Transitional
+ * @stacks		597-599
+ * @browsers	Windows: IE6+, Opera7+, Firefox3+
+ *				Mac OS: Safari2+, Firefox3+
+ *
+ * @link		http://www.lwis.net/free-css-drop-down-menu
+ * @copyright	2008-2012 Live Web Initiatives, http://www.lwis.net, http://www.lwis.net
+ *
+ */
+
+ul.dropdownv,
+ul.dropdownv li,
+ul.dropdownv ul {
+ list-style-image: url('../images/arrow_right1.png');
+ width:200px;
+}
+
+ul.dropdownv {
+ position: relative;
+ z-index: 397;
+ float: left;
+}
+
+ul.dropdownv li {
+ float: left;
+ min-height: 1px;
+ line-height: 1.3em;
+ vertical-align: middle;
+ margin-top:5px;
+}
+
+ul.dropdownv li.hover,
+ul.dropdownv li:hover {
+ position: relative;
+ z-index: 369;
+ cursor: default;
+ list-style-image: url('../images/arrow_right1.png');
+}
+
+ul.dropdownv ul {
+ visibility: hidden;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ z-index: 598;
+ width: 100%;
+}
+
+ul.dropdownv ul li {
+ float: none;
+}
+
+ul.dropdownv ul ul {
+ top: 1px;
+ left: 99%;
+}
+
+ul.dropdownv li:hover > ul {
+ visibility: visible;
+}
+
+/* -- Base drop-down styling -- */
+
+ul.dropdownv {
+ font-weight: normal;
+ margin-top:20px
+}
+
+	ul.dropdownv li.hover,
+	ul.dropdownv li:hover,
+	ul.dropdownv li.on {
+	 color: #6b001c;
+	}
+
+	ul.dropdownv a:link,
+	ul.dropdownv a:visited	{ color: #4d4b47; text-decoration: none; }
+	ul.dropdownv a:hover		{ color: #6b001c; }
+	ul.dropdownv a:active	{ color: #6b001c; }
+	ul.dropdownv li.active {list-style-image: url('../images/arrow_right2.png')}
+  ul.dropdownv li.active a	{ color: #6b001c; font-weight:bold;}
+
+	/* -- level mark -- */
+
+	ul.dropdownv ul {
+	 width: 150px;
+	 background-color:white;
+	}
+	ul.dropdownv li.dir ul {
+	 border:6px solid #e0dcd0;
+	 padding:5px !important;
+	 margin: 0 !important;
+	 width:auto;
+	 margin-left:100px !important;
+	 margin-top:-20px !important;
+	}
+
+		ul.dropdownv ul li {
+		 font-weight: bold;
+		 font-family: Arial;
+		 font-size:8pt;
+		 padding: 5px 5px;
+		 height:auto;
+		 background: none;
+		 border-bottom:1px solid #c3c0b5;
+		 display:block;
+		 color:#4d4b47;
+		 text-transform:none;
+	   margin: 0 !important;
+		}
+		ul.dropdownv ul li:last-child {
+		 border-bottom:none;
+		}
+    ul.dropdownv ul a {
+     color:#4d4b47 !important;
+    }
+    ul.dropdownv ul li.hover,
+    ul.dropdownv ul li:hover,
+    ul.dropdownv ul li.on {
+     background-color: white;
+	  }
+	  ul.dropdownv ul a:hover {
+     color:#6b001c !important;
+     text-decoration:underline;
+    }
+
+/* -- Supporting class `dir` -- */
+
+ul.dropdownv-horizontal ul *.dir {
+ padding-right: 15px;
+ /*background-image: url(../../../../images/default/nav-arrow-right.png);*/
+ background-position: 100% 50%;
+ background-repeat: no-repeat;
+}
+
+ul.dropdownv-upward *.dir {
+ /*background-image: url(../../../../images/default/nav-arrow-top.png);*/
+}
+
+ul.dropdownv-vertical *.dir,
+ul.dropdownv-upward ul *.dir {
+ /*background-image: url(../../../../images/default/nav-arrow-right.png);*/
+}
+
+ul.dropdownv-vertical-rtl *.dir,
+ul.dropdownv-horizontal > li.dropdownv-vertical-rtl ul *.dir {
+ padding-right: 10px;
+ padding-left: 15px;
+ /*background-image: url(../../../../images/default/nav-arrow-left.png);*/
+ background-position: 2px 50%;
+}

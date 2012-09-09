@@ -1,0 +1,36 @@
+{% extends 'theme_frontend_base.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}{% endblock %}
+{% block content %}
+    <style>
+        ul.albums{
+            list-style: none;
+        }
+        ul.albums li{
+            margin: 0;
+        }
+        ul.albums .create_date{
+            color: #4D4B47;
+        }
+    </style>
+    <div class="breadcrumb">
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <span class="active">{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}</span>
+    </div>
+
+    <ul class="albums">
+        {% for album in albums %}
+            <li class="album">
+                <h3><a href="{% url  gallery:frontend:album_view album.id %}?back={{ request.get_full_path }}">{{ album }}</a></h3>
+                <div>
+                    <span class="create_date"><b>Дата создания:</b> {{ album.create_date|date:"j E Y" }}</span>
+                </div>
+
+                <hr/>
+            </li>
+        {% empty %}
+            <li>Альбомов нет</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

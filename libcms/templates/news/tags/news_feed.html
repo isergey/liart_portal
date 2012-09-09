@@ -1,0 +1,11 @@
+{% for news in news_list %}
+<div class="news">
+    {% url news:frontend:show news.id  as news_url%}
+    <h3><a href="/" class="date">{{ news.create_date|date:"j E Y" }}</a></h3>
+    {% if news.avatar_img_name %}
+        <a href="{{ news_url }}#news_title"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>
+    {% endif %}
+    {{ news.news_content.teaser }}
+    <a href="{{ news_url }}#news_title">&gt;&gt;</a>
+</div>
+{% endfor %}

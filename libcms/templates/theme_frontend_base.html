@@ -1,0 +1,92 @@
+{% load i18n %}
+{% load cache %}
+{% load localeurl_tags %}
+{% load news_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Российская государственная библиотека искусств</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/reset.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/960.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdown.css" media="screen"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdownv.css" media="screen"/>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic' type='text/css'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+  <script src="/js/html5shiv.js"></script>
+  <![endif]-->
+    <style>
+        div.breadcrumb{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container_12">
+        <div class="grid_3">
+            <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" id="logo" alt="Российская государстванная библиотека искусств"></a>
+        </div>
+        <div class="grid_6">
+            {% if LANGUAGE_CODE == 'ru' %}
+                <h5>Федеральное государственноебюджетное учреждение культуры</h5>
+                <h2>Российская государственная<br>библиотека искусств</h2>
+            {% else %}
+                <h5>Federal State Institution of Culture</h5>
+                <h2>Russian State <br>Art Library</h2>
+            {% endif %}
+        </div>
+        <div class="grid_3 search">
+{#            <span class="lang">RU</span>#}
+            {% if LANGUAGE_CODE == 'ru' %}
+                <span class="lang">Рус</span> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
+            {% elif LANGUAGE_CODE == 'en' %}
+                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <span class="lang">Eng</span>
+            {% else %}
+                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
+            {% endif %}
+            <div class="social"><a href="http://www.facebook.com/liart.ru" target="_blank"><img src="{{ STATIC_URL }}theme/images/facebook1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/facebook2.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/facebook1.png'" alt="Facebook"></a><a href="http://art-library.livejournal.com/" target="_blank"><img src="{{ STATIC_URL }}theme/images/livejournal1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'" alt="LiveJournal"></a><a href="http://vk.com/artlibrary" target="_blank"><img src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='/images/vkontakte1.png'" alt="ВКонтакте"></a></div>
+            <div class="search_form"><form action="http://google.com/search" name="f" target="_blank">
+                <input type="hidden" name="q" value="site:liart.ru" />
+                <input name="q" type="search" placeholder="{% if LANGUAGE_CODE == 'ru' %}Поиск по сайту{% else %}Search on site{% endif %}">
+                <input type="hidden" name=hl value="ru">
+            </FORM>
+            </div>
+            <div class="search_catalog"><a href="/opacg/nog.htm">
+                {% if LANGUAGE_CODE == 'ru' %}
+                ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ
+                {% else %}
+                    SEARCH IN ELECTRONIC CATALOG
+                {% endif %}
+            </a></div>
+        </div>
+    </div>
+</header>
+{% include 'top_menu.html' %}
+<section>
+    <div class="container_12">
+        <div class="grid_3 alpha">
+            {% include 'left_menu.html'%}
+        </div>
+        <div class="grid_6">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <div class="grid_3">
+            {% cache 60 newinlib.html LANGUAGE_CODE %}
+                {% include 'newinlib.html' %}
+            {% endcache %}
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+{% include 'footer.html' %}
+</body>
+</html>

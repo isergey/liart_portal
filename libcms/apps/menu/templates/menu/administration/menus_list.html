@@ -1,0 +1,30 @@
+{% extends 'menu/administration/index.html' %}
+{% load active_link %}
+{% load pagination_tag %}
+{% load breadcrumbs %}
+{% load mptt_tags %}
+
+{% block breadcrumb %}
+    {% breadcrumb "Меню" menu:administration:index %}
+    {% breadcrumb "Список"  %}
+{% endblock %}
+
+{% block action_content %}
+
+    <ul class="list" style="list-style: none; padding: 0; margin: 0">
+    {% for menu in menus %}
+        <li><span class="title">
+            {% if not menu.menu_title.title %}
+                <a href="{% url menu:administration:edit_menu menu.id %}">{{ menu.slug }}</a>
+            {% else %}
+                <a href="{% url menu:administration:edit_menu menu.id %}">{{ menu.menu_title.title }} ({{ menu.slug }})</a>
+            {% endif %}
+        </span>
+            <a href="{% url menu:administration:item_list menu.id  %}">Пункты</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% admin_pagination menus_page %}
+{% endblock %}
+
+

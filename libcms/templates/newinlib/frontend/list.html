@@ -1,0 +1,42 @@
+{% extends 'theme_frontend_base.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load pagination_tag %}
+{% block title %}{{ content.title }}{% endblock %}
+{% block content %}
+    <style>
+        .list .item img {
+            border: 5px solid #E0DCD0;
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            width: 86px;
+        }
+        .list .item a {
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 12px;
+        }
+    </style>
+    <div class="breadcrumb">
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <span class="active">{% if LANGUAGE_CODE == 'ru' %}Новые поступления{% else %}From new arrivals{% endif %} <a href="{% url newinlib:frontend:rss %}"><img src="{{ STATIC_URL }}images/rss.png" alt="{% if LANGUAGE_CODE == 'ru' %}Подписка{% else %}Subscribe{% endif %}" style="width: 15px;"></a></span>
+
+    </div>
+    <div class="list">
+    {% for item in items_list %}
+        <div class="item">
+            {% url newinlib:frontend:show item.id  as item_url%}
+{#            <h3><span class="date">{{ item.create_date|date:"j E Y" }}</span></h3>#}
+            {% if item.avatar_img_name %}
+                <a href="{{ item_url }}#item_title"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt=""></a>
+            {% endif %}
+
+            <a href="{{ item_url }}#item_title">{{ item.item_content.title }}</a>
+        </div>
+        <div style="clear: both;"></div>
+    {% endfor %}
+    </div>
+    <div style="clear: both;"></div>
+    {% pagination items_page %}
+{% endblock %}

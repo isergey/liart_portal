@@ -1,0 +1,152 @@
+Установка основных компонентов для Centos.
+    # yum install gcc python python-devel memcached memcached-devel python-memcached python-setuptools python-lxml
+    Скачать pip на http://pypi.python.org/pypi/pip#downloads и установить.
+    # pip install django postmarkup Pygments python-openid oauth2 pymorphy python-cdb uwsgi
+
+    Установка nginx.
+    http://nginx.org/ru/download.html скачать RPM для нужной версии Cetos и установить
+
+    Установка PIL.
+    # yum install freetype freetype-devel libpng libpng-devel libjpeg libjpeg-devel
+    # pip install PIL
+
+
+
+Установка основных компонентов для Ubuntu.
+
+    # apt-get install g++ python-dev python-pip  mysql-server libmysqlclient-dev  python-lxml memcached libmemcached-dev
+    # pip install django postmarkup Pygments python-openid oauth2 pymorphy python-cdb uwsgi pylibmc MySQL-python
+
+    Установка nginx.
+    # apt-get install python-software-properties
+    # add-apt-repository ppa:nginx/stable
+    # apt-get update
+    # apt-get install nginx
+
+    Установка PIL.
+    # apt-get build-dep python-imaging
+    # ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib/
+    # ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib/
+    # ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
+    # pip install PI
+
+
+Создание базы MySQL.
+mysql> CREATE DATABASE `libcms` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+В local_settingth.py указать логин и пароль к созданной базе (словарь DATABASES['default'], ключи USER и PASSWORD).
+Указать адрес сервера Memcached (словарь CACHES['default'], ключ LOCATION).
+
+Указать пути для каталога загрузки файлов MEDIA_ROOT (каталог должен быть доступен на запись системой и на чтение вебсервером). Например (путь к каталогу ОБЯЗАТЕЛЬНО должен заканчиваться слещом '/'):
+MEDIA_ROOT = '/var/www/site/var/media/'
+Вебсервер должен видеть каталог MEDIA_ROOT должен быть доступен по адресу /media/
+
+Указать пути для каталога в котором соберуться статические файлы STATIC_ROOT (каталог должен быть доступен на запись системой и на чтение вебсервером). Например (путь к каталогу ОБЯЗАТЕЛЬНО должен заканчиваться слещом '/'):
+STATIC_ROOT = '/var/www/site/var/static/'
+Выполнить команду python manage.py collectstatic. В результате команды в каталог STATIC_ROOT соберуться статические файлы системы.
+Вебсервер должен видеть каталог STATIC_ROOT должен быть доступен по адресу /static/
+
+
+Выполнить команду python manage.py syncdb (создание необходимых таблиц и заполнение их начальными данными). В процессе
+синхронизации (если в она осуществляется в первые), система попросит ввести данные о супер пользователе.
+
+Установка системы завершена.
+
+
+Настройка uwsgi сервера.
+http://projects.unbit.it/uwsgi/.
+
+Настройка вебсервера nginx.
+http://nginx.org/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+init.d supervisord (для Centos)
+#!/bin/sh
+#
+# /etc/rc.d/init.d/supervisord
+#
+# Supervisor is a client/server system that
+# allows its users to monitor and control a
+# number of processes on UNIX-like operating
+# systems.
+#
+# chkconfig: - 64 36
+# description: Supervisor Server
+# processname: supervisord
+
+# Source init functions
+. /etc/rc.d/init.d/functions
+
+prog="supervisord"
+
+prefix="/usr/"
+exec_prefix="${prefix}"
+prog_bin="${exec_prefix}/bin/supervisord"
+PIDFILE="/var/run/$prog.pid"
+
+start()
+{
+        echo -n $"Starting $prog: "
+        daemon $prog_bin --pidfile $PIDFILE
+        [ -f $PIDFILE ] && success $"$prog startup" || failure $"$prog startup"
+        echo
+}
+
+stop()
+{
+        echo -n $"Shutting down $prog: "
+        [ -f $PIDFILE ] && killproc $prog || success $"$prog shutdown"
+        echo
+}
+
+case "$1" in
+
+  start)
+    start
+  ;;
+
+  stop)
+    stop
+  ;;
+
+  status)
+        status $prog
+  ;;
+
+  restart)
+    stop
+    start
+  ;;
+
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+  ;;
+
+esac
+
+/var/www/portal/chel
+[program:liart.ru]
+command=/usr/bin/uwsgi -i /var/www/artlib/libcms/libcms/uwsgi.ini
+;user=www-data
+stdout_logfile=/tmp/uwsgi.log
+stderr_logfile=/tmp/uwsgi_err.log
+directory=/var/www/artlib/libcms/libcms
+autostart=true
+autorestart=true
+redirect_stderr=true
+stopsignal=QUIT
+

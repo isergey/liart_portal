@@ -1,0 +1,54 @@
+{% extends 'theme_frontend_base.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}{{ album.title }}{% endblock %}
+{% block content %}
+    <script type="text/javascript" src="{{ STATIC_URL }}gallery/fancybox/jquery.fancybox.pack.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}gallery/fancybox/jquery.fancybox.css">
+    <style>
+        ul.thumbnails{
+            list-style: none;
+        }
+        ul.thumbnails li {
+            float: left;
+            margin: 0;
+            margin-left: 4px;
+
+        }
+        img.tumb {
+            border: 4px solid #E0DCD0;
+            width: 150px;
+        }
+    </style>
+    <div class="breadcrumb">
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        {% if request.GET.back %}
+            <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}</a> <span class="divider">/</span>
+        {% else %}
+            <a href="{% url gallery:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}</a> <span class="divider">/</span>
+        {% endif %}
+        {{ album.title }}
+    </div>
+    <ul class="thumbnails" >
+        {% for album_image in album_images %}
+            <li>
+                <a title="{{ album_image.comments }}" class="mins" href="{{ MEDIA_URL }}gallery/{{ album.slug }}/{{ album_image.get_image_file_name }}" class="thumbnail"  rel="gallery_group">
+                    <img class="tumb" src="{{ MEDIA_URL }}gallery/{{ album.slug }}/thumbinails/{{ album_image.get_image_file_name }}" alt="" rel="tooltip" data-original-title="{{ album_image.comments }}">
+                </a>
+                <div style="margin-top: 5px;">
+                    <a class="btn" href="{% url gallery:administration:image_edit album_image.id %}" title="Редактировать"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-danger" href="{% url gallery:administration:image_delete album_image.id %}" title="Удалить"><i class="icon-trash icon-white"></i></a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <script type="text/javascript">
+        $('.tumb').tooltip();
+    </script>
+    <script type="text/javascript">
+        $("a.mins").fancybox({
+            'overlayColor'        : '#000',
+            'overlayOpacity'    : 0.9
+        });
+    </script>
+{% endblock %}
