@@ -1,0 +1,17 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if show_results %}
+    <ul>
+        {% for choices_dict in choices_dicts %}
+            <li><b>{{ choices_dict.choice.choice }}</b> ({% if LANGUAGE_CODE == 'ru' %}голосов{% else %}votes{% endif %}: {{ choice.votes }} - {{ choices_dict.percent_from_sum_votes }} % )
+                <div class="progress progress-danger progress-striped" {% if not forloop.last %}style="margin-bottom: 9px;"{% endif %}>
+                    <div class="bar" style="width: {{ choices_dict.percent_from_sum_votes }}%"></div>
+                </div>
+            </li>
+        {% empty %}
+            {% if LANGUAGE_CODE == 'ru' %}Результаты будут доступны позднее{% else %}Result will be avaible in future{% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    {{ message }}
+{% endif %}

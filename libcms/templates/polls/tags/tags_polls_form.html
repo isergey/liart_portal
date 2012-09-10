@@ -1,0 +1,79 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<style>
+    .polls_block{
+        padding-left: 20px
+    }
+    .polls_block h2 {
+        margin: 0;
+    }
+    #poll_form ul{
+        list-style: none;
+        margin: 0;
+    }
+    #poll_form ul li{
+        margin: 0;
+        padding: 0;
+    }
+    #poll_form{
+        color: #4D4B47;
+    }
+    #poll_form .question{
+        color: #6B001C;
+    }
+</style>
+<div class="polls_block" style=";">
+    <h2>{% if LANGUAGE_CODE == 'ru' %}Опрос{% else %}Poll{% endif %}</h2>
+    <div id="poll_form" >
+
+        {% if poll %}
+            <div class="question">{{ poll.question }}</div>
+            <div id="poll_results">
+            <form id='vote_form' action="{% url polls:frontend:vote poll.id %}" method="POST">
+                {% csrf_token %}
+                {#                    <ul style="list-style:none; padding:0;">#}
+                <ul>
+                    {% if poll.poll_type == 'radio' %}
+                        {% for choice in choices %}
+                            <li>
+                                <input type="radio" name="answer" value="{{ choice.id }}"/>
+                                {{ choice.choice }}
+                            </li>
+                        {% empty %}
+                            Нет вариантов ответа.
+                        {% endfor %}
+                    {% endif %}
+                    {% if poll.poll_type == 'checkboxes' %}
+                        {% for choice in choices %}
+                            <li>
+                                <input type="checkbox" name="answer" value="{{ choice.id }}"/>
+                                {{ choice.choice }}
+                            </li>
+                        {% empty %}
+                            Нет вариантов ответа.
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                <div align="center">
+                    <input type="submit" value="{% if LANGUAGE_CODE == 'ru' %}Ответить{% else %}Give answer{% endif %}"  class="btn"/>
+                </div>
+
+            </form>
+            </div>
+        {% else %}
+            {% if LANGUAGE_CODE == 'ru' %}Активных опросов нет.{% else %}There is not active polls.{% endif %}
+        {% endif %}
+        <div><a href="{% url polls:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Архив опросов{% else %}Polls archive{% endif %}</a></div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.form.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#vote_form').bind('submit', function (e) {
+            e.preventDefault(); // <-- important
+            $(this).ajaxSubmit({
+                target:'#poll_results'
+            });
+        });
+    });
+</script>

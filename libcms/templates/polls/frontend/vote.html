@@ -1,0 +1,46 @@
+{% extends 'index/frontend/index.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}{{ poll.question }}{% endblock %}
+{% block content %}
+    <div class="breadcrumb">
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        {% if request.GET.back %}
+            <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</a> <span class="divider">/</span>
+        {% else %}
+            <a href="{% url polls:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</a> <span class="divider">/</span>
+        {% endif %}
+        <span class="active">{{ poll.question }}</span>
+    </div>
+    <style type="text/css">
+        .polls .content ul {
+            list-style: none;
+            padding:0;
+        }
+
+    </style>
+    <div class="polls">
+        <div class="content">
+
+            <form action="" method="POST">{% csrf_token %}
+                <ul>
+                    {% if poll.poll_type == 'radio' %}
+                        {% for choice in choices %}
+                            <li><input type="radio" name="answer" value="{{ choice.id }}"/> {{ choice.choice }} </li>
+                        {% empty %}
+                            Нет вариантов ответа.
+                        {% endfor %}
+                    {% else %}
+                        {% for choice in choices %}
+
+                            <li><input type="checkbox" name="answer" value="{{ choice.id }}"/> {{ choice.choice }} </li>
+                        {% empty %}
+                            Нет вариантов ответа.
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                <button name="send" value="send" type="submit" class="btn"><input type="submit" value="{% if LANGUAGE_CODE == 'ru' %}Ответить{% else %}Give answer{% endif %}"  class="btn"/></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'index/frontend/index.html' %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% load pagination_tag %}
+{% block title %}Голосования{% endblock %}
+{% block content %}
+    <div class="breadcrumb">
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <span class="active">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</span>
+    </div>
+    {% for poll in polls_page.object_list %}
+        <div class="item">
+            {% if poll.is_active %}
+                {% url polls:frontend:vote poll.id as detail_url %}
+            {% else %}
+                {% url polls_results  poll.id as detail_url %}
+            {% endif %}
+            <div class="title">
+                <span class="date">{{ poll.start_poll_date|date:"d M Y"}}</span> <a href="{{ detail_url }}?back={{ request.get_full_path }}">{{ poll.question }}</a>
+                    {% if poll.is_active %}<sup><span style="color:green;">{% if LANGUAGE_CODE == 'ru' %}Активен{% else %}Active{% endif %}</span></sup>{% else %}<sup><span style="color:#026DA5;">{% if LANGUAGE_CODE == 'ru' %}Завершен{% else %}Complated{% endif %}</span></sup>{% endif %}
+            </div>
+            <div class="detail">
+                {% if poll.is_active %}
+                    <span class="show"><a href="{{ detail_url }}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}Подробнее{% else %}Details{% endif %}</a></span>
+                {% else %}
+                    {% if poll.show_results_after_end_poll %}
+                        <span class="show"><a href="{{ detail_url }}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}Результаты{% else %}Results{% endif %}</a></span>
+                    {% else %}
+                        <span class="show">{% if LANGUAGE_CODE == 'ru' %}Результаты не доступны{% else %}Results not available{% endif %}</span>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+            {% if not forloop.last %}<hr/>{% endif %}
+        </div>
+    {% empty %}
+        {% if LANGUAGE_CODE == 'ru' %}Опросов нет{% else %}Polls is not exists{% endif %}
+    {% endfor %}
+    {% admin_pagination polls_page %}
+{% endblock %}

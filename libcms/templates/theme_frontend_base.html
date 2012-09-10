@@ -2,6 +2,7 @@
 {% load cache %}
 {% load localeurl_tags %}
 {% load news_tags %}
+{% load polls_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -22,6 +23,14 @@
     <style>
         div.breadcrumb{
             margin-bottom: 20px;
+        }
+
+        div.pagination ul {
+            list-style: none;
+            margin: 0;
+        }
+        div.pagination ul li{
+            float: left;
         }
     </style>
 </head>
@@ -72,6 +81,8 @@
     <div class="container_12">
         <div class="grid_3 alpha">
             {% include 'left_menu.html'%}
+            <div class="clear"></div>
+            {% poll_form %}
         </div>
         <div class="grid_6">
             {% block content %}
