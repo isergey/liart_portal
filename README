@@ -1,4 +1,4 @@
-git exclude
+#git exclude
 *~
 *.py[co]
 .idea
