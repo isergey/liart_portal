@@ -22,6 +22,7 @@
         color: #6B001C;
     }
 </style>
+{% if poll %}
 <div class="polls_block" style=";">
     <h2>{% if LANGUAGE_CODE == 'ru' %}Опрос{% else %}Poll{% endif %}</h2>
     <div id="poll_form" >
@@ -77,3 +78,4 @@
         });
     });
 </script>
+{% endif %}
