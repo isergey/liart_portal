@@ -152,7 +152,7 @@ ul.dropdown-horizontal ul *.dir {
 }
 
 ul.dropdown-upward *.dir {
- background-image: url(../images/nav-arrow-top.png);
+ background-image: url(images/nav-arrow-top.png);
 }
 
 ul.dropdown-vertical *.dir,
@@ -164,6 +164,6 @@ ul.dropdown-vertical-rtl *.dir,
 ul.dropdown-horizontal > li.dropdown-vertical-rtl ul *.dir {
  padding-right: 10px;
  padding-left: 15px;
- background-image: url(../images/nav-arrow-left.png);
+ background-image: url(images/nav-arrow-left.png);
  background-position: 2px 50%;
 }

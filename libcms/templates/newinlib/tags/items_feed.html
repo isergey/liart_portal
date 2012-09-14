@@ -3,6 +3,12 @@
         width: 86px;
     }
 </style>
+{% if main_item %}
+    <div class="announce_main">
+        {%  url newinlib:frontend:show main_item.id as main_item_url %}
+        {% if main_item.avatar_img_name %}<a href="{{ main_item_url }}#item_title"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ main_item.avatar_img_name }}" alt="{{ main_item.item_content.title }}"></a>{% endif %}</div>
+    <div class="announce_main_txt"><a href="{{ main_item_url }}#item_title">{{ main_item.item_content.title }}</a></div>
+{% endif %}
 {% for item in items_list %}
 {%  url newinlib:frontend:show item.id as item_url %}
 <div class="announce">

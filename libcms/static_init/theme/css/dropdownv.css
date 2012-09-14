@@ -135,24 +135,24 @@ ul.dropdownv {
 
 ul.dropdownv-horizontal ul *.dir {
  padding-right: 15px;
- /*background-image: url(../../../../images/default/nav-arrow-right.png);*/
+ background-image: url(../../../..../images/default/nav-arrow-right.png);
  background-position: 100% 50%;
  background-repeat: no-repeat;
 }
 
 ul.dropdownv-upward *.dir {
- /*background-image: url(../../../../images/default/nav-arrow-top.png);*/
+ background-image: url(../../../..../images/default/nav-arrow-top.png);
 }
 
 ul.dropdownv-vertical *.dir,
 ul.dropdownv-upward ul *.dir {
- /*background-image: url(../../../../images/default/nav-arrow-right.png);*/
+ background-image: url(../../../..../images/default/nav-arrow-right.png);
 }
 
 ul.dropdownv-vertical-rtl *.dir,
 ul.dropdownv-horizontal > li.dropdownv-vertical-rtl ul *.dir {
  padding-right: 10px;
  padding-left: 15px;
- /*background-image: url(../../../../images/default/nav-arrow-left.png);*/
+ background-image: url(../../../..../images/default/nav-arrow-left.png);
  background-position: 2px 50%;
 }
