@@ -2,7 +2,7 @@
 <footer>
     <div class="container_12">
         <div class="grid_3">
-            <p>&copy; 2012 Федеральное государственное<br>бюджетное учреждение культуры<br>Российская государственная<br>библиотека искусств</p><p><a href="mailto:bisk@liart.ru">bisk@liart.ru</a>
+            <p>&copy; Федеральное государственное<br>бюджетное учреждение культуры<br>Российская государственная<br>библиотека искусств</p><p><a href="mailto:bisk@liart.ru">bisk@liart.ru</a>
             <p>
                 <!--Rating@Mail.ru COUNTER-->
                 <script language="JavaScript" type="text/javascript"><!--
@@ -46,22 +46,32 @@
         </div>
         <div class="grid_3">
             <ul class="footer_link">
-                <li><a href="/">О библиотеке</a></li>
-                <li><a href="/">Услуги</a></li>
-                <li><a href="/">Фонды</a></li>
-                <li><a href="/">Каталоги</a></li>
+                <li><a href="{% url pages:frontend:show 'index' %}">{% if LANGUAGE_CODE == 'ru' %}О библиотеке{% else %}About library{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'service' %}">{% if LANGUAGE_CODE == 'ru' %}Услуги{% else %}Services{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'fonds' %}">{% if LANGUAGE_CODE == 'ru' %}Фонды{% else %}Fonds{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'catalogs' %}">{% if LANGUAGE_CODE == 'ru' %}Каталоги{% else %}Catalogs{% endif %}</a></li>
             </ul>
         </div>
         <div class="grid_3">
             <ul class="footer_link">
-                <li><a href="/">Новости</a></li>
-                <li><a href="/">Электронные ресурсы</a></li>
-                <li><a href="/">Конференции, семинары</a></li>
-                <li><a href="/">Контакты</a></li>
+                <li><a href="{% url news:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'eresorses' %}">{% if LANGUAGE_CODE == 'ru' %}Электронные ресурсы{% else %}Electronic Resources{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'seminars' %}">{% if LANGUAGE_CODE == 'ru' %}Конференции, семинары{% else %}Conferences and Seminars{% endif %}</a></li>
+                <li><a href="{% url pages:frontend:show 'contacts' %}">{% if LANGUAGE_CODE == 'ru' %}Контакты{% else %}Contacts{% endif %}</a></li>
             </ul>
         </div>
         <div class="grid_3">
             <p>Наши адреса:</p><p>Читальный зал:<br>107031, Россия, Москва,<br>Большая Дмитровка, 8/1</p><p>Абонемент:<br>127051, Россия, Москва, Петровские<br>линии, д.1</p>
+
+
         </div>
+        <div class="clearfix"></div>
+        <div class="grid_12">
+            <p>Разработчик сайта: <b><a href="http://obs.ruslan.ru/">ООО «Открытые библиотечные системы»</a></b>, ПО <b><a href="http://obs.ruslan.ru/?product:biblioportal">«Библиопортал»</a></b>. Дизайн сайта: АНО Центр культуры и искусства <b><a href="http://www.mediaartlab.ru/">«МедиаАртЛаб»</a></b>.
+                При использовании материалов прямая ссылка на сайт <b><a href="http://www.liart.ru">www.liart.ru</a></b> обязательна.</p>
+{#            <p>Дизайн сайта: АНО Центр культуры и искусства <a href="http://www.mediaartlab.ru/">«МедиаАртЛаб»</a>.</p>#}
+{#            <p>При использовании материалов прямая ссылка на сайт www.liart.ru обязательна.</p>#}
+        </div>
+        <div class="clearfix"></div>
     </div>
 </footer>

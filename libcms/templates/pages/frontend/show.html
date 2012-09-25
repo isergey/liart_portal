@@ -2,6 +2,14 @@
 {% load localeurl_tags %}
 {% block title %}{{ content.title }}{% endblock %}
 {% block content %}
+    <style>
+        ul.subpages {
+            list-style-image: url('{{ STATIC_URL }}theme/images/arrow_right1.png');
+        }
+        ul.subpages li.subpage{
+            margin-left: 10px;
+        }
+    </style>
     <div class="breadcrumb">
         <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
         {% for ancestor in content.page.get_ancestors_titles %}
@@ -22,26 +30,13 @@
         </span>
     </div>
     <div class="content">
-    {% if not children %}
-
         {{ content.content|safe }}
-
-
-    {% else %}
-        <style>
-        ul.subpages {
-            list-style-image: url('{{ STATIC_URL }}theme/images/arrow_right1.png');
-        }
-        ul.subpages li.subpage{
-            margin-left: 10px;
-        }
-        </style>
+        <hr/>
         <ul class="subpages">
         {% for child in children %}
             {% url pages:frontend:show child.url_path  as page_url %}
             <li class="subpage"><a href="/{{ content.lang }}{{ page_url|rmlocale }}">{{ child.content.title }}</a></li>
         {% endfor %}
         </ul>
-    {% endif %}
     </div>
 {% endblock %}
