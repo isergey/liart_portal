@@ -3,6 +3,7 @@
 {% load localeurl_tags %}
 {% load news_tags %}
 {% load polls_tags %}
+{% load ask_librarian_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -31,6 +32,15 @@
         }
         div.pagination ul li{
             float: left;
+        }
+        .ask_librarian_category ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .ask_librarian_category>ul>li{
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
@@ -85,6 +95,14 @@
     <div class="container_12">
         <div class="grid_3 alpha">
             {% include 'left_menu.html'%}
+            <div class="clear"></div>
+            <div style="margin-left: 20px;" class="ask_librarian_category">
+            <a href="{% url ask_librarian:frontend:index %}">Спроси библиотекаря</a><br/>
+            <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions categories{% endif %}</span>
+            {% cache 30 questions_category_menu LANGUAGE_CODE %}
+                {% drow_categories_tree %}
+            {% endcache %}
+            </div>
             <div class="clear"></div>
             {% poll_form %}
         </div>
