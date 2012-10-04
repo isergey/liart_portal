@@ -80,13 +80,9 @@
                 <input type="hidden" name=hl value="ru">
             </FORM>
             </div>
-            <div class="search_catalog"><a href="/opacg/nog.htm">
-                {% if LANGUAGE_CODE == 'ru' %}
-                ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ
-                {% else %}
-                    SEARCH IN ELECTRONIC CATALOG
-                {% endif %}
-            </a></div>
+            <div class="search_catalog">
+                <a href="/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
+            </div>
         </div>
     </div>
 </header>
@@ -97,7 +93,7 @@
             {% include 'left_menu.html'%}
             <div class="clear"></div>
             <div style="margin-left: 20px;" class="ask_librarian_category">
-            <a href="{% url ask_librarian:frontend:index %}">Спроси библиотекаря</a><br/>
+            <h2><a href="{% url ask_librarian:frontend:index %}"><a href="/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}</a></a></h2>
             <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions categories{% endif %}</span>
             {% cache 30 questions_category_menu LANGUAGE_CODE %}
                 {% drow_categories_tree %}
