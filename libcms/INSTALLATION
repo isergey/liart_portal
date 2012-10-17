@@ -30,21 +30,27 @@
     # ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib/
     # pip install PI
 
+Распаковать дистрибутив в каталог /var/www/portal/ (каталог может быть любым).
+
+В дальнейших инструкция будет подразумеваться, что система установлена в каталог /var/www/portal/.
+
+
+
 
 Создание базы MySQL.
 mysql> CREATE DATABASE `libcms` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 В local_settingth.py указать логин и пароль к созданной базе (словарь DATABASES['default'], ключи USER и PASSWORD).
-Указать адрес сервера Memcached (словарь CACHES['default'], ключ LOCATION).
+Указать адрес сервера Memcached (словарь CACHES['default'], секция LOCATION).
 
 Указать пути для каталога загрузки файлов MEDIA_ROOT (каталог должен быть доступен на запись системой и на чтение вебсервером). Например (путь к каталогу ОБЯЗАТЕЛЬНО должен заканчиваться слещом '/'):
-MEDIA_ROOT = '/var/www/site/var/media/'
+MEDIA_ROOT = '/var/www/portal/var/media/'
 Вебсервер должен видеть каталог MEDIA_ROOT должен быть доступен по адресу /media/
 
 Указать пути для каталога в котором соберуться статические файлы STATIC_ROOT (каталог должен быть доступен на запись системой и на чтение вебсервером). Например (путь к каталогу ОБЯЗАТЕЛЬНО должен заканчиваться слещом '/'):
-STATIC_ROOT = '/var/www/site/var/static/'
+STATIC_ROOT = '/var/www/portal/var/static/'
 Выполнить команду python manage.py collectstatic. В результате команды в каталог STATIC_ROOT соберуться статические файлы системы.
-Вебсервер должен видеть каталог STATIC_ROOT должен быть доступен по адресу /static/
+Вебсервер должен быть настроен так, чтобы каталог STATIC_ROOT был доступен по адресу /static/
 
 
 Выполнить команду python manage.py syncdb (создание необходимых таблиц и заполнение их начальными данными). В процессе
@@ -53,14 +59,31 @@ STATIC_ROOT = '/var/www/site/var/static/'
 Установка системы завершена.
 
 
-Настройка uwsgi сервера.
-http://projects.unbit.it/uwsgi/.
-
-Настройка вебсервера nginx.
-http://nginx.org/
 
 
 
+server {
+	server_name example.ru;
+    listen 80;
+    if ($host = 'www.example.ru' ) {
+       rewrite  ^/(.*)$  http://example.ru/$1  permanent;
+    }
+    location / {
+	include     uwsgi_params;
+	uwsgi_param SCRIPT_NAME "";
+	uwsgi_buffer_size   128k;
+	uwsgi_buffers   4 256k;
+	uwsgi_busy_buffers_size   256k;
+	uwsgi_pass  127.0.0.1:3032;
+
+    }
+    location /static/ {
+	alias /var/www/portal/var/static/;
+    }
+    location /media/ {
+	alias /var/www/portal/var/media/;
+    }
+}
 
 
 

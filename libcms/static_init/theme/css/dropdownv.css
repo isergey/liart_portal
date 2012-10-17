@@ -81,7 +81,8 @@ ul.dropdownv {
 	}
 
 	ul.dropdownv a:link,
-	ul.dropdownv a:visited	{ color: #4d4b47; text-decoration: none; }
+	ul.dropdownv a:visited	{ color: #6b001c; text-decoration: none; }
+/* -- #4c4c4c -- */
 	ul.dropdownv a:hover		{ color: #6b001c; }
 	ul.dropdownv a:active	{ color: #6b001c; }
 	ul.dropdownv li.active {list-style-image: url('../images/arrow_right2.png')}
@@ -135,24 +136,24 @@ ul.dropdownv {
 
 ul.dropdownv-horizontal ul *.dir {
  padding-right: 15px;
- background-image: url(../../../..../images/default/nav-arrow-right.png);
+ background-image: url(../../../../images/default/nav-arrow-right.png);
  background-position: 100% 50%;
  background-repeat: no-repeat;
 }
 
 ul.dropdownv-upward *.dir {
- background-image: url(../../../..../images/default/nav-arrow-top.png);
+ background-image: url(../../../../images/default/nav-arrow-top.png);
 }
 
 ul.dropdownv-vertical *.dir,
 ul.dropdownv-upward ul *.dir {
- background-image: url(../../../..../images/default/nav-arrow-right.png);
+ background-image: url(../../../../images/default/nav-arrow-right.png);
 }
 
 ul.dropdownv-vertical-rtl *.dir,
 ul.dropdownv-horizontal > li.dropdownv-vertical-rtl ul *.dir {
  padding-right: 10px;
  padding-left: 15px;
- background-image: url(../../../..../images/default/nav-arrow-left.png);
+ background-image: url(../../../../images/default/nav-arrow-left.png);
  background-position: 2px 50%;
 }
