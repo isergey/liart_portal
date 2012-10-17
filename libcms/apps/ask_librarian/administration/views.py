@@ -117,7 +117,7 @@ def question_answer(request, id):
                     (domain, urlresolvers.reverse('ask_librarian:frontend:detail', args=(question.id,))),
                     'system@' + domain,
                     [question.email],
-                    fail_silently=True
+#                    fail_silently=True
                 )
             return redirect('ask_librarian:administration:question_detail', id=id)
     else:
