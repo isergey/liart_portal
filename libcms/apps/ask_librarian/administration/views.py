@@ -2,8 +2,11 @@
 from django.conf import settings
 from django.db import transaction
 from django.utils.translation import ugettext as _
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, urlresolvers
 from django.http import HttpResponseForbidden
+from django.contrib.sites.models import get_current_site
+from django.core.mail import send_mail
+
 from guardian.decorators import permission_required_or_403
 from django.contrib.auth.decorators import login_required
 from common.pagination import get_page
@@ -92,6 +95,7 @@ def question_detail(request, id):
     })
 
 @login_required
+@transaction.commit_on_success
 def question_answer(request, id):
     manager = QuestionManager.get_manager(request.user)
     if not manager:
@@ -107,6 +111,15 @@ def question_answer(request, id):
             if question.is_new():
                 question.take_to_process(manager, commit=False)
             question.close_process()
+            if question.email:
+                domain = get_current_site(request).domain
+                send_mail(u"Спроси библиотекаря",
+                    u'Ваш вопрос был обработан. Вы можете посмотреть ответ по адресу http://%s%s' %
+                    (domain, urlresolvers.reverse('ask_librarian:frontend:detail', args=(question.id,))),
+                    'system@' + domain,
+                    [question.email],
+                    fail_silently=True
+                )
             return redirect('ask_librarian:administration:question_detail', id=id)
     else:
         form = AnswerQuestionForm(instance=question)
@@ -117,6 +130,7 @@ def question_answer(request, id):
     })
 
 @login_required
+@transaction.commit_on_success
 def question_edit(request, id):
     question = get_object_or_404(Question, id=id)
     if (question.manager and not question.manager.user_id == request.user.id) and not request.user.is_superuser:
