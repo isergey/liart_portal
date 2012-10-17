@@ -4,7 +4,6 @@ from django.db import transaction
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, urlresolvers
 from django.http import HttpResponseForbidden
-from django.contrib.sites.models import get_current_site
 from django.core.mail import send_mail
 
 from guardian.decorators import permission_required_or_403
@@ -112,7 +111,7 @@ def question_answer(request, id):
                 question.take_to_process(manager, commit=False)
             question.close_process()
             if question.email:
-                domain = get_current_site(request).domain
+                domain = settings.SITE_DOMAIN
                 send_mail(u"Спроси библиотекаря",
                     u'Ваш вопрос был обработан. Вы можете посмотреть ответ по адресу http://%s%s' %
                     (domain, urlresolvers.reverse('ask_librarian:frontend:detail', args=(question.id,))),
