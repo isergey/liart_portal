@@ -3,7 +3,7 @@
 {% load cache %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% block title %}{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}{% endblock %}
+{% block title %}{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}{% endblock %}
 {% block breadcrumb %}
     <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
     <span class="divider">/</span>
@@ -12,7 +12,7 @@
         {% if category %}
 
             {% cache 30 questions_breadcrumb category.id LANGUAGE_CODE %}
-            <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
+            <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
 
                 {% if category.is_root_node %}
                     {{ category }}
@@ -24,7 +24,7 @@
                 {% endif %}
             {% endcache %}
         {% else %}
-            {% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}
+            {% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}
         {% endif %}
 
 {% endblock %}

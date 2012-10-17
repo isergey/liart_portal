@@ -3,14 +3,14 @@
 {% load cache %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% block title %}{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}{% endblock %}
+{% block title %}{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}{% endblock %}
 
 {% block content %}
     <div class="breadcrumb">
         {% block breadcrumb %}
             <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
             <span class="divider">/</span>
-            {% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}
+            {% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}
         {% endblock %}
         </div>
         <div>

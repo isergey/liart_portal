@@ -2,15 +2,15 @@
 {% load cache %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% block title %}Спроси библиотекаря{% endblock %}
+{% block title %}Спроси библиографа{% endblock %}
 {% block breadcrumb %}
     <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
     <span class="divider">/</span>
 
     {% if request.GET.back %}
-        <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
+        <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
     {% else %}
-        <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиотекаря{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
     {% endif %}
     {% if LANGUAGE_CODE == 'ru' %}Просмотр вопроса{% else %}View question{% endif %}
 {% endblock %}
