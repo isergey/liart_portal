@@ -10,17 +10,10 @@
     {% if LANGUAGE_CODE == 'ru' %}Вопрос № {{ question.id }}{% else %}Question id {{ question.id }}{% endif %}
 {% endblock %}
 {% block index_content %}
-    {% if request.user.is_authenticated %}
+
         <div class="alert alert-success">
-            Спасибо за вопрос. За статусом его выполнения Вы можете следить в личном кабинете.
-            Так же Вы можете найти его по номеру. Номер Вашего вопроса: <b>{{ question.id }}</b>
-            Ответ на вопрос будет выслан  на указанный Вами email.
+            Спасибо за вопрос.
+            Информацию о вопросе Вы сможете найти его по номеру. Номер Вашего вопроса: <b>{{ question.id }}</b>. Ответ на вопрос будет выслан на указанный Вами email.
         </div>
-    {% else %}
-        <div class="alert alert-success">
-            Спасибо за вопрос.Вы можете отслеживать его статус по номеру. Номер Вашего вопроса: <b>{{ question.id }}</b>.
-            Ответ на вопрос будет выслан  на указанный Вами email.
-        </div>
-    {% endif %}
     <a href="{% url ask_librarian:frontend:detail question.id %}">{% if LANGUAGE_CODE == 'ru' %}Перейти к вопросу{% else %}Go to question{% endif %}</a>
 {% endblock %}
