@@ -18,6 +18,9 @@ class News(models.Model):
     def get_absolute_url(self):
         return urlresolvers.reverse('news:frontend:show', args=[self.id])
 
+    def group_by_year(self):
+        pass
+
 
 class NewsContent(models.Model):
     news = models.ForeignKey(News)
