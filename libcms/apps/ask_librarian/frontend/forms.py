@@ -10,8 +10,8 @@ class QuestionForm(forms.ModelForm):
     category = TreeNodeChoiceField(
         queryset=Category.objects.all(),
         required=False,
-        label=u"Тематика",
-        help_text=u'Выберите тему, к которой относиться задаваемый вопрос. Если подходящей темы нет, оставьте поле темы пустым.'
+        label=u"Категория",
+        help_text=u'Выберите категорию, к которой относиться задаваемый вопрос. Если подходящей категории нет, оставьте поле пустым.'
     )
     class Meta:
         model = Question
