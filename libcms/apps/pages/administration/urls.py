@@ -17,4 +17,6 @@ urlpatterns = patterns('',
     url(r'^pages/assign_page_permissions/(?P<id>\d+)/$', views.assign_page_permissions, name="assign_page_permissions"),
     url(r'^pages/up/(?P<id>\d+)/$', views.page_up , name="page_up"),
     url(r'^pages/down/(?P<id>\d+)/$', views.page_down , name="page_down"),
+    url(r'^pages/page_to_first/(?P<id>\d+)/$', views.page_to_first , name="page_to_first"),
+    url(r'^pages/page_to_last/(?P<id>\d+)/$', views.page_to_last , name="page_to_last"),
 )

@@ -2,6 +2,7 @@
 from django.shortcuts import urlresolvers
 from django.conf import settings
 from django.db import models
+from django.db.models import Count
 from datetime import datetime
 
 NEWS_TYPE_CHOICES = (
@@ -18,8 +19,6 @@ class News(models.Model):
     def get_absolute_url(self):
         return urlresolvers.reverse('news:frontend:show', args=[self.id])
 
-    def group_by_year(self):
-        pass
 
 
 class NewsContent(models.Model):

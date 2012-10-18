@@ -255,3 +255,20 @@ def page_down(request, id):
         return redirect('pages:administration:pages_list', parent=page.parent_id)
     else:
         return redirect('pages:administration:pages_list')
+
+def page_to_first(request, id):
+        page = get_object_or_404(Page, id=id)
+        page.to_first_child()
+        if page.parent_id:
+            return redirect('pages:administration:pages_list', parent=page.parent_id)
+        else:
+            return redirect('pages:administration:pages_list')
+
+
+def page_to_last(request, id):
+    page = get_object_or_404(Page, id=id)
+    page.to_last_child()
+    if page.parent_id:
+        return redirect('pages:administration:pages_list', parent=page.parent_id)
+    else:
+        return redirect('pages:administration:pages_list')

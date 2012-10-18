@@ -5,7 +5,7 @@ from django.utils.translation import get_language
 from django.contrib.auth.models import User
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-
+from mptt.managers import TreeManager
 
 
 
@@ -87,13 +87,26 @@ class Page(MPTTModel):
         previous = self.get_previous_sibling()
         if previous:
             self.move_to(previous, position='left')
+            return True
+        return False
+
 
     def down(self):
         next = self.get_next_sibling()
         if next:
             self.move_to(next, position='right')
+            return True
+        return False
 
+    def to_first_child(self):
+        ok = self.up()
+        while(ok):
+            ok = self.up()
 
+    def to_last_child(self):
+        ok = self.down()
+        while(ok):
+            ok = self.down()
 
 class Content(models.Model):
     page = models.ForeignKey(Page, verbose_name=u'Родительская страница')
