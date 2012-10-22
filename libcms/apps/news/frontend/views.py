@@ -22,8 +22,6 @@ def index(request):
     for news_content in news_contents:
         t_dict[news_content.news_id]['news'].news_content = news_content
 
-    print News.group_by_year()
-
     return render(request, 'news/frontend/list.html', {
         'news_list': news_page.object_list,
         'news_page': news_page,
