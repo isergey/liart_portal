@@ -11,9 +11,9 @@
             <a href="{% url news:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a> <span class="divider">/</span>
         {% endif %}
     </div>
-    <h2 id="news_title"><span class="active">{{ content.title }}</span></h2>
+    <h2 id="news_title"><span class="active">{{ news.title }}</span></h2>
     <div class="content">
-        {{ content.content|safe }}
+        {{ news.content|safe }}
     </div>
 
 {% endblock %}

@@ -84,7 +84,8 @@
                 {% endcache %}
                 </b>
                 <br/>
-                <a href="{% url ask_librarian:frontend:detail question.id %}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a>
+                <a href="{% url ask_librarian:frontend:detail question.id %}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a><br>
+                -------------------------------------------------------------------------------------------------------<br>
             {% endif %}
 {#        <hr/>#}
         </li>

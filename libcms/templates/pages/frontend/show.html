@@ -9,6 +9,9 @@
         ul.subpages li.subpage{
             margin-left: 10px;
         }
+        .zaglavie {
+        font-weight: bold;
+        }
     </style>
     <div class="breadcrumb">
         <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
@@ -22,10 +25,10 @@
             </a> <span class="divider">/</span>
         {% endfor %}
         <span>
-            {% if not content.title %}
+            {% if not content.title|safe %}
                 заглавие страницы для этого языка не указано.
             {% else %}
-                {{ content.title }}
+                {{ content.title|safe }}
             {% endif %}
         </span>
     </div>

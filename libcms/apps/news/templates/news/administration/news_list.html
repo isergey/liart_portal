@@ -10,27 +10,19 @@
 {% endblock %}
 
 {% block action_content %}
-    Тип новостей:
-
-
-    {% if request.GET.type ==  'public' or not request.GET.type %}
-        <b><a href="{% add_get type='public' %}">Публичные</a></b>
-    {% else %}
-        <a href="{% add_get type='public' %}">Публичные</a>
-    {% endif %}
-
-    {% if request.GET.type ==  'prof' %}
-        | <b><a href="{% add_get type='prof' %}">Профессиональные</a></b>
-    {% else %}
-        | <a href="{% add_get type='prof' %}">Профессиональные</a>
-    {% endif %}
-    {% if request.GET.type ==  'all' %}
-        | <b><a href="{% add_get type='all' %}">Общие</a></b>
-    {% else %}
-        | <a href="{% add_get type='all' %}">Общие</a>
-    {% endif %}
-
-    <hr/>
+    <ul class="nav nav-tabs">
+    {% for lang in langs %}
+        {% if forloop.first and not request.GET.lang %}
+            <li class="active">
+                <a href="?lang={{ lang.0 }}">{{ lang.1 }}</a>
+            </li>
+        {% else %}
+            <li {% if request.GET.lang == lang.0 %}class="active"{% endif %} >
+                <a href="?lang={{ lang.0 }}">{{ lang.1 }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -43,7 +35,7 @@
         {% for news in news_list %}
 
             <tr>
-                <td><a href="{% url news:administration:edit_news news.id %}">{{ news.news_content.title }}</a></td>
+                <td><a href="{% url news:administration:edit_news news.id %}">{{ news.title }}</a></td>
                 <td>{{ news.create_date }}</td>
                 <td><a class="delete btn btn-danger"  href="{% url news:administration:delete_news news.id %}"><i class="icon-trash icon-white" title="Удалить"></i></a></td>
             </tr>

@@ -5,7 +5,7 @@
     {% if news.avatar_img_name %}
         <a href="{{ news_url }}#news_title"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>
     {% endif %}
-    {{ news.news_content.teaser }}
+    {{ news.teaser }}
     <a href="{{ news_url }}#news_title">&gt;&gt;</a>
 </div>
 {% endfor %}

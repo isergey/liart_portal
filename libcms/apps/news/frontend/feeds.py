@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.translation import get_language
-from news.models import News, NewsContent
+from news.models import News
 
 
 
@@ -17,24 +17,14 @@ class LatestEntriesFeed(Feed):
         return index()
 
     def item_title(self, item):
-        return item.news_content.title
+        return item.title
 
     def item_description(self, item):
-        return item.news_content.teaser
+        return item.teaser
 
 
 def index():
-    news_list =  News.objects.filter(publicated=True).order_by('-create_date')[:5]
-
-    news_contents = list(NewsContent.objects.filter(news__in=list(news_list), lang=get_language()[:2]))
-
-    t_dict = {}
-    for news in news_list:
-        t_dict[news.id] = {'news': news}
-
-    for news_content in news_contents:
-        t_dict[news_content.news_id]['news'].news_content = news_content
-
+    news_list =  News.objects.filter(publicated=True, lang=get_language()[:2]).order_by('-create_date')[:5]
     return news_list
 
 #def show(request, id):
