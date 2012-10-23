@@ -44,7 +44,10 @@ def create_news(request):
                     avatar_img_name = handle_uploaded_file(request.FILES['news_form_avatar'])
                     news.avatar_img_name = avatar_img_name
                 news.save()
-                return redirect('news:administration:news_list')
+                if 'save_edit' in request.POST:
+                    return redirect('news:administration:edit_news', news.id)
+                else:
+                    return redirect('news:administration:news_list')
     else:
         news_form = NewsForm(prefix="news_form")
 
