@@ -3,6 +3,7 @@ from django.conf.urls import *
 
 import views
 
+
 urlpatterns = patterns('',
     url(r'^$', views.index , name="index"),
     url(r'^news/$', views.news_list, name="news_list"),
