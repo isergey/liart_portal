@@ -2,6 +2,7 @@
 {% load active_link %}
 {% load pagination_tag %}
 {% load breadcrumbs %}
+{% load localeurl_tags %}
 
 {% block breadcrumb %}
     {% breadcrumb "Новости" news:administration:news_list %}
@@ -15,6 +16,7 @@
         width: 99%;
     }
     </style>
+    <div class="well">URL этой новости: {% url news:frontend:show news_form.instance.id as news_show_url %} <a href="/{{ news_form.instance.lang }}{{ news_show_url|rmlocale }}" target="_blank">/{{ news_form.instance.lang }}{{ news_show_url|rmlocale }}</a></div>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <legend>Редактирование новости</legend>
         <fieldset>
