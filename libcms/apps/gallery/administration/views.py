@@ -11,7 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     if not request.user.has_module_perms('gallery'):
         return HttpResponseForbidden()
-    return render(request, 'gallery/administration/index.html')
+    return redirect('gallery:administration:albums_list')
+
 
 @login_required
 def albums_list(request):
