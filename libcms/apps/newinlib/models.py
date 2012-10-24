@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
+import datetime
 from django.shortcuts import urlresolvers
 from django.conf import settings
 from django.db import models
 
 
 class Item(models.Model):
-    create_date = models.DateTimeField(auto_now=True, verbose_name=u"Дата создания", db_index=True)
+    create_date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u"Дата создания", db_index=True)
     publicated = models.BooleanField(verbose_name=u'Опубликовано?', default=True, db_index=True)
     main = models.BooleanField(verbose_name=u'Установить в качестве главного анонса',default=False ,blank=True, db_index=True)
     avatar_img_name = models.CharField(max_length=100, blank=True)
