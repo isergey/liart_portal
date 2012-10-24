@@ -3,6 +3,7 @@ import os
 import shutil
 import Image
 import time
+import datetime
 from django.conf import settings
 from django.db import models
 
@@ -31,7 +32,7 @@ class Album(models.Model):
     title = models.CharField(max_length=512, verbose_name=u'Название')
     description = models.TextField(verbose_name=u'Описание', blank=True)
     public = models.BooleanField(verbose_name=u'Опубликован', default=False, db_index=True )
-    create_date = models.DateTimeField(verbose_name=u"Дата создания", auto_now_add=True, db_index=True)
+    create_date = models.DateTimeField(verbose_name=u"Дата создания", default=datetime.datetime.now, db_index=True)
 
     def __unicode__(self):
         return self.title
@@ -49,8 +50,9 @@ class Album(models.Model):
         return self.description.replace(u'\n',u'<br/>')
 
     def save(self):
-        if hasattr(self, 'id'):
-            self.slug = Album.objects.get(id=self.id).slug
+        id = getattr(self, 'id', None)
+        if id:
+            self.slug = Album.objects.get(id=id).slug
 
         super(Album, self).save()
 class AlbumImage(models.Model):
