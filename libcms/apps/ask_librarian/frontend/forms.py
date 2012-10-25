@@ -8,9 +8,7 @@ from django.forms.extras import widgets
 
 class QuestionForm(forms.ModelForm):
     category = TreeNodeChoiceField(
-        empty_label=u"Вне категорий",
         queryset=Category.objects.all(),
-        required=False,
         label=u"Категория",
         help_text=u'Выберите категорию, к которой относиться задаваемый вопрос. Если подходящей категории нет, оставьте "Вне категорий"'
     )
