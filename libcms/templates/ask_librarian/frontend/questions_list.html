@@ -7,10 +7,7 @@
 {% block breadcrumb %}
     <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
     <span class="divider">/</span>
-
-
         {% if category %}
-
             {% cache 30 questions_breadcrumb category.id LANGUAGE_CODE %}
             <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
 
@@ -73,7 +70,7 @@
     <ul class="questions_list" style="">
     {% for question in questions_page.object_list %}
         <li>
-            {{ question.question }}<br/>
+            {{ question.question }}<br/><br/>
             {% if question.category_id %}
                 {% if LANGUAGE_CODE == 'ru' %}Категория{% else %}Category{% endif %}: <b>
                 {% cache 30 questions_category question.category_id  LANGUAGE_CODE %}
