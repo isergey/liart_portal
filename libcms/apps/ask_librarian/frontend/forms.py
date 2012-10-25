@@ -11,7 +11,7 @@ class QuestionForm(forms.ModelForm):
         queryset=Category.objects.all(),
         required=False,
         label=u"Категория",
-        help_text=u'Выберите категорию, к которой относиться задаваемый вопрос. Если подходящей категории нет, оставьте поле пустым.'
+        help_text=u'Выберите категорию, к которой относиться задаваемый вопрос. Если подходящей категории нет, оставьте "Вне категорий"'
     )
     class Meta:
         model = Question

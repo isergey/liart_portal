@@ -21,7 +21,7 @@ def index(request):
 @permission_required_or_403('news.add_news')
 def news_list(request):
     lang = request.GET.get('lang', 'ru')
-    news_page = get_page(request, News.objects.filter(lang=lang).order_by('-create_date'),1)
+    news_page = get_page(request, News.objects.filter(lang=lang).order_by('-create_date'))
     return render(request, 'news/administration/news_list.html', {
         'news_list': news_page.object_list,
         'news_page': news_page,

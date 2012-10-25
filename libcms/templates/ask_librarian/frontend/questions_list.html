@@ -75,7 +75,7 @@
         <li>
             {{ question.question }}<br/>
             {% if question.category_id %}
-                <b>
+                {% if LANGUAGE_CODE == 'ru' %}Категория{% else %}Category{% endif %}: <b>
                 {% cache 30 questions_category question.category_id  LANGUAGE_CODE %}
                     {% for ancestor in  question.category.get_t_ancestors %}
                         {{ ancestor }}  →
@@ -83,11 +83,11 @@
                         {{ question.category }}
                 {% endcache %}
                 </b>
-                <br/>
-                <a href="{% url ask_librarian:frontend:detail question.id %}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a><br>
-                -------------------------------------------------------------------------------------------------------<br>
             {% endif %}
-{#        <hr/>#}
+            <br/>
+            <a href="{% url ask_librarian:frontend:detail question.id %}?back={{ request.get_full_path }}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a><br>
+
+        <hr/>
         </li>
     {% empty %}
         <li>{% if LANGUAGE_CODE == 'ru' %}Вопросов нет{% else %}Not have a questions{% endif %}</li>
