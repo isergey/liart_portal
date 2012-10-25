@@ -8,6 +8,7 @@ from django.forms.extras import widgets
 
 class QuestionForm(forms.ModelForm):
     category = TreeNodeChoiceField(
+        empty_label=u"Вне категорий",
         queryset=Category.objects.all(),
         required=False,
         label=u"Категория",
@@ -16,6 +17,11 @@ class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
         exclude = ('user', 'answer', 'status', 'create_date', 'manager', 'start_process_date', 'end_process_date')
+
+    def __init__(self, *args, **kwargs):
+        super(QuestionForm, self).__init__(*args, **kwargs)
+        print type (self.fields['category'])
+
 
 
 class RecomendationForm(forms.ModelForm):
