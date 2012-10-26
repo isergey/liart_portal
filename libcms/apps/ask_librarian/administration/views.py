@@ -4,16 +4,16 @@ from django.db import transaction
 from django.utils.translation import ugettext as _
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, urlresolvers
 from django.http import HttpResponseForbidden
-from django.core.mail import send_mail
-
 from guardian.decorators import permission_required_or_403
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.contrib.sites.models import get_current_site
 from common.pagination import get_page
 from django.utils.translation import get_language
 from common.pagination import get_page
 from django.db.models import Q
 from ..models import Category, CategoryTitle,  Question, QuestionManager, Recomendation
-from forms import CategoryForm, CategoryTitleForm,  AnswerQuestionForm
+from forms import CategoryForm, CategoryTitleForm,  AnswerQuestionForm, ToManagerForm
 
 
 
@@ -80,6 +80,25 @@ def questions_to_process(request, id):
     question.take_to_process(manager)
     return redirect('ask_librarian:administration:questions_list')
 
+
+@login_required
+@transaction.commit_on_success
+@permission_required_or_403('ask_librarian.assign_to_manager')
+def assign_to_manager(request, question_id):
+    if request.method == 'POST':
+        to_manager_form = ToManagerForm(request.POST)
+        if to_manager_form.is_valid():
+            try:
+                question = Question.objects.select_for_update().get(Q(id=question_id), ~Q(status=2))
+            except Question.DoesNotExist:
+                raise Http404(u'Вопрос не может быть присвоен менеджеру. Его не существует, либо он уже обрабатывается')
+
+            question.take_to_process(to_manager_form.cleaned_data['manager'])
+            return redirect('ask_librarian:administration:questions_list')
+    else:
+        return HttpResponse(u'Only POST request')
+
+
 @login_required
 def question_detail(request, id):
     manager = QuestionManager.get_manager(request.user)
@@ -87,14 +106,16 @@ def question_detail(request, id):
         return HttpResponse(u'Вы не можете обрабатывать вопросы')
 
     question = get_object_or_404(Question, id=id)
-    recomendations = Recomendation.objects.filter(id=id)
+#    recomendations = Recomendation.objects.filter(id=id)
+
+    to_manager_form = ToManagerForm()
     return render(request, 'ask_librarian/administration/question_detail.html', {
         'question': question,
-        'recomendations': recomendations
+        'to_manager_form': to_manager_form
+#        'recomendations': recomendations
     })
 
 @login_required
-@transaction.commit_on_success
 def question_answer(request, id):
     manager = QuestionManager.get_manager(request.user)
     if not manager:
@@ -130,7 +151,6 @@ def question_answer(request, id):
     })
 
 @login_required
-@transaction.commit_on_success
 def question_edit(request, id):
     question = get_object_or_404(Question, id=id)
     if (question.manager and not question.manager.user_id == request.user.id) and not request.user.is_superuser:

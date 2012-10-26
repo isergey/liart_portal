@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from django.conf import settings
+from django.core.mail import send_mail
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404, Http404
+from django.shortcuts import render, redirect, get_object_or_404, Http404, urlresolvers
 from django.contrib.auth.decorators import login_required
 from common.pagination import get_page
 
@@ -109,6 +111,25 @@ def ask(request):
             if request.user.is_authenticated():
                 question.user = request.user
             question.save()
+
+            ask_librarian_settings = getattr(settings, 'ASK_LIBRARIAN', {})
+            print ask_librarian_settings
+            main_dispatcher = ask_librarian_settings.get('MAIN_DISPATCHER', None)
+            print main_dispatcher
+            if main_dispatcher:
+                fail_silently = True
+                if settings.DEBUG:
+                    fail_silently = False
+
+                domain = getattr(settings, 'SITE_DOMAIN', 'localhost')
+                from_mail = settings.DEFAULT_FROM_EMAIL
+                send_mail(u"Спроси библиографа. Новый вопрос.",
+                    u'Поступил новый вопрос. Информация находится по адресу http://%s%s' %
+                    (domain, urlresolvers.reverse('ask_librarian:administration:question_detail', args=(question.id,))),
+                    from_mail,
+                    [main_dispatcher],
+                    fail_silently=fail_silently
+                )
             return render(request, 'ask_librarian/frontend/thanks.html', {
                 'question': question,
                 })

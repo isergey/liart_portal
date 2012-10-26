@@ -9,17 +9,13 @@ from django.forms.extras import widgets
 class QuestionForm(forms.ModelForm):
     category = TreeNodeChoiceField(
         queryset=Category.objects.all(),
-        label=u"Категория",
-        help_text=u'Выберите категорию, к которой относиться задаваемый вопрос. Если подходящей категории нет, оставьте "Вне категорий"'
+        required=False,
+        label=u"Тематика",
+        help_text=u'Выберите тему, к которой относиться задаваемый вопрос. Если подходящей темы нет, оставьте поле темы пустым.'
     )
     class Meta:
         model = Question
         exclude = ('user', 'answer', 'status', 'create_date', 'manager', 'start_process_date', 'end_process_date')
-
-    def __init__(self, *args, **kwargs):
-        super(QuestionForm, self).__init__(*args, **kwargs)
-        print type (self.fields['category'])
-
 
 
 class RecomendationForm(forms.ModelForm):

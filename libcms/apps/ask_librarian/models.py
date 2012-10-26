@@ -73,6 +73,12 @@ class QuestionManager(models.Model):
         verbose_name = u"Менеджер вопросов"
         verbose_name_plural = u"Менеджеры вопросов"
 
+    def __unicode__(self):
+        if self.user.last_name != u'':
+            return self.user.last_name + u' ' + self.user.first_name
+        else:
+            return self.user.username
+
 
     @staticmethod
     def get_manager(user):
@@ -82,12 +88,13 @@ class QuestionManager(models.Model):
             return None
         return manager
 
+
 class Question(models.Model):
     user = models.ForeignKey(User, null=True, verbose_name=u'Пользователь')
-#    fio = models.CharField(verbose_name=u'ФИО', blank=True, max_length=128)
+    #    fio = models.CharField(verbose_name=u'ФИО', blank=True, max_length=128)
     email = models.EmailField(verbose_name=u'email', blank=True, max_length=256, help_text=u'На этот адрес будет выслан ответ на вопрос')
-#    city = models.CharField(verbose_name=u'Город', blank=True, max_length=64)
-#    country = models.CharField(verbose_name=u'Страна', blank=True, max_length=64)
+    #    city = models.CharField(verbose_name=u'Город', blank=True, max_length=64)
+    #    country = models.CharField(verbose_name=u'Страна', blank=True, max_length=64)
     category = models.ForeignKey(Category, null=True, verbose_name=u'Тематика', help_text=u'Укажите тематику, к которой относиться вопрос')
     question = models.TextField(max_length=2048, verbose_name=u'Вопрос')
     answer = models.TextField(max_length=10000, verbose_name=u'Ответ')
@@ -133,6 +140,12 @@ class Question(models.Model):
             if commit:
                 self.save()
 
+
+    class Meta:
+        ordering = ['-create_date']
+        permissions = (
+            ("assign_to_manager", "Can assign question to manager"),
+        )
 
 class Recomendation(models.Model):
     user = models.ForeignKey(User, null=True, verbose_name=u'Пользователь')
