@@ -29,6 +29,10 @@
         {% endif %}
         {{ album.title }}
     </div>
+    <div>
+    {{ album.description|safe }}
+    </div>
+    <hr/>
     <ul class="thumbnails" >
         {% for album_image in album_images %}
             <li>
