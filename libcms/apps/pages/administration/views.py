@@ -101,6 +101,8 @@ def edit_page(request, id):
             if not request.user.has_perm('pages.public_page'):
                 page.public = False
             page.save()
+            if page.parent_id:
+                return redirect('pages:administration:pages_list', parent=page.parent_id)
             return redirect('pages:administration:pages_list')
 
     else:
@@ -128,6 +130,8 @@ def edit_page(request, id):
 def delete_page(request, id):
     page = get_object_or_404(Page, id=id)
     page.delete()
+    if page.parent_id:
+        return redirect('pages:administration:pages_list', parent=page.parent_id)
     return redirect('pages:administration:pages_list')
 
 @login_required

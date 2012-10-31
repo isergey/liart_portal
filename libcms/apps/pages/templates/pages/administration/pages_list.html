@@ -69,12 +69,17 @@
                 <a class="btn" href="{% url pages:administration:page_down page.id %}" title="передвинуть вниз">↓</a>
                 <a class="btn" href="{% url pages:administration:page_to_first page.id %}" title="передвинуть в начало">↑↑</a>
                 <a class="btn" href="{% url pages:administration:page_to_last page.id %}" title="передвинуть в конец">↓↓</a>
-                <a style="margin-left: 20px" class="btn btn-danger" href="{% url pages:administration:delete_page page.id %}"><i class="icon-trash icon-white"></i></a>
+                <a style="margin-left: 20px" class="btn btn-danger delete" href="{% url pages:administration:delete_page page.id %}"><i class="icon-trash icon-white"></i></a>
             </span>
         </li>
     {% endfor %}
     </ul>
     {% admin_pagination pages_page %}
+    <script type="text/javascript">
+        $("a.delete").click(function () {
+            if (!confirm('Вы уверены, что хотите удалить?')) return false;
+        });
+    </script>
 {% endblock %}
 
 

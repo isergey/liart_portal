@@ -7,11 +7,15 @@
 {% block content %}
     <div id="news">
         <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</h1>
+        </h1>
         {% cache 60 news_feed LANGUAGE_CODE %}
-        {% news_feed %}
+        {% news_feed  2%}
         {% endcache %}
         <div>
-            <a href="{% url news:frontend:index %}">Остальные новости &gt;&gt;</a>
+        {% if LANGUAGE_CODE == 'ru' %} <a href="/ru/pages/Archive_news">Остальные новости &gt;&gt;</a>
+         {% else %}<a href="/en/pages/Archive_news">Archive news &gt;&gt;</a> 
+            {% endif %}
+    {#               <a href="{% url news:frontend:index %}">Остальные новости &gt;&gt;</a> #}
         </div>
     </div>
 {% endblock %}

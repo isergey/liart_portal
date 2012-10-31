@@ -38,7 +38,7 @@
         <ul class="subpages">
         {% for child in children %}
             {% url pages:frontend:show child.url_path  as page_url %}
-            <li class="subpage"><a href="/{{ content.lang }}{{ page_url|rmlocale }}">{{ child.content.title }}</a></li>
+            <li class="subpage"><a href="/{{ content.lang }}{{ page_url|rmlocale }}">{{ child.content.title|safe }}</a></li>
         {% endfor %}
         </ul>
     </div>

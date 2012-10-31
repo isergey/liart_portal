@@ -1,4 +1,4 @@
 {#{% load i18n %}#}
 {% load newinlib_tags %}
 <h2><a href="{% url newinlib:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Из новых поступлений:{% else %}From new arrivals:{% endif %}</a></h2>
-{% last_items_feed 5 %}
+{% last_items_feed 7 %}

@@ -77,7 +77,7 @@ class AlbumImage(models.Model):
         return unicode(self.image).split('/')[-1]
 
     def delete_thumbinail(self):
-        get_thumbinail_path = instance.get_thumbinail_path()
+        get_thumbinail_path = self.get_thumbinail_path()
         if os.path.isfile(get_thumbinail_path):
             os.remove(get_thumbinail_path)
 
@@ -117,6 +117,15 @@ def handle_uploaded_file(instance):
     image_file_path = unicode(instance.image)
     if not os.path.exists(thumbinail_dir):
         os.makedirs(thumbinail_dir)
+
+    try:
+        im = Image.open(image_file_path)
+        im = im.convert('RGB')
+        im.save(image_file_path+"origin.jpg", "JPEG", quality = 95)
+    except IOError as e:
+        return None
+
+
     final_hight = 768
     try:
         im = Image.open(image_file_path)
