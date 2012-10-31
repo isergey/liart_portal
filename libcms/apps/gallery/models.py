@@ -81,6 +81,12 @@ class AlbumImage(models.Model):
         if os.path.isfile(get_thumbinail_path):
             os.remove(get_thumbinail_path)
 
+    def delete_origin(self):
+        print self.get_image_file_name()
+        get_origin_path = self.get_image_file_name()
+        if os.path.isfile(get_origin_path):
+            os.remove(get_origin_path)
+
 from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver
 
@@ -110,6 +116,9 @@ def image_pre_delete(instance, **kwargs):
     get_thumbinail_path = instance.get_thumbinail_path()
     if os.path.isfile(get_thumbinail_path):
         os.remove(get_thumbinail_path)
+
+    if os.path.isfile(str(instance.image)+'origin.jpg'):
+        os.remove(str(instance.image)+'origin.jpg')
 
 def handle_uploaded_file(instance):
     thumbinail_path = instance.get_thumbinail_path()

@@ -50,7 +50,7 @@ def build_menu(context, menu_slug):
         if search_active:
             if path[-1] != u'/':
                 path += u'/'
-            
+
             if item_title.url == path or \
                item_title.url == (host + path) or \
                item_title.url == ('http://' + host + path) or \
