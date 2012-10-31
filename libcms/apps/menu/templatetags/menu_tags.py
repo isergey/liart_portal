@@ -51,10 +51,14 @@ def build_menu(context, menu_slug):
             if path[-1] != u'/':
                 path += u'/'
 
-            if item_title.url == path or \
-               item_title.url == (host + path) or \
-               item_title.url == ('http://' + host + path) or \
-               item_title.url == ('https://' + host + path) :
+            item_title_url = item_title.url
+            if item_title_url[-1] != u'/':
+                item_title_url += u'/'
+
+            if item_title_url == path or\
+               item_title_url == (host + path) or\
+               item_title_url == ('http://' + host + path) or\
+               item_title_url == ('https://' + host + path) :
 #            if item_title.url.startswith(path) or\
 #               item_title.url.startswith(host + path) or\
 #               item_title.url.startswith('http://' + host + path) or\
