@@ -15,6 +15,9 @@
         width: 99%;
     }
     </style>
+    {% url newinlib:frontend:show item_form.instance.id as item_url %}
+    Запись доступна по адресу: <a href="{{ item_url }}" target="_blank">{{ item_url }}</a>
+    <hr/>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">{% csrf_token %}
         <legend>Редактирование записи</legend>
         <fieldset>
@@ -37,7 +40,8 @@
             {% endfor %}
 {#            {% include 'administration/base_form_fields.html' with form=translate_form %}#}
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Редактировать</button>
+                <button type="submit" class="btn btn-primary" name="save_edit">Сохранить и продолжить редактирование</button>
+                <button type="submit" class="btn btn-success">Сохранить</button>
                 <button type="reset" class="btn">Отмена</button>
             </div>
         </fieldset>

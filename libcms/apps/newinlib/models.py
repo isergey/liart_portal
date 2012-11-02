@@ -8,22 +8,22 @@ from django.db import models
 class Item(models.Model):
     create_date = models.DateTimeField(default=datetime.datetime.now, verbose_name=u"Дата создания", db_index=True)
     publicated = models.BooleanField(verbose_name=u'Опубликовано?', default=True, db_index=True)
-    main = models.BooleanField(verbose_name=u'Установить в качестве главного анонса',default=False ,blank=True, db_index=True)
+    #main = models.BooleanField(verbose_name=u'Установить в качестве главного анонса',default=False ,blank=True, db_index=True)
     avatar_img_name = models.CharField(max_length=100, blank=True)
     def get_absolute_url(self):
         return urlresolvers.reverse('newinlib:frontend:show', args=[self.id])
 
-    def save(self):
-        if self.main:
-            if hasattr(self, 'id'):
-                items = list(Item.objects.filter(main=True).exclude(id=self.id)[0:1])
-            else:
-                items = list(Item.objects.filter(main=True)[0:1])
-
-            if items:
-                items[0].main=False
-                items[0].save()
-        super(Item, self).save()
+#    def save(self):
+#        if self.main:
+#            if hasattr(self, 'id'):
+#                items = list(Item.objects.filter(main=True).exclude(id=self.id)[0:1])
+#            else:
+#                items = list(Item.objects.filter(main=True)[0:1])
+#
+#            if items:
+#                items[0].main=False
+#                items[0].save()
+#        super(Item, self).save()
 
 class ItemContent(models.Model):
     item = models.ForeignKey(Item)

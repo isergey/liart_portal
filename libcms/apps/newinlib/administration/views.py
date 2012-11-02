@@ -153,7 +153,13 @@ def edit_item(request, id):
                     item_content.item = item
                     item_content.lang = item_content_form['lang']
                     item_content.save()
-                return redirect('newinlib:administration:items_list')
+
+
+                if 'save_edit' in request.POST:
+                    return redirect('newinlib:administration:edit_item', item.id)
+                else:
+                    return redirect('newinlib:administration:items_list')
+
     else:
         item_form = ItemForm(prefix="item_form", instance=item)
         item_content_forms = []
