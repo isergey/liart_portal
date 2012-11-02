@@ -135,7 +135,7 @@ def handle_uploaded_file(f, old_name=None):
         ]
     for dir in dirs:
         if not os.path.isdir(dir):
-            os.makedirs(dir, 0744)
+            os.makedirs(dir, 0755)
     size = 147, 110
     if old_name:
         name = old_name
