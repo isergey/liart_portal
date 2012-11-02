@@ -9,7 +9,7 @@
         <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</h1>
         </h1>
         {% cache 60 news_feed LANGUAGE_CODE %}
-        {% news_feed  2%}
+        {% news_feed  30%}
         {% endcache %}
         <div>
         {% if LANGUAGE_CODE == 'ru' %} <a href="/ru/pages/Archive_news">Остальные новости &gt;&gt;</a>
