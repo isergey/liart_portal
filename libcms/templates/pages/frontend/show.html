@@ -28,7 +28,7 @@
             {% if not content.title|safe %}
                 заглавие страницы для этого языка не указано.
             {% else %}
-                {{ content.title|safe }}
+                <h1>{{ content.title|safe }}</h1>
             {% endif %}
         </span>
     </div>
