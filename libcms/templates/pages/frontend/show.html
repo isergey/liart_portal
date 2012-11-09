@@ -14,7 +14,8 @@
         }
     </style>
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
+        <span class="divider">/</span>
         {% for ancestor in content.page.get_ancestors_titles %}
             <a href="{% url pages:frontend:show ancestor.url_path %}">
                 {% if not ancestor.title %}
@@ -28,7 +29,7 @@
             {% if not content.title|safe %}
                 заглавие страницы для этого языка не указано.
             {% else %}
-                <h1>{{ content.title|safe }}</h1>
+                {{ content.title|safe }}
             {% endif %}
         </span>
     </div>
@@ -38,7 +39,9 @@
         <ul class="subpages">
         {% for child in children %}
             {% url pages:frontend:show child.url_path  as page_url %}
-            <li class="subpage"><a href="/{{ content.lang }}{{ page_url|rmlocale }}">{{ child.content.title|safe }}</a></li>
+            {% if  child.content %}
+            <li class="subpage"><a href="/{{ child.content.lang }}{{ page_url|rmlocale }}">{{ child.content.title|safe }}</a></li>
+            {% endif %}
         {% endfor %}
         </ul>
     </div>
