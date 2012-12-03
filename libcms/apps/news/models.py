@@ -15,7 +15,7 @@ class News(models.Model):
     show_avatar = models.BooleanField(verbose_name=u"Показывать аватарку", default=False)
     create_date = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания", db_index=True)
     publicated = models.BooleanField(verbose_name=u'Опубликовано?', default=True, db_index=True)
-    avatar_img_name = models.CharField(max_length=100, blank=True)
+    avatar_img_name = models.CharField(max_length=512, blank=True)
     lang = models.CharField(verbose_name=u"Язык", db_index=True, max_length=2, choices=settings.LANGUAGES, default=settings.LANGUAGES[0])
     title = models.CharField(verbose_name=u'Заглавие', max_length=512)
     teaser = models.CharField(verbose_name=u'Тизер', max_length=512, help_text=u'Краткое описание новости')

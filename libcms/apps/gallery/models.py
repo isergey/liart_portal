@@ -22,6 +22,8 @@ def image_file_name(instance, filename):
 
 
 class Album(models.Model):
+    avatar_img_name = models.CharField(max_length=512, blank=True)
+    show_avatar = models.BooleanField(verbose_name=u"Показывать аватарку", default=False)
     slug = models.SlugField(
         verbose_name=u'Slug',
         max_length=64,
@@ -61,7 +63,6 @@ class AlbumImage(models.Model):
     comments = models.CharField(max_length=512, blank=True, verbose_name=u'Коментарии к изображению')
     create_date = models.DateTimeField(verbose_name=u"Дата создания", auto_now_add=True, db_index=True)
     order = models.IntegerField(verbose_name=u'Порядок', default=0, blank=True ,db_index=True)
-    as_avatar = models.BooleanField(verbose_name=u'Установить в качестве аватарки к альбому', default=False, db_index=True)
     def __unicode__(self):
         return self.comments
 
@@ -120,26 +121,6 @@ class AlbumImage(models.Model):
         down_image.save()
         self.save()
 
-
-    def set_avatar(self):
-        old_avatar = None
-        try:
-            old_avatar = AlbumImage.objects.get(as_avatar=True, album=self.album_id)
-        except AlbumImage.DoesNotExist:
-            pass
-
-        if old_avatar:
-            if old_avatar.id != self.id:
-                old_avatar.as_avatar = False
-                old_avatar.save()
-
-        self.as_avatar = True
-        self.save()
-
-
-    def unset_avatar(self):
-        self.as_avatar = False
-        self.save()
 
 
 

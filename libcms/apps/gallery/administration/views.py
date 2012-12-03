@@ -1,4 +1,8 @@
 # -*- encoding: utf-8 -*-
+import Image
+import uuid
+import  os
+from datetime import datetime
 from django.db import transaction
 from django.shortcuts import HttpResponse, render, redirect, get_object_or_404
 from django.http import HttpResponseForbidden
@@ -17,14 +21,6 @@ def index(request):
 @login_required
 def albums_list(request):
     albums = Album.objects.all()
-    avatars = AlbumImage.objects.filter(as_avatar=True)
-    avatars_dict = {}
-    for avatar in avatars:
-        avatars_dict[avatar.album_id] = avatar
-
-    for album in albums:
-        if album.id in avatars_dict:
-            album.avatar = avatars_dict[album.id]
     return render(request, 'gallery/administration/albums_list.html', {
         'albums': albums
     })
@@ -36,6 +32,10 @@ def album_create(request):
         form = AlbumForm(request.POST)
         if form.is_valid():
             album = form.save(commit=False)
+            if 'album_form_avatar' in request.FILES:
+                avatar_img_name = handle_uploaded_file(request.FILES['album_form_avatar'])
+                album.avatar_img_name = avatar_img_name
+
             if not request.user.has_perm('gallery.public_album'):
                 album.public = False
             album.save()
@@ -55,6 +55,13 @@ def album_edit(request, id):
         form = AlbumForm(request.POST, instance=album)
         if form.is_valid():
             album = form.save(commit=False)
+            if 'album_form_avatar' in request.FILES:
+                if album.avatar_img_name:
+                    handle_uploaded_file(request.FILES['album_form_avatar'], album.avatar_img_name)
+                else:
+                    avatar_img_name = handle_uploaded_file(request.FILES['album_form_avatar'])
+                    album.avatar_img_name = avatar_img_name
+
             if not request.user.has_perm('gallery.public_album'):
                 album.public = False
             album.save()
@@ -109,11 +116,12 @@ def album_upload(request, id):
         form = AlbumImageForm(request.POST, request.FILES)
         if form.is_valid():
             order = AlbumImage.objects.all().count()
-            print order
             album_image = form.save(commit=False)
             album_image.album = album
             album_image.order = order
+            print 'ok'
             album_image.save()
+            print 'ok1'
             return HttpResponse('True')
     else:
         form = AlbumImageForm()
@@ -164,18 +172,6 @@ def image_down(request, id):
     return redirect('gallery:administration:album_view', id=image.album_id)
 
 
-def set_avatar(request, id):
-    image = get_object_or_404(AlbumImage, id=id)
-    image.set_avatar()
-    return redirect('gallery:administration:album_view', id=image.album_id)
-
-def unset_avatar(request, id):
-    image = get_object_or_404(AlbumImage, id=id)
-    image.unset_avatar()
-    return redirect('gallery:administration:album_view', id=image.album_id)
-
-
-
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, BACKEND_SESSION_KEY, load_backend
 from django.contrib.auth.models import AnonymousUser
@@ -194,3 +190,71 @@ def user_from_session_key(session_key):
         if user:
             return user
     return AnonymousUser()
+
+
+
+
+
+def handle_uploaded_file(f, old_name=None):
+    upload_dir = settings.MEDIA_ROOT + 'uploads/galleryavatars/'
+    now = datetime.now()
+    dirs = [
+        upload_dir,
+        upload_dir  + str(now.year) + '/',
+        upload_dir  + str(now.year) + '/' + str(now.month) + '/',
+        ]
+    for dir in dirs:
+        if not os.path.isdir(dir):
+            os.makedirs(dir, 0755)
+    size = 147, 110
+    if old_name:
+        name = old_name
+    else:
+        name = str(now.year) + '/' + str(now.month) + '/' + uuid.uuid4().hex + '.jpg'
+    path = upload_dir + name
+    with open(path, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+    im = Image.open(path)
+    image_width = im.size[0]
+    image_hight = im.size[1]
+    image_ratio = float(image_width) / image_hight
+
+    box = [0, 0, 0, 0]
+    if image_ratio <= 1:
+        new_hight = int(image_width / 1.333)
+        vert_offset = int((image_hight - new_hight) / 2)
+        box[0] = 0
+        box[1] = vert_offset
+        box[2] = image_width
+        box[3] = vert_offset + new_hight
+    else:
+        new_width = image_hight * 1.333
+        if new_width > image_width:
+            new_width = image_width
+            new_hight = int(new_width / 1.333)
+            vert_offset = int((image_hight - new_hight) / 2)
+            box[0] = 0
+            box[1] = vert_offset
+            box[2] = new_width
+            box[3] = vert_offset + new_hight
+        else:
+            gor_offset = int((image_width - new_width) / 2)
+            box[0] = gor_offset
+            box[1] = 0
+            box[2] = int(gor_offset + new_width)
+            box[3] = image_hight
+
+    im = im.crop(tuple(box))
+
+    final_hight = 110
+    image_ratio = float(im.size[0]) / im.size[1]
+    final_width = int((image_ratio * final_hight))
+    im = im.resize((final_width, final_hight), Image.ANTIALIAS)
+    im.save(path, "JPEG",  quality=95)
+    return name
+
+def delete_avatar(name):
+    upload_dir = settings.MEDIA_ROOT + 'uploads/galleryavatars/'
+    if os.path.isfile(upload_dir + name):
+        os.remove(upload_dir + name)

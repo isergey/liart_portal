@@ -17,11 +17,4 @@ urlpatterns = patterns('',
 
     url(r'^albums/images/up/(?P<id>\d+)/$', views.image_up, name="image_up"),
     url(r'^albums/images/down/(?P<id>\d+)/$', views.image_down, name="image_down"),
-
-    url(r'^albums/images/set_avatar/(?P<id>\d+)/$', views.set_avatar, name="set_avatar"),
-    url(r'^albums/images/unset_avatar/(?P<id>\d+)/$', views.unset_avatar, name="unset_avatar"),
-
-#    url(r'^news/create/$', views.create_news , name="create_news"),
-#    url(r'^news/edit/(?P<id>\d+)/$', views.edit_news, name="edit_news"),
-#    url(r'^news/delete/(?P<id>\d+)/$', views.delete_news, name="delete_news"),
 )
