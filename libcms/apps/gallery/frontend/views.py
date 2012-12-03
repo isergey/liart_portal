@@ -24,7 +24,7 @@ def index(request):
 
 def album_view(request, id):
 
-    album = get_object_or_404(Album, id=id, public=True)
+    album = get_object_or_404(Album, id=id)
     album_images = AlbumImage.objects.filter(album=album)
 
     return render(request, 'gallery/frontend/album_view.html', {
