@@ -37,7 +37,7 @@
 
             <tr>
                 <td><a href="{% url news:administration:edit_news news.id %}">{{ news.title }}</a></td>
-                <td>{% if news.publicated %}<span style="background: #d3ff82">да</span>{% else %}<span style="background: #bd362f; color: #fff">нет</span>{% endif %}</td>
+                <td>{% if news.publicated %}<span class="label label-success">да</span>{% else %}<span class="label label-warning">нет</span>{% endif %}</td>
                 <td>{{ news.create_date }}</td>
                 <td><a class="delete btn btn-danger"  href="{% url news:administration:delete_news news.id %}"><i class="icon-trash icon-white" title="Удалить"></i></a></td>
             </tr>
