@@ -78,6 +78,7 @@ def album_edit(request, id):
 def album_delete(request, id):
     album = get_object_or_404(Album, id=id)
     album.delete()
+    delete_avatar(album.avatar_img_name)
     return redirect('gallery:administration:albums_list')
 
 
