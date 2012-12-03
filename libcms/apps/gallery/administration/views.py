@@ -17,7 +17,14 @@ def index(request):
 @login_required
 def albums_list(request):
     albums = Album.objects.all()
+    avatars = AlbumImage.objects.filter(as_avatar=True)
+    avatars_dict = {}
+    for avatar in avatars:
+        avatars_dict[avatar.album_id] = avatar
 
+    for album in albums:
+        if album.id in avatars_dict:
+            album.avatar = avatars_dict[album.id]
     return render(request, 'gallery/administration/albums_list.html', {
         'albums': albums
     })
@@ -72,7 +79,7 @@ def album_view(request, id):
         return HttpResponseForbidden()
 
     album = get_object_or_404(Album, id=id)
-    album_images = AlbumImage.objects.filter(album=album)
+    album_images = AlbumImage.objects.filter(album=album).order_by('order')
 
     return render(request, 'gallery/administration/album_view.html', {
         'album': album,
@@ -101,8 +108,11 @@ def album_upload(request, id):
     if request.method == 'POST':
         form = AlbumImageForm(request.POST, request.FILES)
         if form.is_valid():
+            order = AlbumImage.objects.all().count()
+            print order
             album_image = form.save(commit=False)
             album_image.album = album
+            album_image.order = order
             album_image.save()
             return HttpResponse('True')
     else:
@@ -138,6 +148,30 @@ def image_edit(request, id):
 def image_delete(request, id):
     image = get_object_or_404(AlbumImage, id=id)
     image.delete()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+
+
+def image_up(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.up()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+
+def image_down(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.down()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+
+def set_avatar(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.set_avatar()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+def unset_avatar(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.unset_avatar()
     return redirect('gallery:administration:album_view', id=image.album_id)
 
 

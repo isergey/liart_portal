@@ -12,6 +12,7 @@ NEWS_TYPE_CHOICES = (
 )
 
 class News(models.Model):
+    show_avatar = models.BooleanField(verbose_name=u"Показывать аватарку", default=False)
     create_date = models.DateTimeField(default=datetime.now, verbose_name=u"Дата создания", db_index=True)
     publicated = models.BooleanField(verbose_name=u'Опубликовано?', default=True, db_index=True)
     avatar_img_name = models.CharField(max_length=100, blank=True)

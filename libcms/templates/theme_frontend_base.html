@@ -59,8 +59,8 @@
             {% if LANGUAGE_CODE == 'ru' %} 
                 <h5 style="margin-top: 50px;">Федеральное государственное бюджетное учреждение культуры</h5>
                 <h2>Российская государственная<br>библиотека искусств</h2>
-{#                <div style="font-family: 'PT Serif', serif; font-size: 16px;color: #ffffff; font-style: italic; margin-left: 15px;" >Искусство помогать искусству</div>#}
-        <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px;" >"Искусство помогать искусству"</div>
+{#                <div " >Искусство помогать искусству</div>#}
+        <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px" >"Искусство помогать искусству"</div>
             {% else %}
                 <h5>Federal State Institution of Culture</h5>
                 <h2>Russian State <br>Art Library</h2>
@@ -85,7 +85,7 @@
             </FORM>
             </div>
             <div class="search_catalog">
-                <a href="http://195.178.222.74:8081/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
+                <a href="http://liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
             </div>
         </div>
     </div>
@@ -94,6 +94,9 @@
 <section>
     <div class="container_12">
         <div class="grid_3 alpha">
+     <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center"> <A target="_blank" href="/ru/gallery"> Нам 90 лет! <br> Нас поздравляют &gt&gt; </A>   </div>
+<div><A target="_blank" href="http://liart.ru/ru/pages/seminars/16" > <img src="/media/files/91s.jpg"  title="Посмотреть и скачать карту и программу конференции!" style="width: 220px; margin-top: 10px;"></A></div>
+
             {% include 'left_menu.html'%}
             <div class="clear"></div>
             <div style="margin-left: 20px;" class="ask_librarian_category">

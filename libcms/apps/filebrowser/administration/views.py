@@ -107,12 +107,11 @@ def index(request):
     show_path = u'' # root of upload path
     show_path_url = settings.FILEBROWSER['upload_dir_url']
 
-    if 'path' in request.GET:
-        path = request.GET['path'].strip('/')
-        if '..' in path or '/.' in path:
-            raise Http404(u"Path not founded")
+    path = request.GET.get('path', u'/').strip(u'/')
+    if '..' in path or '/.' in path:
+        raise Http404(u"Path not founded")
 
-        show_path =  path.encode(FILE_NAME_ENCODING)
+    show_path =  path.encode(FILE_NAME_ENCODING)
 
     show_path_url += show_path
 

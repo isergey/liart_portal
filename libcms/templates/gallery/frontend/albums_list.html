@@ -4,29 +4,48 @@
 {% block title %}{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}{% endblock %}
 {% block content %}
     <style>
-        ul.albums{
+        ul.albums {
             list-style: none;
         }
-        ul.albums li{
+
+        ul.albums li {
             margin: 0;
         }
-        ul.albums .create_date{
+
+        ul.albums .create_date {
             color: #4D4B47;
+        }
+        .albums img {
+            border: 5px solid #E0DCD0;
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 15px;
         }
     </style>
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span
+            class="divider">/</span>
         <span class="active">{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}</span>
     </div>
 
     <ul class="albums">
         {% for album in albums %}
             <li class="album">
-                <h3><a href="{% url  gallery:frontend:album_view album.id %}?back={{ request.get_full_path }}">{{ album }}</a></h3>
+                {% if album.avatar %}
+                    <a href="{% url  gallery:frontend:album_view album.id %}"><img class="tumb"
+                                                                                         src="{{ MEDIA_URL }}gallery/{{ album.slug }}/thumbinails/{{ album.avatar.get_image_file_name }}"
+                                                                                         style="float: left; margin-right: 5px"/></a>
+                {% endif %}
                 <div>
-                    <span class="create_date"><b>Дата создания:</b> {{ album.create_date|date:"j E Y" }}</span>
-                </div>
+                    <h3>
+                        <a href="{% url  gallery:frontend:album_view album.id %}?back={{ request.get_full_path }}">{{ album }}</a>
+                    </h3>
 
+                    <div>
+                        <span class="create_date"><b>Дата создания:</b> {{ album.create_date|date:"j E Y" }}</span>
+                    </div>
+                </div>
+                <div style="clear: both; margin-bottom: 5px;"></div>
                 <hr/>
             </li>
         {% empty %}

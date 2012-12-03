@@ -6,7 +6,9 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block content %}
     <div id="news">
-        <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</h1>
+        <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости 
+    {#     <a href="/ru/news/rss"> <img src=/static/images/rss.png alt="Подписаться" title="Подписаться на новости"  style="width: 15px;"></a>#}
+          {% else %}News{% endif %}</h1>
         </h1>
         {% cache 60 news_feed LANGUAGE_CODE %}
         {% news_feed  30%}

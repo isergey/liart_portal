@@ -18,7 +18,7 @@ def index(request):
 
 def show(request, id):
     try:
-        news = News.objects.get(publicated=True,id=id)
+        news = News.objects.get(id=id)
     except News.DoesNotExist:
         raise Http404()
 

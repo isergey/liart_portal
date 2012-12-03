@@ -60,7 +60,8 @@ class AlbumImage(models.Model):
     image = models.FileField(upload_to=image_file_name, verbose_name=u'Файл с изображением', max_length=512)
     comments = models.CharField(max_length=512, blank=True, verbose_name=u'Коментарии к изображению')
     create_date = models.DateTimeField(verbose_name=u"Дата создания", auto_now_add=True, db_index=True)
-
+    order = models.IntegerField(verbose_name=u'Порядок', default=0, blank=True ,db_index=True)
+    as_avatar = models.BooleanField(verbose_name=u'Установить в качестве аватарки к альбому', default=False, db_index=True)
     def __unicode__(self):
         return self.comments
 
@@ -82,10 +83,82 @@ class AlbumImage(models.Model):
             os.remove(get_thumbinail_path)
 
     def delete_origin(self):
-        print self.get_image_file_name()
         get_origin_path = self.get_image_file_name()
         if os.path.isfile(get_origin_path):
             os.remove(get_origin_path)
+
+    def up(self):
+        images = AlbumImage.objects.filter(album=self.album_id).order_by('order').values('id')
+
+        upper_id = get_upper_id(self.id, images)
+        if upper_id == None:
+            return
+
+        upper_image = AlbumImage.objects.get(id=upper_id)
+
+        temp_order =  upper_image.order
+        upper_image.order = self.order
+        self.order = temp_order
+
+        upper_image.save()
+        self.save()
+
+    def down(self):
+        images = AlbumImage.objects.filter(album=self.album_id).order_by('order').values('id')
+
+        downer_id = get_downer_id(self.id, images)
+        print downer_id
+        if downer_id == None:
+            return
+
+        down_image = AlbumImage.objects.get(id=downer_id)
+
+        temp_order =  down_image.order
+        down_image.order = self.order
+        self.order = temp_order
+
+        down_image.save()
+        self.save()
+
+
+    def set_avatar(self):
+        old_avatar = None
+        try:
+            old_avatar = AlbumImage.objects.get(as_avatar=True, album=self.album_id)
+        except AlbumImage.DoesNotExist:
+            pass
+
+        if old_avatar:
+            if old_avatar.id != self.id:
+                old_avatar.as_avatar = False
+                old_avatar.save()
+
+        self.as_avatar = True
+        self.save()
+
+
+    def unset_avatar(self):
+        self.as_avatar = False
+        self.save()
+
+
+
+
+def get_upper_id(id, images_ids):
+    for i,image in enumerate(images_ids):
+        if image['id'] == id:
+            if i < len(images_ids) - 1:
+                return images_ids[i+1]['id']
+    return None
+
+
+def get_downer_id(id, images_ids):
+    for i,image in enumerate(images_ids):
+        if image['id'] == id:
+            if i > 0:
+                return images_ids[i-1]['id']
+    return None
+
 
 from django.db.models.signals import post_save, post_delete, pre_delete
 from django.dispatch import receiver

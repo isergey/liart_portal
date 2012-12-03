@@ -17,4 +17,9 @@
     {% block action_content %}
         Summary
     {% endblock %}
+    <script type="text/javascript">
+        $("a.delete").click(function () {
+            if (!confirm('Вы уверены, что хотите удалить?')) return false;
+        });
+    </script>
 {% endblock %}

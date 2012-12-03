@@ -9,7 +9,14 @@ from ..models import Album, AlbumImage
 
 def index(request):
     albums = Album.objects.filter(public=True)
+    avatars = AlbumImage.objects.filter(as_avatar=True)
+    avatars_dict = {}
+    for avatar in avatars:
+        avatars_dict[avatar.album_id] = avatar
 
+    for album in albums:
+        if album.id in avatars_dict:
+            album.avatar = avatars_dict[album.id]
     return render(request, 'gallery/frontend/albums_list.html', {
         'albums': albums
     })

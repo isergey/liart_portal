@@ -21,8 +21,17 @@
                 </a>
                 <a href="{{ MEDIA_URL }}gallery/{{ album.slug }}/{{ album_image.get_image_file_name }}origin.jpg">Оригинал</a>
                 <div style="margin-top: 5px;">
+                    <a class="btn" href="{% url gallery:administration:image_down album_image.id %}" title="Ниже">←</a>
+                    <a class="btn" href="{% url gallery:administration:image_up album_image.id %}" title="Выше">→</a><br/>
+                    {% if album_image.as_avatar %}
+                    <a class="btn btn-success" href="{% url gallery:administration:unset_avatar album_image.id %}" title="Без аватарки"><i class="icon-picture"></i></a>
+                    {% else %}
+                        <a class="btn" href="{% url gallery:administration:set_avatar album_image.id %}" title="Сделать аватаркой к альбому"><i class="icon-picture"></i></a>
+                    {% endif %}
                     <a class="btn" href="{% url gallery:administration:image_edit album_image.id %}" title="Редактировать"><i class="icon-pencil"></i></a>
-                    <a class="btn btn-danger" href="{% url gallery:administration:image_delete album_image.id %}" title="Удалить"><i class="icon-trash icon-white"></i></a>
+                    <a class="btn btn-danger delete" href="{% url gallery:administration:image_delete album_image.id %}" title="Удалить"><i class="icon-trash icon-white"></i></a>
+
+
                 </div>
             </li>
         {% endfor %}
