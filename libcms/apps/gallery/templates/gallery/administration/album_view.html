@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}gallery/fancybox/jquery.fancybox.css">
 
     <h3>{{ album }}</h3>
+    <div>
+    Ссылка на альбом: <a href="{% url gallery:frontend:album_view album.id %}">{% url gallery:frontend:album_view album.id %}</a>
+    </div>
     <hr/>
     <a class="btn btn-success" href="{% url gallery:administration:album_upload album.id %}">Загрузить изображения</a>
     <hr/>
