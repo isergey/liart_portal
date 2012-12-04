@@ -41,7 +41,7 @@
                 </a>
                 <div><a href="{{ MEDIA_URL }}gallery/{{ album.slug }}/{{ album_image.get_image_file_name }}origin.jpg">Оригинал</a><div>
             </li>
-            {% if forloop.counter|divisibleby:"3" %}<hr/>{% endif %}
+            {% if forloop.counter|divisibleby:"3" %}<div style="clear: both"/>{% endif %}
         {% endfor %}
     </ul>
     <script type="text/javascript">
