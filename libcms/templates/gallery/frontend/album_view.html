@@ -8,6 +8,7 @@
     <style>
         ul.thumbnails{
             list-style: none;
+            width: 100%
         }
         ul.thumbnails li {
             float: left;
@@ -15,7 +16,7 @@
 {#            margin-left: 4px;#}
 
         }
-        img.tumb img{
+        img.tumb{
             border: 3px solid #E0DCD0;
             width: 148px;
         }
@@ -33,7 +34,7 @@
     {{ album.description|safe }}
     </div>
     <hr/>
-    <ul class="thumbnails" >
+    <ul class="thumbnails" style="">
         {% for album_image in album_images %}
             <li>
                 <a title="{{ album_image.comments }}" class="mins" href="{{ MEDIA_URL }}gallery/{{ album.slug }}/{{ album_image.get_image_file_name }}" class="thumbnail"  rel="gallery_group">
