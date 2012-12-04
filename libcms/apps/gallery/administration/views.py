@@ -173,6 +173,17 @@ def image_down(request, id):
     return redirect('gallery:administration:album_view', id=image.album_id)
 
 
+def image_to_begin(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.to_begin()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+def image_to_end(request, id):
+    image = get_object_or_404(AlbumImage, id=id)
+    image.to_end()
+    return redirect('gallery:administration:album_view', id=image.album_id)
+
+
 from django.conf import settings
 from django.contrib.auth import SESSION_KEY, BACKEND_SESSION_KEY, load_backend
 from django.contrib.auth.models import AnonymousUser

@@ -7,6 +7,11 @@
     {% include 'pages/administration/module_menu.html' %}
 {% endblock %}
 {% block module_content %}
+    <style type="text/css">
+    form textarea {
+        height: 400px;
+    }
+    </style>
 {#    {% active_path 'accounts:administration:index' %}#}
 {#    <a class="{% active 'accounts:administration:index' %}" href="{% url accounts:administration:index %}">wedwed</a>#}
     <ul class="breadcrumb">

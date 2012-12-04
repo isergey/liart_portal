@@ -17,4 +17,8 @@ urlpatterns = patterns('',
 
     url(r'^albums/images/up/(?P<id>\d+)/$', views.image_up, name="image_up"),
     url(r'^albums/images/down/(?P<id>\d+)/$', views.image_down, name="image_down"),
+
+    url(r'^albums/images/image_to_begin/(?P<id>\d+)/$', views.image_to_begin, name="image_to_begin"),
+    url(r'^albums/images/image_to_end/(?P<id>\d+)/$', views.image_to_end, name="image_to_end"),
+
 )

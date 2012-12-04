@@ -108,7 +108,6 @@ class AlbumImage(models.Model):
         images = AlbumImage.objects.filter(album=self.album_id).order_by('order').values('id')
 
         downer_id = get_downer_id(self.id, images)
-        print downer_id
         if downer_id == None:
             return
 
@@ -122,7 +121,19 @@ class AlbumImage(models.Model):
         self.save()
 
 
+    def to_begin(self):
+        images = list(AlbumImage.objects.filter(album=self.album_id).order_by('order').values('id'))
+        if images and images[0]['id'] != self.id:
+            begin_image = AlbumImage.objects.get(id=images[0]['id'])
+            self.order = begin_image.order - 1
+            self.save()
 
+    def to_end(self):
+        images = list(AlbumImage.objects.filter(album=self.album_id).order_by('order').values('id'))
+        if images and images[-1]['id'] != self.id:
+            end_image = AlbumImage.objects.get(id=images[-1]['id'])
+            self.order = end_image.order + 1
+            self.save()
 
 
 def get_upper_id(id, images_ids):

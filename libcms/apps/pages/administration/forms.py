@@ -27,11 +27,11 @@ def get_page_form(parent=None):
 class ContentForm(forms.ModelForm):
     class Meta:
         model=Content
-        exclude = ('page',)
+        exclude = ('page', 'meta')
 
 
 
-def get_content_form(exclude_list = ('page',)):
+def get_content_form(exclude_list = ('page', 'meta')):
     class ContentForm(forms.ModelForm):
         class Meta:
             model=Content
