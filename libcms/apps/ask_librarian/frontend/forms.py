@@ -7,6 +7,7 @@ from django.forms.extras import widgets
 
 
 class QuestionForm(forms.ModelForm):
+
     category = TreeNodeChoiceField(
         queryset=Category.objects.all(),
         required=False,

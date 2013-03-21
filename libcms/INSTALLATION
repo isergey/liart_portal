@@ -15,6 +15,7 @@
 Установка основных компонентов для Ubuntu.
 
     # apt-get install g++ python-dev python-pip  mysql-server libmysqlclient-dev  python-lxml memcached libmemcached-dev
+    # easy_install -U distribute
     # pip install django pytz postmarkup Pygments python-openid oauth2 pymorphy python-cdb uwsgi pylibmc MySQL-python
 
     Установка nginx.

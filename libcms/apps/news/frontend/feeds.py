@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.utils.translation import get_language
-from news.models import News
+from ..models import News
 
 
 
@@ -24,7 +24,7 @@ class LatestEntriesFeed(Feed):
 
 
 def index():
-    news_list =  News.objects.filter(publicated=True, lang=get_language()[:2]).order_by('-create_date')[:5]
+    news_list =  News.objects.filter(publicated=True, lang=get_language()[:2]).order_by('-order', '-create_date')[:5]
     return news_list
 
 #def show(request, id):

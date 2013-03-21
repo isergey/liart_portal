@@ -10,7 +10,7 @@
 <head>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>Российская государственная библиотека искусств</title>
+    <title>{% block title %}Российская государственная библиотека искусств{% endblock %}</title>
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/reset.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/960.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css" />
@@ -45,37 +45,39 @@
     </style>
 </head>
 <body>
-
+<script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script>
 <header>
     <div class="container_12">
         <div class="grid_3">
             {% if LANGUAGE_CODE == 'ru' %}
-                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" id="logo" alt="Российская государстванная библиотека искусств"></a>
+                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="165" id="logo" alt="Российская государстванная библиотека искусств"></a>
             {% else %}
-                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_en.png" id="logo" alt="Federal State Institution of Culture Russian State Art Library"></a>
+                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_en.png" width="230" height="170"  id="logo" alt="Federal State Institution of Culture Russian State Art Library"></a>
             {% endif %}
         </div>
         <div class="grid_6" >
             {% if LANGUAGE_CODE == 'ru' %} 
                 <h5 style="margin-top: 50px;">Федеральное государственное бюджетное учреждение культуры</h5>
                 <h2>Российская государственная<br>библиотека искусств</h2>
-{#                <div style="font-family: 'PT Serif', serif; font-size: 16px;color: #ffffff; font-style: italic; margin-left: 15px;" >Искусство помогать искусству</div>#}
-        <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px;" ><br>"Искусство помогать искусству"</div>
+{#                <div " >Искусство помогать искусству</div>#}
+        <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px" >"Искусство помогать искусству"</div>
             {% else %}
                 <h5>Federal State Institution of Culture</h5>
                 <h2>Russian State <br>Art Library</h2>
             {% endif %}
         </div>
         <div class="grid_3 search">
-{#            <span class="lang">RU</span>#}
-            {% if LANGUAGE_CODE == 'ru' %}
-                <span class="lang">Рус</span> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
-            {% elif LANGUAGE_CODE == 'en' %}
-                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <span class="lang">Eng</span>
-            {% else %}
-                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
-            {% endif %}
-            <div class="social"><a href="http://www.facebook.com/liart.ru" target="_blank"><img src="{{ STATIC_URL }}theme/images/facebook1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/facebook2.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/facebook1.png'" alt="Facebook"></a><a href="http://art-library.livejournal.com/" target="_blank"><img src="{{ STATIC_URL }}theme/images/livejournal1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'" alt="LiveJournal"></a><a href="http://vk.com/artlibrary" target="_blank"><img src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'" alt="ВКонтакте"></a></div>
+        {#    <span class="lang">RU</span>#}
+{#            {% if LANGUAGE_CODE == 'ru' %} #}
+{#               <span class="lang">Рус</span> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a> #}
+{#            {% elif LANGUAGE_CODE == 'en' %} #}
+{#                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <span class="lang">Eng</span> #}
+{#            {% else %} #}
+{#                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a> #}
+{#            {% endif %} #}
+            <div class="social"><a target="_blank" href="http://www.tripadvisor.ru/Attraction_Review-g298484-d2552862-Reviews-Russian_State_Library_of_Arts-Moscow_Central_Russia.html">
+             <img src="{{ STATIC_URL }}theme/images/trip32ser.png " onmouseover="this.src='{{ STATIC_URL }}theme/images/trip32.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/trip32ser.png'" alt="Российская Государственная Библиотека Искусств"></a>
+			<a href="http://www.facebook.com/liart.ru" target="_blank"><img src="{{ STATIC_URL }}theme/images/facebook1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/facebook2.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/facebook1.png'" alt="Facebook"></a><a href="http://art-library.livejournal.com/" target="_blank"><img src="{{ STATIC_URL }}theme/images/livejournal1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'" alt="LiveJournal"></a><a href="http://vk.com/artlibrary" target="_blank"><img src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'" alt="ВКонтакте"></a></div>
             <div class="search_form"><form action="http://google.com/search" name="f" target="_blank">
                 <input type="hidden" name="q" value="site:liart.ru" />
                 <input name="q" type="search" placeholder="{% if LANGUAGE_CODE == 'ru' %}Поиск по сайту{% else %}Search on site{% endif %}">
@@ -83,7 +85,7 @@
             </FORM>
             </div>
             <div class="search_catalog">
-                <a href="http://195.178.222.74:8081/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
+                <a href="http://liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
             </div>
         </div>
     </div>
@@ -92,6 +94,9 @@
 <section>
     <div class="container_12">
         <div class="grid_3 alpha">
+     <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center"> <A target="_blank" href="/ru/news/42"> Нам 90 лет! <br> Нас поздравляют &gt&gt; </A>   </div>
+{#<div><A target="_blank" href="http://liart.ru/ru/pages/seminars/16" > <img src="/media/files/91s.jpg"  title="Посмотреть и скачать карту и программу конференции!" style="width: 220px; margin-top: 10px;"></A></div>#}
+
             {% include 'left_menu.html'%}
             <div class="clear"></div>
             <div style="margin-left: 20px;" class="ask_librarian_category">

@@ -9,7 +9,7 @@ from ..models import News
 
 
 def index(request):
-    news_page = get_page(request, News.objects.filter(publicated=True, lang=get_language()[:2]).order_by('-create_date'))
+    news_page = get_page(request, News.objects.filter(publicated=True, lang=get_language()[:2]).order_by('-order', '-create_date'))
 
     return render(request, 'news/frontend/list.html', {
         'news_list': news_page.object_list,
