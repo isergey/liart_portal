@@ -10,6 +10,8 @@
     <h3>Детальная информация</h3>
     <hr/>
     <h3>Вопрос:</h3>
+
+
     <div>{{ question }}</div>
     <div>
     {% if question.is_ready %}
@@ -20,6 +22,7 @@
     </div>
     <div>
         <hr/>
+        <div><b>Имя пользователя: {{ question.fio }}</b></div>
         <b>Статус</b>: <span class="question_status{{ question.status }}">{{ question.get_status_display }} </span><br/>
         {% if question.category_id %}
             <b>Категория</b>:
