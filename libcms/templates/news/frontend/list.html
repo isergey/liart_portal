@@ -14,6 +14,7 @@
     <div class="list">
     {% for news in news_list %}
         <div class="news{% if news.order != 0 %} priority{% endif %}">
+        {{ news.order }}
             {% url news:frontend:show news.id  as news_url%}
             {% if news.order == 0 %}<h4><a href="{{ news_url }}?back={{ request.get_full_path }}#news_title" class="date">{{ news.create_date|date:"j E Y" }}</a></h4>{% endif %}
             {% if news.avatar_img_name and news.show_avatar %}<a href="{{ news_url }}?back={{ request.get_full_path }}#news_title"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>{% endif %}
