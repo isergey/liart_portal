@@ -150,7 +150,7 @@ class Question(models.Model):
 
 class Recomendation(models.Model):
     user = models.ForeignKey(User, null=True, verbose_name=u'Пользователь')
-    question = models.ForeignKey(Question, verbose_name=u'Вопрос, к которому относиться рекомендация')
+    question = models.ForeignKey(Question, verbose_name=u'Вопрос, к которому относится рекомендация')
     text = models.TextField(max_length=2048, verbose_name='Текст рекомендации')
     public = models.BooleanField(default=False, db_index=True, verbose_name=u'Публиковать Вместе с ответом')
     create_date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата создания', db_index=True)

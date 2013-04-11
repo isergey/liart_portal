@@ -54,7 +54,7 @@ def base_pagination(context, page, begin_pages=2, end_pages=2, before_current_pa
             'end' : end,
             'request':context['request']}
 
-@register.inclusion_tag('pagination/pagination_tag.html', takes_context=True)
+@register.inclusion_tag('pagination/pagination_tag1.html', takes_context=True)
 def pagination(context, page, begin_pages=2, end_pages=2, before_current_pages=5, after_current_pages=5):
     return base_pagination(context, page, begin_pages=2, end_pages=2, before_current_pages=5, after_current_pages=5)
 
