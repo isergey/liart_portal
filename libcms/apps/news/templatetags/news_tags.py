@@ -9,7 +9,7 @@ register = template.Library()
 def news_feed(count=10):
 
     lang=get_language()[:2]
-    news_list = list(News.objects.filter(publicated=True, lang=lang).order_by('-create_date')[:count])
+    news_list = list(News.objects.filter(publicated=True, lang=lang).order_by('-order', '-create_date')[:count])
     return ({
         'news_list': news_list,
         'MEDIA_URL': settings.MEDIA_URL

@@ -1,4 +1,5 @@
 {#{% load i18n %}#}
 {% load newinlib_tags %}
-<h2><a href="{% url newinlib:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Из новых поступлений:{% else %}From new arrivals:{% endif %}</a></h2>
+<h2><a href="{% url newinlib:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Из новых поступлений:{% else %}From new arrivals:{% endif %}</a>
+ <a href="{% url newinlib:frontend:rss %}"><img src="{{ STATIC_URL }}images/rss.png" alt="{% if LANGUAGE_CODE == 'ru' %}Подписка{% else %}Subscribe{% endif %}" style="width: 15px;"></a> </h2>
 {% last_items_feed 7 %}
