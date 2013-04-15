@@ -96,7 +96,7 @@ class Question(models.Model):
     email = models.EmailField(verbose_name=u'email', blank=True, max_length=256, help_text=u'На этот адрес будет выслан ответ на вопрос')
     #    city = models.CharField(verbose_name=u'Город', blank=True, max_length=64)
     #    country = models.CharField(verbose_name=u'Страна', blank=True, max_length=64)
-    category = models.ForeignKey(Category, null=True, verbose_name=u'Тематика', help_text=u'Укажите тематику, к которой относиться вопрос')
+    category = models.ForeignKey(Category, null=True, verbose_name=u'Тематика', help_text=u'Укажите тематику, к которой относится вопрос')
     question = models.TextField(verbose_name=u'Вопрос', validators=[MaxLengthValidator(10000)])
     answer = models.TextField(verbose_name=u'Ответ', validators=[MaxLengthValidator(10000)])
     status = models.IntegerField(choices=QUESTION_STATUSES, verbose_name=u'Статус', db_index=True, default=0)
