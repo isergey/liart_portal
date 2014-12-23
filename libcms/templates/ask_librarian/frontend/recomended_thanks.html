@@ -5,8 +5,8 @@
 {% block title %}Спроси библиографа{% endblock %}
 {% block breadcrumb %}
     <ul class="breadcrumb">
-        <li><a href="{% url index:frontend:index %}">Начало</a> <span class="divider">/</span></li>
-        <li><a href="{% url ask_librarian:frontend:index %}">Спроси библиографа</a> <span class="divider">/</span></li>
+        <li><a href="{% url 'index:frontend:index' %}">Начало</a> <span class="divider">/</span></li>
+        <li><a href="{% url 'ask_librarian:frontend:index' %}">Спроси библиографа</a> <span class="divider">/</span></li>
         <li>Вопрос № {{ question.id }}</li>
     </ul>
 {% endblock %}
@@ -14,5 +14,5 @@
     <div class="alert alert-success">
         Спасибо за рекомендацию. Мы обязательно её опубликуем после проверки, если она соответвет вопросу.
     </div>
-    <a href="{% url ask_librarian:frontend:detail question.id %}">Перейти к вопросу</a>
+    <a href="{% url 'ask_librarian:frontend:detail' question.id %}">Перейти к вопросу</a>
 {% endblock %}

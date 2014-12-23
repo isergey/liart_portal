@@ -5,17 +5,17 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %}{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}{% endblock %}
 {% block breadcrumb %}
-    <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
+    <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
     <span class="divider">/</span>
         {% if category %}
             {% cache 30 questions_breadcrumb category.id LANGUAGE_CODE %}
-            <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
+            <a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
 
                 {% if category.is_root_node %}
                     {{ category }}
                 {% else %}
                     {% for ancestor in  category.get_t_ancestors %}
-                        <a href="{% url ask_librarian:frontend:index %}?category={{ ancestor.category_id }}">{{ ancestor }}</a> <span class="divider">/</span>
+                        <a href="{% url 'ask_librarian:frontend:index' %}?category={{ ancestor.category_id }}">{{ ancestor }}</a> <span class="divider">/</span>
                     {% endfor %}
                     {{ category }}
                 {% endif %}
@@ -27,7 +27,7 @@
 {% endblock %}
 {% block index_content %}
     <div class="row">
-        <a href="{% url ask_librarian:frontend:ask %}">Задать вопрос</a>
+        <a href="{% url 'ask_librarian:frontend:ask' %}">Задать вопрос</a>
 {#        <div class="span4">#}
 {#            <form action="" method="GET">#}
 {#                Перейти к вопросу №: <input type="text" style=" width: 50px;" name="id"/><br/>#}
@@ -82,7 +82,7 @@
                 </b>
             {% endif %}
             <br/>
-            <a href="{% url ask_librarian:frontend:detail question.id %}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a><br>
+            <a href="{% url 'ask_librarian:frontend:detail' question.id %}">{% if LANGUAGE_CODE == 'ru' %}подробнее{% else %}details{% endif %}</a><br>
 
         <hr/>
         </li>

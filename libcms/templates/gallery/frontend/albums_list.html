@@ -23,7 +23,7 @@
         }
     </style>
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span
+        <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span
             class="divider">/</span>
         <span class="active">{% if LANGUAGE_CODE == 'ru' %}Галерея{% else %}Gallery{% endif %}</span>
     </div>
@@ -32,13 +32,13 @@
         {% for album in albums %}
             <li class="album">
                 {% if album.avatar_img_name and album.show_avatar %}
-                    <a href="{% url  gallery:frontend:album_view album.id %}"><img class="tumb"
-                                                                                         src="{{ MEDIA_URL }}uploads/galleryavatars/{{ album.avatar_img_name }}"
+                    <a href="{% url  'gallery:frontend:album_view' album.id %}">
+                        <img class="tumb" src="{{ MEDIA_URL }}uploads/galleryavatars/{{ album.avatar_img_name }}"
                                                                                          style="float: left; margin-right: 5px"/></a>
                 {% endif %}
                 <div>
                     <h3>
-                        <a href="{% url  gallery:frontend:album_view album.id %}">{{ album }}</a>
+                        <a href="{% url  'gallery:frontend:album_view' album.id %}">{{ album }}</a>
                     </h3>
 
                     <div>

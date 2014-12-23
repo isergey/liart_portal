@@ -4,16 +4,16 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %}Спроси библиографа{% endblock %}
 {% block breadcrumb %}
-    <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
+    <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
     <span class="divider">/</span>
-    <a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
+    <a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a> <span class="divider">/</span>
     {% if LANGUAGE_CODE == 'ru' %}Вопрос № {{ question.id }}{% else %}Question id {{ question.id }}{% endif %}
 {% endblock %}
 {% block index_content %}
 
         <div class="alert alert-success">
             Спасибо за вопрос.
-            Информацию о вопросе Вы сможете найти по номеру. Номер Вашего вопроса: <b><a href="{% url ask_librarian:frontend:detail question.id %}">{{ question.id }}</a></b>. Ответ на вопрос будет выслан на указанный Вами email.
+            Информацию о вопросе Вы сможете найти по номеру. Номер Вашего вопроса: <b><a href="{% url 'ask_librarian:frontend:detail' question.id %}">{{ question.id }}</a></b>. Ответ на вопрос будет выслан на указанный Вами email.
         </div>
-    <a href="{% url ask_librarian:frontend:detail question.id %}">{% if LANGUAGE_CODE == 'ru' %}Перейти к вопросу{% else %}Go to question{% endif %}</a>
+    <a href="{% url 'ask_librarian:frontend:detail' question.id %}">{% if LANGUAGE_CODE == 'ru' %}Перейти к вопросу{% else %}Go to question{% endif %}</a>
 {% endblock %}

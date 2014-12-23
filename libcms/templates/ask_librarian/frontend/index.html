@@ -8,7 +8,7 @@
 {% block content %}
     <div class="breadcrumb">
         {% block breadcrumb %}
-            <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
+            <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a>
             <span class="divider">/</span>
             {% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}
         {% endblock %}

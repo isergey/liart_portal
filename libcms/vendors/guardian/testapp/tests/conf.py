@@ -1,4 +1,7 @@
+from __future__ import unicode_literals
 import os
+import django
+from guardian.compat import unittest
 from guardian.utils import abspath
 from django.conf import settings
 from django.conf import UserSettingsHolder
@@ -13,6 +16,37 @@ TEST_SETTINGS = dict(
     TEMPLATE_DIRS=[TEST_TEMPLATES_DIR],
 )
 
+
+def skipUnlessTestApp(obj):
+    app = 'guardian.testapp'
+    return unittest.skipUnless(app in settings.INSTALLED_APPS,
+                      'app %r must be installed to run this test' % app)(obj)
+
+
+def skipUnlessSupportsCustomUser(obj):
+    # XXX: Following fixes problem with Python 2.6 and Django 1.2
+    gte15 = django.VERSION >= (1, 5)
+    if not gte15:
+        return lambda *args, **kwargs: None
+    # XXX: End of the workaround
+    return unittest.skipUnless(django.VERSION >= (1, 5), 'Must have Django 1.5 or greater')(obj)
+
+
+class TestDataMixin(object):
+    def setUp(self):
+        super(TestDataMixin, self).setUp()
+        from django.contrib.auth.models import Group
+        try:
+            from django.contrib.auth import get_user_model
+            User = get_user_model()
+        except ImportError:
+            from django.contrib.auth.models import User
+        Group.objects.create(pk=1, name='admins')
+        jack_group = Group.objects.create(pk=2, name='jackGroup')
+        User.objects.get_or_create(pk=settings.ANONYMOUS_USER_ID)
+        jack = User.objects.create(pk=1, username='jack', is_active=True,
+            is_superuser=False, is_staff=False)
+        jack.groups.add(jack_group)
 
 
 class override_settings(object):

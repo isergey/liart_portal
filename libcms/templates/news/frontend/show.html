@@ -4,11 +4,11 @@
 {% block title %}{{ news.title|safe }}{% endblock %}
 {% block content %}
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
         {% if request.GET.back %}
             <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a> <span class="divider">/</span>
         {% else %}
-            <a href="{% url news:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a> <span class="divider">/</span>
+            <a href="{% url 'news:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a> <span class="divider">/</span>
         {% endif %}
     </div>
     <h2 align="center" id="news_title"><span class="active">{{ news.title|safe }}</span></h2>

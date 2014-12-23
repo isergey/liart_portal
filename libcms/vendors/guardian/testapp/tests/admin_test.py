@@ -1,10 +1,9 @@
+from __future__ import unicode_literals
 import copy
 
 from django import forms
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.admin.models import LogEntry
-from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.http import HttpRequest
@@ -12,16 +11,26 @@ from django.test import TestCase
 from django.test.client import Client
 
 from guardian.admin import GuardedModelAdmin
+from guardian.compat import get_user_model
+from guardian.compat import str
 from guardian.shortcuts import get_perms
 from guardian.shortcuts import get_perms_for_model
-from guardian.tests.conf import TEST_SETTINGS
-from guardian.tests.conf import override_settings
+from guardian.testapp.tests.conf import TEST_SETTINGS
+from guardian.testapp.tests.conf import override_settings
+from guardian.models import Group
+from guardian.testapp.tests.conf import skipUnlessTestApp
+from guardian.testapp.models import LogEntryWithGroup as LogEntry
+
+User = get_user_model()
 
 class ContentTypeGuardedAdmin(GuardedModelAdmin):
     pass
 
+try:
+    admin.site.unregister(ContentType)
+except admin.sites.NotRegistered:
+    pass
 admin.site.register(ContentType, ContentTypeGuardedAdmin)
-
 
 @override_settings(**TEST_SETTINGS)
 class AdminTests(TestCase):
@@ -45,7 +54,7 @@ class AdminTests(TestCase):
     def test_view_manage_wrong_obj(self):
         self._login_superuser()
         url = reverse('admin:%s_%s_permissions_manage_user' % self.obj_info,
-                kwargs={'object_pk': -10, 'user_id': self.user.id})
+                kwargs={'object_pk': -10, 'user_id': self.user.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
@@ -74,20 +83,20 @@ class AdminTests(TestCase):
         self.assertEqual(response.redirect_chain[0][1], 302)
         redirect_url = reverse('admin:%s_%s_permissions_manage_user' %
             self.obj_info, kwargs={'object_pk': self.obj.pk,
-                'user_id': self.user.id})
+                'user_id': self.user.pk})
         self.assertEqual(response.request['PATH_INFO'], redirect_url)
 
     def test_view_manage_negative_user_form(self):
         self._login_superuser()
         url = reverse('admin:%s_%s_permissions' % self.obj_info,
             args=[self.obj.pk])
-        self.user = User.objects.create(username='negative_id_user', id=-2010)
+        self.user = User.objects.create(username='negative_id_user', pk=-2010)
         data = {'user': self.user.username, 'submit_manage_user': 'submit'}
         response = self.client.post(url, data, follow=True)
         self.assertEqual(len(response.redirect_chain), 1)
         self.assertEqual(response.redirect_chain[0][1], 302)
         redirect_url = reverse('admin:%s_%s_permissions_manage_user' %
-            self.obj_info, args=[self.obj.pk, self.user.id])
+            self.obj_info, args=[self.obj.pk, self.user.pk])
         self.assertEqual(response.request['PATH_INFO'], redirect_url)
 
     def test_view_manage_user_form_wrong_user(self):
@@ -123,7 +132,7 @@ class AdminTests(TestCase):
     def test_view_manage_user_wrong_perms(self):
         self._login_superuser()
         url = reverse('admin:%s_%s_permissions_manage_user' % self.obj_info,
-            args=[self.obj.pk, self.user.id])
+            args=[self.obj.pk, self.user.pk])
         perms = ['change_user'] # This is not self.obj related permission
         data = {'permissions': perms}
         response = self.client.post(url, data, follow=True)
@@ -133,7 +142,7 @@ class AdminTests(TestCase):
     def test_view_manage_user(self):
         self._login_superuser()
         url = reverse('admin:%s_%s_permissions_manage_user' % self.obj_info,
-            args=[self.obj.pk, self.user.id])
+            args=[self.obj.pk, self.user.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
@@ -274,9 +283,12 @@ class AdminTests(TestCase):
 if 'django.contrib.admin' not in settings.INSTALLED_APPS:
     # Skip admin tests if admin app is not registered
     # we simpy clean up AdminTests class ...
-    AdminTests = type('AdminTests', (TestCase,), {})
+    # TODO: use @unittest.skipUnless('django.contrib.admin' in settings.INSTALLED_APPS)
+    #       if possible (requires Python 2.7, though)
+    AdminTests = type('AdminTests', (TestCase,), {}) # pyflakes:ignore
 
 
+@skipUnlessTestApp
 class GuardedModelAdminTests(TestCase):
 
     def _get_gma(self, attrs=None, name=None, model=None):
@@ -284,7 +296,7 @@ class GuardedModelAdminTests(TestCase):
         Returns ``GuardedModelAdmin`` instance.
         """
         attrs = attrs or {}
-        name = name or 'GMA'
+        name = str(name or 'GMA')
         model = model or User
         GMA = type(name, (GuardedModelAdmin,), attrs)
         gma = GMA(model, admin.site)
@@ -326,9 +338,9 @@ class GuardedModelAdminTests(TestCase):
         jane = User.objects.create_user('jane', 'jane@example.com', 'jane')
         ctype = ContentType.objects.get_for_model(User)
         joe_entry = LogEntry.objects.create(user=joe, content_type=ctype,
-            object_id=joe.id, action_flag=1, change_message='foo')
+            object_id=joe.pk, action_flag=1, change_message='foo')
         LogEntry.objects.create(user=jane, content_type=ctype,
-            object_id=jane.id, action_flag=1, change_message='bar')
+            object_id=jane.pk, action_flag=1, change_message='bar')
         request = HttpRequest()
         request.user = joe
         qs = gma.queryset(request)
@@ -344,14 +356,68 @@ class GuardedModelAdminTests(TestCase):
         jane = User.objects.create_user('jane', 'jane@example.com', 'jane')
         ctype = ContentType.objects.get_for_model(User)
         joe_entry = LogEntry.objects.create(user=joe, content_type=ctype,
-            object_id=joe.id, action_flag=1, change_message='foo')
+            object_id=joe.pk, action_flag=1, change_message='foo')
         jane_entry = LogEntry.objects.create(user=jane, content_type=ctype,
-            object_id=jane.id, action_flag=1, change_message='bar')
+            object_id=jane.pk, action_flag=1, change_message='bar')
         request = HttpRequest()
         request.user = joe
         qs = gma.queryset(request)
         self.assertEqual(sorted([e.pk for e in qs]),
             sorted([joe_entry.pk, jane_entry.pk]))
+
+    def test_user_can_access_owned_by_group_objects_only(self):
+        attrs = {
+            'user_can_access_owned_by_group_objects_only': True,
+            'group_owned_objects_field': 'group',
+        }
+        gma = self._get_gma(attrs=attrs, model=LogEntry)
+        joe = User.objects.create_user('joe', 'joe@example.com', 'joe')
+        joe_group = Group.objects.create(name='joe-group')
+        joe.groups.add(joe_group)
+        jane = User.objects.create_user('jane', 'jane@example.com', 'jane')
+        jane_group = Group.objects.create(name='jane-group')
+        jane.groups.add(jane_group)
+        ctype = ContentType.objects.get_for_model(User)
+        LogEntry.objects.create(user=joe, content_type=ctype,
+            object_id=joe.pk, action_flag=1, change_message='foo')
+        LogEntry.objects.create(user=jane, content_type=ctype,
+            object_id=jane.pk, action_flag=1, change_message='bar')
+        joe_entry_group = LogEntry.objects.create(user=jane, content_type=ctype,
+            object_id=joe.pk, action_flag=1, change_message='foo',
+            group=joe_group)
+        request = HttpRequest()
+        request.user = joe
+        qs = gma.queryset(request)
+        self.assertEqual([e.pk for e in qs], [joe_entry_group.pk])
+
+    def test_user_can_access_owned_by_group_objects_only_unless_superuser(self):
+        attrs = {
+            'user_can_access_owned_by_group_objects_only': True,
+            'group_owned_objects_field': 'group',
+        }
+        gma = self._get_gma(attrs=attrs, model=LogEntry)
+        joe = User.objects.create_superuser('joe', 'joe@example.com', 'joe')
+        joe_group = Group.objects.create(name='joe-group')
+        joe.groups.add(joe_group)
+        jane = User.objects.create_user('jane', 'jane@example.com', 'jane')
+        jane_group = Group.objects.create(name='jane-group')
+        jane.groups.add(jane_group)
+        ctype = ContentType.objects.get_for_model(User)
+        LogEntry.objects.create(user=joe, content_type=ctype,
+            object_id=joe.pk, action_flag=1, change_message='foo')
+        LogEntry.objects.create(user=jane, content_type=ctype,
+            object_id=jane.pk, action_flag=1, change_message='bar')
+        LogEntry.objects.create(user=jane, content_type=ctype,
+            object_id=joe.pk, action_flag=1, change_message='foo',
+            group=joe_group)
+        LogEntry.objects.create(user=joe, content_type=ctype,
+            object_id=joe.pk, action_flag=1, change_message='foo',
+            group=jane_group)
+        request = HttpRequest()
+        request.user = joe
+        qs = gma.queryset(request)
+        self.assertEqual(sorted(e.pk for e in qs),
+            sorted(LogEntry.objects.values_list('pk', flat=True)))
 
 
 class GrappelliGuardedModelAdminTests(TestCase):
@@ -363,7 +429,7 @@ class GrappelliGuardedModelAdminTests(TestCase):
         Returns ``GuardedModelAdmin`` instance.
         """
         attrs = attrs or {}
-        name = name or 'GMA'
+        name = str(name or 'GMA')
         model = model or User
         GMA = type(name, (GuardedModelAdmin,), attrs)
         gma = GMA(model, admin.site)

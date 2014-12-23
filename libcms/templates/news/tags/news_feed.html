@@ -1,7 +1,7 @@
 {% for news in news_list %}
 
 <div class="news{% if news.order != '0' %} priority{% endif %}">
-    {% url news:frontend:show news.id  as news_url%}
+    {% url 'news:frontend:show' news.id  as news_url%}
 <!--
  {% if news.order == '0' %}<h5><a href="/" class="date">{{ news.create_date|date:"j E Y" }}</a></h5>{% endif %}
 -->

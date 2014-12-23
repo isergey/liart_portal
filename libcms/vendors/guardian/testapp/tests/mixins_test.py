@@ -1,16 +1,18 @@
-from django.contrib.auth.models import User, AnonymousUser
+from __future__ import unicode_literals
+
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import ImproperlyConfigured
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.views.generic import View
-from mock import Mock
 
+from guardian.compat import get_user_model
+from guardian.compat import mock
 from guardian.mixins import LoginRequiredMixin
 from guardian.mixins import PermissionRequiredMixin
-
 
 class DatabaseRemovedError(Exception):
     pass
@@ -24,6 +26,8 @@ class TestView(PermissionRequiredMixin, RemoveDatabaseView):
     permission_required = 'contenttypes.change_contenttype'
     object = None # should be set at each tests explicitly
 
+class NoObjectView(PermissionRequiredMixin, RemoveDatabaseView):
+    permission_required = 'contenttypes.change_contenttype'
 
 class TestViewMixins(TestCase):
 
@@ -31,7 +35,8 @@ class TestViewMixins(TestCase):
         self.ctype = ContentType.objects.create(name='foo', model='bar',
             app_label='fake-for-guardian-tests')
         self.factory = RequestFactory()
-        self.user = User.objects.create_user('joe', 'joe@doe.com', 'doe')
+        self.user = get_user_model().objects.create_user(
+            'joe', 'joe@doe.com', 'doe')
         self.client.login(username='joe', password='doe')
 
     def test_permission_is_checked_before_view_is_computed(self):
@@ -88,6 +93,19 @@ class TestViewMixins(TestCase):
         with self.assertRaises(DatabaseRemovedError):
             view(request)
 
+    def test_permission_required_no_object(self):
+        """
+        This test would fail if permission is checked on a view's
+        object when it has none
+        """
+
+        request = self.factory.get('/')
+        request.user = self.user
+        request.user.add_obj_perm('change_contenttype', self.ctype)
+        view = NoObjectView.as_view()
+        response = view(request)
+        self.assertEqual(response.status_code, 302)
+
     def test_permission_required_as_list(self):
         """
         This test would fail if permission is checked **after** view is
@@ -96,7 +114,7 @@ class TestViewMixins(TestCase):
 
         global TestView
         class SecretView(TestView):
-            on_permission_check_fail = Mock()
+            on_permission_check_fail = mock.Mock()
 
         request = self.factory.get('/')
         request.user = self.user
@@ -135,5 +153,5 @@ class TestViewMixins(TestCase):
         request.user = self.user
         response = view(request)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, 'secret-view')
+        self.assertEqual(response.content, b'secret-view')
 

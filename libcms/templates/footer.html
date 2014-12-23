@@ -74,18 +74,18 @@
         </div>
         <div class="grid_3">
             <ul class="footer_link">
-                <li><a href="{% url pages:frontend:show 'index' %}">{% if LANGUAGE_CODE == 'ru' %}О библиотеке{% else %}About library{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'service' %}">{% if LANGUAGE_CODE == 'ru' %}Услуги{% else %}Services{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'fonds' %}">{% if LANGUAGE_CODE == 'ru' %}Фонды{% else %}Fonds{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'catalogs' %}">{% if LANGUAGE_CODE == 'ru' %}Каталоги{% else %}Catalogs{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'index' %}">{% if LANGUAGE_CODE == 'ru' %}О библиотеке{% else %}About library{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'service' %}">{% if LANGUAGE_CODE == 'ru' %}Услуги{% else %}Services{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'fonds' %}">{% if LANGUAGE_CODE == 'ru' %}Фонды{% else %}Fonds{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'catalogs' %}">{% if LANGUAGE_CODE == 'ru' %}Каталоги{% else %}Catalogs{% endif %}</a></li>
             </ul>
         </div>
         <div class="grid_3">
             <ul class="footer_link">
-                <li><a href="{% url news:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'eresorses' %}">{% if LANGUAGE_CODE == 'ru' %}Электронные ресурсы{% else %}Electronic Resources{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'seminars' %}">{% if LANGUAGE_CODE == 'ru' %}Конференции, семинары{% else %}Conferences and Seminars{% endif %}</a></li>
-                <li><a href="{% url pages:frontend:show 'contacts' %}">{% if LANGUAGE_CODE == 'ru' %}Контакты{% else %}Contacts{% endif %}</a></li>
+                <li><a href="{% url 'news:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'eresorses' %}">{% if LANGUAGE_CODE == 'ru' %}Электронные ресурсы{% else %}Electronic Resources{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'seminars' %}">{% if LANGUAGE_CODE == 'ru' %}Конференции, семинары{% else %}Conferences and Seminars{% endif %}</a></li>
+                <li><a href="{% url 'pages:frontend:show' 'contacts' %}">{% if LANGUAGE_CODE == 'ru' %}Контакты{% else %}Contacts{% endif %}</a></li>
             </ul>
         </div>
         <div class="grid_3">

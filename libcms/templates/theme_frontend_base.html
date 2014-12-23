@@ -204,7 +204,7 @@
 -->
 </div>
   <br>        <div style="margin-left: 20px;" class="ask_librarian_category">
-            <h2><a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a></h2>
+            <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a></h2>
             <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions categories{% endif %}:</span>
             {% cache 30 questions_category_menu LANGUAGE_CODE %}
                 {% drow_categories_tree %}
