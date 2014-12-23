@@ -4,23 +4,34 @@
 {% load pagination_tag %}
 {% block title %}{{ content.title }}{% endblock %}
 {% block content %}
+
     <div class="breadcrumb">
         <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
         <span class="active">{% if LANGUAGE_CODE == 'ru' %}Новости{% else %}News{% endif %}
+		
          <a href="{% url news:frontend:rss %}"><img src="{{ STATIC_URL }}images/rss.png" alt="Подписаться" style="width: 15px;"></a>
          </span>
 
     </div>
+	
     <div class="list">
     {% for news in news_list %}
         <div class="news{% if news.order != '0' %} priority{% endif %}">
             {% url news:frontend:show news.id  as news_url%}
-            {% if news.order == '0' %}<h4><a href="{{ news_url }}?back={{ request.get_full_path }}#news_title" class="date">{{ news.create_date|date:"j E Y" }}</a></h4>{% endif %}
-            {% if news.avatar_img_name and news.show_avatar %}<a href="{{ news_url }}?back={{ request.get_full_path }}#news_title"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>{% endif %}
+  
+ {% if news.order == '0' %} <div style="color: rgb(196,192,180); font-size: 16px;">
+--------------------------------------------
+ </div> 
+ {% endif %}
+            {% if news.avatar_img_name and news.show_avatar %}<a href="{{ news_url }}"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>{% endif %}
             {{ news.teaser|safe }}
-            <a href="{{ news_url }}?back={{ request.get_full_path }}#news_title">&gt;&gt;</a>
+            {% if LANGUAGE_CODE == 'ru' %}
+            <a href="{{ news_url }}"><br>Подробнее &gt;&gt;</a> {% else %}
+            <a href="{{ news_url }}"><br>Read more &gt;&gt;</a> {% endif %}
+		{% if news.order == '0' %}<div style="color: rgb(111,111,111); font-size: 11px;">{{ news.create_date|date:"j E Y" }}</div>{% endif %} 
         </div>
     {% endfor %}
     </div>
+	
     {% pagination news_page %}
 {% endblock %}

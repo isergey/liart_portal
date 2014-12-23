@@ -6,19 +6,24 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block content %}
     <div id="news">
-        <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости 
+	 
+	     
+		<h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}
+		<img width="480px" src="http://liart.ru/media/files/afisha/happy_happy_joy_joy.jpg"><br /> <br />Новости 
          <a href="/ru/news/rss"> <img src=/static/images/rss.png alt="Подписаться" title="Подписаться на новости"  style="width: 15px;"></a>
-          {% else %}News{% endif %}</h1>
+          {% else %}<img width="480px" src="http://liart.ru/media/files/afisha/happy_ny.jpg"><br /> <br />News{% endif %}</h1>
         </h1>
         
         {% cache 60 news_feed LANGUAGE_CODE %}
-        {% news_feed  30%}
+        {% news_feed  10%}
         {% endcache %}
         <div>
-        {% if LANGUAGE_CODE == 'ru' %} <a href="/ru/pages/Archive_news">Остальные новости &gt;&gt;</a>
-         {% else %}<a href="/en/pages/Archive_news">Archive news &gt;&gt;</a> 
+          {% if LANGUAGE_CODE == 'ru' %} <a href="/ru/news">Остальные новости &gt;&gt;</a>
+         {% else %}<a href="/en/news">Archive news &gt;&gt;</a> 
             {% endif %}
-    {#               <a href="{% url news:frontend:index %}">Остальные новости &gt;&gt;</a> #}
+  {#               <a href="{% url news:frontend:index %}">Остальные новости &gt;&gt;</a> #} 
+
         </div>
     </div>
+	 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'theme_frontend_base.html' %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% block title %}{{ content.title }}{% endblock %}
+{% block title %}{{ news.title|safe }}{% endblock %}
 {% block content %}
     <div class="breadcrumb">
         <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
@@ -15,5 +15,7 @@
     <div class="content">
         {{ news.content|safe }}
     </div>
-
+<div class="yashare-auto-init" style="margin:10px auto;text-align:center;" data-yashareTitle="{{ news.title }}" data-yashareDescription="{{ news.teaser }}" data-yashareImage="http://liart.ru{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" data-yashareQuickServices="vkontakte,facebook,twitter,gplus,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="large"></div>
+<script type="text/javascript" src="//yandex.st/share/cnt.share.js"></script> 
 {% endblock %}
+

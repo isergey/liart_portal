@@ -30,5 +30,6 @@
         <h2 id="item_title"><span class="active">{{ content.title }}</span></h2>
         {{ content.content|safe }}
     </div>
-
+<div class="yashare-auto-init" style="margin:10px auto;text-align:center;" data-yashareTitle="{{ content.title }}" data-yashareImage="http://liart.ru{{ MEDIA_URL }}uploads/newinlib/itemavatars/big/{{ item.avatar_img_name }}" data-yashareQuickServices="vkontakte,facebook,twitter,gplus,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="large"></div>
+<script type="text/javascript" src="//yandex.st/share/cnt.share.js"></script> 
 {% endblock %}

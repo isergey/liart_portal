@@ -31,10 +31,10 @@
             {% url newinlib:frontend:show item.id  as item_url%}
         <!--    <h3><span class="date">{{ item.create_date|date:"j E Y" }}</span></h3> -->
             {% if item.avatar_img_name %}
-                <a href="{{ item_url }}#item_title"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt=""></a>
+                <a href="{{ item_url }}"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt=""></a>
             {% endif %}
 
-            <a href="{{ item_url }}#item_title">{{ item.item_content.title }}</a>
+            <a href="{{ item_url }}">{{ item.item_content.title }}</a>
         </div>
         <div style="clear: both;"></div>
     {% endfor %}

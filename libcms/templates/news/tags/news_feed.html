@@ -2,11 +2,24 @@
 
 <div class="news{% if news.order != '0' %} priority{% endif %}">
     {% url news:frontend:show news.id  as news_url%}
-    {% if news.order == '0' %}<h5><a href="/" class="date">{{ news.create_date|date:"j E Y" }}</a></h5>{% endif %}
-    {% if news.avatar_img_name and show_avatar %}
-        <a href="{{ news_url }}#news_title"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>
+<!--
+ {% if news.order == '0' %}<h5><a href="/" class="date">{{ news.create_date|date:"j E Y" }}</a></h5>{% endif %}
+-->
+<!--
+<h3 id="news.title"> <span class="active" {{ content.title|safe }}</span> </h3>
+ -->
+ 
+ {% if news.order == '0' %} <div style="color: rgb(196,192,180); font-size: 16px;">
+--------------------------------------------
+ </div> {% endif %}
+ 
+
+  {% if news.avatar_img_name and show_avatar %}
+        <a href="{{ news_url }}"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>
     {% endif %}
-    {{ news.teaser|safe }}
-    <a href="{{ news_url }}#news_title">&gt;&gt;</a>
+            <a href="{{ news_url }}">
+    {{ news.teaser|safe }} &gt;&gt; </a>
+    {% if news.order == '0' %}<div style="color: rgb(111,111,111); font-size: 11px;">{{ news.create_date|date:"j E Y" }}</div>{% endif %}
+ 
 </div>
 {% endfor %}

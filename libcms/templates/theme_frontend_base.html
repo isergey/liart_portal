@@ -6,11 +6,42 @@
 {% load ask_librarian_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
+
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <meta name="keywords" content="">
+
+<!--a href="http://www.library.kr.ua/cgi-bin/dcviewr.cgi">DC.Metadata</a-->
+
+<!--html lang="{{ LANGUAGE_CODE }}">
+<head-->
+
+
+
+    <meta name="keywords" content="театральная библиотека">
     <meta name="description" content="">
+	<meta name='yandex-verification' content='563d05246eccab96' />
     <title>{% block title %}Российская государственная библиотека искусств{% endblock %}</title>
+    
+<!--META NAME="DC.Format.extent" CONTENT="42 Kbytes" /-->
+<meta rel="canonical" href="liart.ru" />
+<meta name="dc.type" content="Web page" />
+<meta name="DC.Title" lang="ru" content="Российская государственная библиотека искусств" />
+<meta name="DC.Title" lang="en" content="Russian State Arts Library" />
+<meta name="DC.Subject" lang="ru" content="Москва; Россия; книги; библиотека; каталог; периодика; рукописи; живопись; литература; искусство" />
+<meta name="DC.Subject" lang="en" content="Moscow; Russia; library; book; culture; catalog; OPAC; art; paint; periodical" />
+<meta name="DC.Description" lang="ru" content="Информационные ресурсы библиотеки: электронные книги, рукописи, онлайн-каталог" />
+<meta name="DC.Publisher.CorporateName" lang="ru" content="Российская государственная библиотека искусств" />
+<meta name="DC.Date.Issued" content="2014-01-01" />
+<meta name="DC.Format" content="text/html" />
+<meta name="DC.Format" content="charset: utf-8" />
+<meta name="DC.Type" scheme="DCT" content="text" />
+<meta name="DC.Type" scheme="DCT" content="image" />
+<meta name="DC.Identifier" content="liart.ru" />
+<meta name="DC.Language" content="ru" />
+<meta name="DC.Rights" content="(c) РГБИ Москва 1996-2014" />
+<meta name='yandex-verification' content='7f506c2ef4d737ed' />
+    
+    
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/reset.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/960.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css" />
@@ -20,6 +51,7 @@
 	<link rel="shortcut icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic' type='text/css'>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	
     <!--[if lt IE 9]>
   <script src="{{ STATIC_URL }}theme/css/html5shiv.js"></script>
   <![endif]-->
@@ -53,18 +85,23 @@
     </style>
 </head>
 <body>
-<!-- <script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script> -->
+<script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script>
 <header>
     <div class="container_12">
         <div class="grid_3">
+
             {% if LANGUAGE_CODE == 'ru' %}
-                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государстванная библиотека искусств"></a>
+                <!--a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государстванная библиотека искусств"></a-->
+                <a href="http://liart.ru/ru/news"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государственная библиотека искусств"></a>
             {% else %}
                 <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_en.png" width="230" height="165"  id="logo" alt="Federal State Institution of Culture Russian State Art Library"></a>
             {% endif %}
         </div>
         <div class="grid_6" >
+            
             {% if LANGUAGE_CODE == 'ru' %} 
+<!--    <img src="/media/files/lenta3.png"  title="С Днем Победы!" style="height:70px; width: 440px;  margin-top: 0px; margin-left: 20px;">  -->
+        
                 <h5 style="margin-top: 50px;">Федеральное государственное бюджетное учреждение культуры</h5>
                 <h2>Российская государственная<br>библиотека искусств</h2>
 {#                <div " >Искусство помогать искусству</div>#}
@@ -88,7 +125,7 @@
             
             
              <div class="social">
-            <!--  <a href="http://liart.ru/ru/news/94">  <img src="{{ STATIC_URL }}theme/images/bibl2.jpg" title="Акция Библионочь 19 апреля!"  width="37" height="38" align="top" style="margin-bottom: 0px;" >  
+            <!--  <a href="http://liart.ru/ru/news/94">  <img src="{{ STATIC_URL }}theme/images/bibl2.jpg" title="Акция Библионочь 19 апреля!"  width="37" height="38" align="top" style="margin-bottom: 0px;"
     </a> -->
     {% if LANGUAGE_CODE == 'ru' %}    <a href="http://liart.ru/ru/news/10">  <img src="{{ STATIC_URL }}theme/images/wifi.png" width="37" height="38" align="top" style="margin-bottom: 0px;" >  
     </a>
@@ -104,7 +141,11 @@
 			
 			<a  href="http://art-library.livejournal.com/" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/livejournal1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'" alt="LiveJournal"></a>
 			
-			<a  href="http://vk.com/artlibrary" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'" alt="ВКонтакте"></a></div>
+			<a  href="http://vk.com/artlibrary" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'" alt="ВКонтакте"></a>
+			
+			<a  href="https://twitter.com/rulibart" target="_blank"><img style="margin-top: 5px;"  src="http://liart.ru/media/files/some/twitter1.png" onmouseover="this.src='http://liart.ru/media/files/some/twitter.png'" onmouseout="this.src='http://liart.ru/media/files/some/twitter1.png'" alt="Твиттер"></a>
+			
+			</div>
 			
             <div class="search_form"><form action="http://google.com/search" name="f" target="_blank">
                 <input type="hidden" name="q" value="site:liart.ru" />
@@ -145,20 +186,22 @@
         <div class="grid_3 alpha">
 {#     <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center"> <A target="_blank" href="/ru/pages/Archive_news/new_year_2013"> Дорогие друзья! <br>Поздравляем Вас с наступающим Новым годом и Рождеством! </A>   </div> #}
 {# <div><A target="_blank" href="http://liart.ru/ru/pages/Archive_news/new_year_2013" > <img src="/media/files/ny.jpg"  title="Поздравляем с наступающим Новым Годом и Рождеством!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div> #}
-<!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> 
-<A href="http://liart.ru/ru/news/94" > <img src="/media/files/bibl2.jpg"  title="Акция Библионочь 19 апреля!" style="width: 160px; margin-top: 15px; margin-left: 25px;"></A>
+<!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> 
 
+<!-- <A href="http://liart.ru/ru/news/94" > <img src="/media/files/bibl2.jpg"  title="Акция Библионочь 19 апреля!" style="width: 160px; margin-top: 15px; margin-left: 25px;"></A> -->
+<!-- <div><A href="http://liart.ru/ru/news/208" > <img src="/media/files/noch_isk.jpg"  title="Акция Ночь Искусств 3 ноября!" style="width: 180px; margin-top: 10px; margin-left: 18px;"></A></div> -->
+ <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> 
             {% include 'left_menu.html'%}
             <div class="clear"></div>
       <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
-
+<!--
 {% if LANGUAGE_CODE == 'ru' %}
 <A target="_blank" href="/ru/news/42"> Нам 90 лет! <br> Нас поздравляли &gt&gt; </A>
 
  {% else %} 
 <A target="_blank" href="/en/news/59"> We turned 90! <br> We received congratulations from &gt&gt; </A>
 {% endif %}
-
+-->
 </div>
   <br>        <div style="margin-left: 20px;" class="ask_librarian_category">
             <h2><a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a></h2>
@@ -166,7 +209,7 @@
             {% cache 30 questions_category_menu LANGUAGE_CODE %}
                 {% drow_categories_tree %}
             {% endcache %}
-            </div>'
+            </div>
 
 
 			
@@ -180,6 +223,9 @@
             {% endblock %}
         </div>
         <div class="grid_3">
+		<div><a href="http://mkrf.ru/proekty/list.php?SECTION_ID=47243" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" title="Год культуры в России" src="/media/files/GOD_Logo.jpg" alt="Год культуры в России" width="150" height="101" /></a></div>
+ <br>
+
             {% cache 60 newinlib.html LANGUAGE_CODE %}
                 {% include 'newinlib.html' %}
             {% endcache %}
