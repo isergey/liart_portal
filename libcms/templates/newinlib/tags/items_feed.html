@@ -10,7 +10,7 @@
 {#    <div class="announce_main_txt"><a href="{{ main_item_url }}">{{ main_item.item_content.title }}</a></div>#}
 {#{% endif %}#}
 {% for item in items_list %}
-{%  url newinlib:frontend:show item.id as item_url %}
+{% url 'newinlib:frontend:show' item.id as item_url %}
 <div class="announce">
     {% if item.avatar_img_name %}<a href="{{ item_url }}"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt="{{ item.item_content.title }}"></a>{% endif %}
         <a href="{{ item_url }}">{{ item.item_content.title }}</a>
