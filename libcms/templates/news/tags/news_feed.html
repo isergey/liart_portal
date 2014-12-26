@@ -12,7 +12,7 @@
 
         {% if news.avatar_img_name and news.show_avatar %}<a href="{{ news_url }}"><img src="{{ MEDIA_URL }}uploads/newsavatars/{{ news.avatar_img_name }}" alt=""></a>{% endif %}
 
-        <a href="{{ news_url }}">11{{ news.teaser|safe }} &gt;&gt; </a>
+        <a href="{{ news_url }}">{{ news.teaser|safe }} &gt;&gt; </a>
         {% if news.order == 0 %}
             <div style="color: rgb(111,111,111); font-size: 11px;">
                 {{ news.create_date|date:"j E Y" }}

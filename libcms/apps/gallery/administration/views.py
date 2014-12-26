@@ -105,6 +105,8 @@ def album_upload(request, id):
         user = request.user
     elif request.method == 'POST':
         user = user_from_session_key(request.POST.get('sessionid', 0))
+    else:
+        user = request.user
 
     if not user.is_authenticated():
         return HttpResponseForbidden()
@@ -120,9 +122,7 @@ def album_upload(request, id):
             album_image = form.save(commit=False)
             album_image.album = album
             album_image.order = order
-            print 'ok'
             album_image.save()
-            print 'ok1'
             return HttpResponse('True')
     else:
         form = AlbumImageForm()
