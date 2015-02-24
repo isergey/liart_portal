@@ -4,7 +4,6 @@
 {% load news_tags %}
 {% load polls_tags %}
 {% load ask_librarian_tags %}
-{% load events_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 
@@ -86,14 +85,14 @@
     </style>
 </head>
 <body>
-<script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script>
+<!--script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script-->
 <header>
     <div class="container_12">
         <div class="grid_3">
 
             {% if LANGUAGE_CODE == 'ru' %}
                 <!--a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государстванная библиотека искусств"></a-->
-                <a href="http://liart.ru/ru/news"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государственная библиотека искусств"></a>
+                <a href="http://liart.ru/ru/"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государственная библиотека искусств"></a>
             {% else %}
                 <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_en.png" width="230" height="165"  id="logo" alt="Federal State Institution of Culture Russian State Art Library"></a>
             {% endif %}
@@ -155,7 +154,7 @@
             </FORM>
             </div>
         <div class="search_catalog">
-                <a href="http://liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
+                <a href="http://opac.liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
             </div>
             
         
@@ -192,6 +191,10 @@
 <!-- <A href="http://liart.ru/ru/news/94" > <img src="/media/files/bibl2.jpg"  title="Акция Библионочь 19 апреля!" style="width: 160px; margin-top: 15px; margin-left: 25px;"></A> -->
 <!-- <div><A href="http://liart.ru/ru/news/208" > <img src="/media/files/noch_isk.jpg"  title="Акция Ночь Искусств 3 ноября!" style="width: 180px; margin-top: 10px; margin-left: 18px;"></A></div> -->
  <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> 
+<div style="float:left; margin-top:20px; margin-left:18px;">
+<img style="display: inline-block;" title="Победа 70 лет" src="/media/files/afisha/gm.jpg" alt="Победа 70 лет" height="130"  />  
+<a target="_blank" href="https://godliteratury.ru/informaciy-orgkomiteta#about"><img style="display: inline-block;" title="Год литературы" src="/media/files/afisha/gl.jpg" alt="Год литературы" height="130"  /></a>
+</div>
             {% include 'left_menu.html'%}
             <div class="clear"></div>
       <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
@@ -224,9 +227,9 @@
             {% endblock %}
         </div>
         <div class="grid_3">
-		<div><a href="http://mkrf.ru/proekty/list.php?SECTION_ID=47243" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" title="Год культуры в России" src="/media/files/GOD_Logo.jpg" alt="Год культуры в России" width="150" height="101" /></a></div>
- <br>
-
+		
+<div id="wdg_box_skbr2" style="display:inline-block;text-align:center;position:relative;width:210px;height:85px;background:#f6f6f6;border:solid 1px #ddd;border-radius:9px"><form name="wdg_box_skbr2_form" id="wdg_box_skbr2_form" method="POST" accept-charset="UTF-8" action="//skbr2.ru/skbr/find.php" target="_blank" style="display:inline-block;text-align:center;position:relative;margin:0px;padding:0px;"><input type="hidden" name="from" value="http://skbr2.ru"/><input type="hidden" name="iddb" value="1"/><input placeholder="Искать в СКБР..." type="text" name="FT" id="FT" style="display:inline-block;border:solid 1px #ddd;background:#fff;font: italic normal 10pt/10pt Arial, sans-serif;height:28px;width:130px;position:relative;top:10px;left:0px; margin:0px;padding:0px;color:#999;text-align:center" maxLength="2000"/><input type="image" name="wdg_box_skbr2_button" id="wdg_box_skbr2_button" src="//skbr2.ru/skbr/skbr/img/wlogo.gif" alt="" title="Искать в СКБР" style="display:inline-block;position:relative;top:15px;left:0px;border:solid 1px #ddd;"/></form></div>
+<br /><br />
             {% cache 60 newinlib.html LANGUAGE_CODE %}
                 {% include 'newinlib.html' %}
             {% endcache %}
