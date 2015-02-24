@@ -210,31 +210,40 @@
                 </FORM>
             </div>
             <div class="search_catalog">
-                <a href="http://opac.liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ
-                    КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
+                <a href="http://opac.liart.ru/opacg/nog.htm">
+                    {% if LANGUAGE_CODE == 'ru' %}
+                    ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ
+                {% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}
+                </a>
+                <a href="http://liart.ru/opacg/zakaz.htm" target="_blank">
+                    {% if LANGUAGE_CODE == 'ru' %}
+                        ЗАКАЗАТЬ ДОКУМЕНТ ONLINE
+                    {% else %}
+                        Online ordering of editions!
+                    {% endif %}</a>
             </div>
 
-            <div>
-
-                {% if LANGUAGE_CODE == 'ru' %}
-                    <p style="text-align: center; margin-left:44px; margin-top:3px;">
-                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
-                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"
-                                   value="Заказать документ online!"/>
-                        </a>
-                    </p>
-
-                {% else %}
-                    <p style="text-align: center; margin-left:44px; margin-top:3px;">
-                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
-                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"
-                                   value="Online ordering of editions!"/>
-                        </a>
-                    </p>
-
-                {% endif %}
-
-            </div>
+{#            <div>#}
+{##}
+{#                {% if LANGUAGE_CODE == 'ru' %}#}
+{#                    <p style="text-align: center; margin-left:44px; margin-top:3px;">#}
+{#                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">#}
+{#                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"#}
+{#                                   value="Заказать документ online!"/>#}
+{#                        </a>#}
+{#                    </p>#}
+{##}
+{#                {% else %}#}
+{#                    <p style="text-align: center; margin-left:44px; margin-top:3px;">#}
+{#                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">#}
+{#                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"#}
+{#                                   value="Online ordering of editions!"/>#}
+{#                        </a>#}
+{#                    </p>#}
+{##}
+{#                {% endif %}#}
+{##}
+{#            </div>#}
         </div>
     </div>
 </header>
