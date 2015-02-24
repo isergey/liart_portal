@@ -29,11 +29,14 @@ def events_calendar(context, y=0, m=0):
     weeks = calendar.monthcalendar(year, month)
     cache_key = 'events_y_m' + str(year) + str(month) + 'active=1'
     events = cache.get(cache_key, [])
+
     if not events:
-        events = list(Event.objects.filter(start_date__year=year, start_date__month=month, active=True))
+        first_month_day, last_month_day = calendar.monthrange(year, month)
+        from_date = date(year=year, month=month, day=first_month_day)
+        to_date = date(year=year, month=month, day=last_month_day)
+        events = list(Event.objects.filter(start_date__gte=from_date, start_date__lte=to_date, active=True))
         cache.set(cache_key, events)
 
-    events = Event.objects.filter(start_date__year=year, start_date__month=month, active=True)
     calendar_of_events = []
     for week in weeks:
         week_events = []

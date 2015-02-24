@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import translation
@@ -25,7 +26,11 @@ def index(request):
         })
 
 def filer_by_date(request, day='', month='', year=''):
-    events_page = get_page(request, Event.objects.filter(active=True, start_date__year=year, start_date__month=month, start_date__day=day).order_by('-create_date'))
+
+    start_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=0, minute=0, second=0)
+    end_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=23, minute=29, second=59)
+    events_page = get_page(request, Event.objects.filter(active=True, start_date__gte=start_date, start_date__lte=end_date).order_by('-create_date'))
+
     event_contents = list(EventContent.objects.filter(event__in=list(events_page.object_list), lang=get_language()[:2]))
 
     t_dict = {}
@@ -37,6 +42,7 @@ def filer_by_date(request, day='', month='', year=''):
     return render(request, 'events/frontend/list.html', {
         'events_list': events_page.object_list,
         'events_page': events_page,
+        'start_date': start_date
 
         })
 

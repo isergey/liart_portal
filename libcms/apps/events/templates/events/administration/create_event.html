@@ -10,16 +10,18 @@
 
 {% block action_content %}
 
-    <script type="text/javascript" src="{% url 'jsi18n' %}"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/calendar.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/widgets.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />
+<script type="text/javascript">window.__admin_media_prefix__ = "{{ STATIC_URL }}admin/";</script>
+<script type="text/javascript">window.__admin_utc_offset__ = "10800";</script>
 
-    <script type="text/javascript">
-        window.__admin_media_prefix__ = "{{ STATIC_URL }}admin/";
-    </script>
+<script type="text/javascript" src="/ru/radmin/jsi18n/"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/actions.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/calendar.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/admin/DateTimeShortcuts.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}admin/js/inlines.js"></script>
     <style>
     form input[type=text], textarea{
         width: 95%;

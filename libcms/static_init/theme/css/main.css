@@ -316,3 +316,18 @@ margin-left: 12px;
   font-weight:bold;
   text-decoration:none;
 }
+
+.events-calendar {
+    margin-left: 20px;
+}
+
+.events-calendar table {
+    width: 100%;
+}
+
+.events-calendar table td, .events-calendar table th  {
+        text-align: center;
+}
+.events-calendar .today {
+    font-weight: bold;
+}
