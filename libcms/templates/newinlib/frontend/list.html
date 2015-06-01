@@ -19,22 +19,22 @@
         }
     </style>
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
         <span class="active">{% if LANGUAGE_CODE == 'ru' %}Из новых поступлений{% else %}From new arrivals{% endif %}
-          <a href="{% url newinlib:frontend:rss %}"><img src="{{ STATIC_URL }}images/rss.png" alt="{% if LANGUAGE_CODE == 'ru' %}Подписка{% else %}Subscribe{% endif %}" style="width: 15px;"></a>
+          <a href="{% url 'newinlib:frontend:rss' %}"><img src="{{ STATIC_URL }}images/rss.png" alt="{% if LANGUAGE_CODE == 'ru' %}Подписка{% else %}Subscribe{% endif %}" style="width: 15px;"></a>
          </span>
 
     </div>
     <div class="list">
     {% for item in items_list %}
         <div class="item">
-            {% url newinlib:frontend:show item.id  as item_url%}
+            {% url 'newinlib:frontend:show' item.id  as item_url%}
         <!--    <h3><span class="date">{{ item.create_date|date:"j E Y" }}</span></h3> -->
             {% if item.avatar_img_name %}
-                <a href="{{ item_url }}#item_title"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt=""></a>
+                <a href="{{ item_url }}"><img src="{{ MEDIA_URL }}uploads/newinlib/itemavatars/{{ item.avatar_img_name }}" alt=""></a>
             {% endif %}
 
-            <a href="{{ item_url }}#item_title">{{ item.item_content.title }}</a>
+            <a href="{{ item_url }}">{{ item.item_content.title }}</a>
         </div>
         <div style="clear: both;"></div>
     {% endfor %}

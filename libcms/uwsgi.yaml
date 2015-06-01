@@ -1,0 +1,17 @@
+uwsgi:
+	socket: 127.0.0.1:3032
+	plugins: python
+	pythonpath: /home/liart.ru/liart_portal/libcms/libcms
+    	pythonpath: /home/liart.ru/liart_portal/libcms
+	module: wsgi
+	processes: 4
+	max-requests: 10
+	buffer-size: 32768
+	harakiri: 30
+	reload-mercy: 8
+	master: 1
+	no-orphans: 1
+	disable-logging: 0
+	#uid: liart.ru
+	#daemonize: /var/log/liart.ru.log
+

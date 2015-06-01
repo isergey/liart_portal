@@ -15,7 +15,7 @@
         width: 99%;
     }
     </style>
-    {% url newinlib:frontend:show item_form.instance.id as item_url %}
+    {% url 'newinlib:frontend:show' item_form.instance.id as item_url %}
     Запись доступна по адресу: <a href="{{ item_url }}" target="_blank">{{ item_url }}</a>
     <hr/>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">{% csrf_token %}

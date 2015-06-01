@@ -4,27 +4,63 @@
 {% load news_tags %}
 {% load polls_tags %}
 {% load ask_librarian_tags %}
+{% load events_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
+
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <meta name="keywords" content="">
+
+    <!--a href="http://www.library.kr.ua/cgi-bin/dcviewr.cgi">DC.Metadata</a-->
+
+    <!--html lang="{{ LANGUAGE_CODE }}">
+<head-->
+
+
+    <meta name="keywords" content="театральная библиотека">
     <meta name="description" content="">
+    <meta name='yandex-verification' content='563d05246eccab96'/>
     <title>{% block title %}Российская государственная библиотека искусств{% endblock %}</title>
-    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/reset.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/960.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css" />
+
+    <!--META NAME="DC.Format.extent" CONTENT="42 Kbytes" /-->
+    <meta rel="canonical" href="liart.ru"/>
+    <meta name="dc.type" content="Web page"/>
+    <meta name="DC.Title" lang="ru" content="Российская государственная библиотека искусств"/>
+    <meta name="DC.Title" lang="en" content="Russian State Arts Library"/>
+    <meta name="DC.Subject" lang="ru"
+          content="Москва; Россия; книги; библиотека; каталог; периодика; рукописи; живопись; литература; искусство"/>
+    <meta name="DC.Subject" lang="en"
+          content="Moscow; Russia; library; book; culture; catalog; OPAC; art; paint; periodical"/>
+    <meta name="DC.Description" lang="ru"
+          content="Информационные ресурсы библиотеки: электронные книги, рукописи, онлайн-каталог"/>
+    <meta name="DC.Publisher.CorporateName" lang="ru" content="Российская государственная библиотека искусств"/>
+    <meta name="DC.Date.Issued" content="2014-01-01"/>
+    <meta name="DC.Format" content="text/html"/>
+    <meta name="DC.Format" content="charset: utf-8"/>
+    <meta name="DC.Type" scheme="DCT" content="text"/>
+    <meta name="DC.Type" scheme="DCT" content="image"/>
+    <meta name="DC.Identifier" content="liart.ru"/>
+    <meta name="DC.Language" content="ru"/>
+    <meta name="DC.Rights" content="(c) РГБИ Москва 1996-2014"/>
+    <meta name='yandex-verification' content='7f506c2ef4d737ed'/>
+
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/reset.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/960.css"/>
+    <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdown.css" media="screen"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdownv.css" media="screen"/>
-	<link rel="icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
-	<link rel="shortcut icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
-    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic' type='text/css'>
+    <link rel="icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic'
+          type='text/css'>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
     <!--[if lt IE 9]>
   <script src="{{ STATIC_URL }}theme/css/html5shiv.js"></script>
   <![endif]-->
     <style>
-        div.breadcrumb{
+        div.breadcrumb {
             margin-bottom: 20px;
         }
 
@@ -32,110 +68,182 @@
             list-style: none;
             margin: 0;
         }
-        div.pagination ul li{
+
+        div.pagination ul li {
             float: left;
         }
-        .ask_librarian_category ul{
+
+        .ask_librarian_category ul {
             list-style: none;
             margin: 0;
             padding: 0;
         }
-        .ask_librarian_category>ul>li{
+
+        .ask_librarian_category > ul > li {
             margin: 0;
             padding: 0;
         }
-        .news.priority{
+
+        .news.priority {
             border: 5px solid #e0dcd0;
-            float: left;
-            margin-right: 15px;
+        {#            float: left;#} margin-right: 15px;
             margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-<!-- <script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script> -->
+<!--script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script-->
 <header>
     <div class="container_12">
         <div class="grid_3">
+
             {% if LANGUAGE_CODE == 'ru' %}
-                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государстванная библиотека искусств"></a>
+                <!--a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220" height="164" id="logo" alt="Российская государстванная библиотека искусств"></a-->
+                <a href="http://liart.ru/ru/">
+                    <img src="{{ STATIC_URL }}theme/images/logo_ru.png" width="220"
+                         height="164" id="logo"
+                         alt="Российская государственная библиотека искусств">
+                </a>
             {% else %}
-                <a href="/{{ LANGUAGE_CODE }}"><img src="{{ STATIC_URL }}theme/images/logo_en.png" width="230" height="165"  id="logo" alt="Federal State Institution of Culture Russian State Art Library"></a>
+                <a href="/{{ LANGUAGE_CODE }}">
+                    <img src="{{ STATIC_URL }}theme/images/logo_en.png" width="230"
+                         height="165" id="logo"
+                         alt="Federal State Institution of Culture Russian State Art Library">
+                </a>
             {% endif %}
         </div>
-        <div class="grid_6" >
-            {% if LANGUAGE_CODE == 'ru' %} 
+        <div class="grid_6">
+
+            {% if LANGUAGE_CODE == 'ru' %}
+                <!--    <img src="/media/files/lenta3.png"  title="С Днем Победы!" style="height:70px; width: 440px;  margin-top: 0px; margin-left: 20px;">  -->
+
                 <h5 style="margin-top: 50px;">Федеральное государственное бюджетное учреждение культуры</h5>
                 <h2>Российская государственная<br>библиотека искусств</h2>
-{#                <div " >Искусство помогать искусству</div>#}
-        <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px" >"Искусство помогать искусству"</div>
+                {#                <div " >Искусство помогать искусству</div>#}
+                <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px">
+                    "Искусство помогать искусству"
+                </div>
             {% else %}
                 <h5>Federal State Institution of Culture</h5>
                 <h2>Russian State <br>Art Library</h2>
-                <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px" >"The art to help arts"</div>
-        
+                <div style="font-family: 'PT Serif', serif; font-size: 20px;color: #ffffff;  margin-left: 15px; margin-top: 10px">
+                    "The art to help arts"
+                </div>
+
             {% endif %}
         </div>
-        <div class="grid_3 search"> <!--style="width:235px; height:142px; position:relative; display:inline; margin-left:10px; margin-right:10px;" -->
-        {#    <span class="lang">RU</span>#}
-           {% if LANGUAGE_CODE == 'ru' %} 
-              <span class="lang">Рус</span> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a> 
-            {% elif LANGUAGE_CODE == 'en' %} 
-                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <span class="lang">Eng</span> 
-           {% else %} #}
-                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a> 
-            {% endif %} 
-            
-            
-             <div class="social">
-            <!--  <a href="http://liart.ru/ru/news/94">  <img src="{{ STATIC_URL }}theme/images/bibl2.jpg" title="Акция Библионочь 19 апреля!"  width="37" height="38" align="top" style="margin-bottom: 0px;" >  
+        <div class="grid_3 search">
+            <!--style="width:235px; height:142px; position:relative; display:inline; margin-left:10px; margin-right:10px;" -->
+            {#    <span class="lang">RU</span>#}
+            {% if LANGUAGE_CODE == 'ru' %}
+                <span class="lang">Рус</span> <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
+            {% elif LANGUAGE_CODE == 'en' %}
+                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a> <span class="lang">Eng</span>
+            {% else %} #}
+                <a href="/ru{{ request.path|rmlocale }}" class="lang">Рус</a>
+                <a href="/en{{ request.path|rmlocale }}" class="lang">Eng</a>
+            {% endif %}
+
+
+            <div class="social">
+                <!--  <a href="http://liart.ru/ru/news/94">  <img src="{{ STATIC_URL }}theme/images/bibl2.jpg" title="Акция Библионочь 19 апреля!"  width="37" height="38" align="top" style="margin-bottom: 0px;"
     </a> -->
-    {% if LANGUAGE_CODE == 'ru' %}    <a href="http://liart.ru/ru/news/10">  <img src="{{ STATIC_URL }}theme/images/wifi.png" width="37" height="38" align="top" style="margin-bottom: 0px;" >  
-    </a>
-    {% else %}
-     <a href="http://liart.ru/en/news/36">  <img src="{{ STATIC_URL }}theme/images/wifi.png" width="37" height="38" align="top" style="margin-bottom: 0px;" >  
-    </a>
-    {% endif %}
-    
-            <a   target="_blank" href="http://www.tripadvisor.ru/Attraction_Review-g298484-d2552862-Reviews-Russian_State_Library_of_Arts-Moscow_Central_Russia.html">
-             <img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/trip32ser.png " onmouseover="this.src='{{ STATIC_URL }}theme/images/trip32.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/trip32ser.png'" alt="Российская Государственная Библиотека Искусств"></a>
-			 
-			<a  href="http://www.facebook.com/liart.ru" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/facebook1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/facebook2.png'"  onmouseout="this.src='{{ STATIC_URL }}theme/images/facebook1.png'" alt="Facebook"></a>
-			
-			<a  href="http://art-library.livejournal.com/" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/livejournal1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'" alt="LiveJournal"></a>
-			
-			<a  href="http://vk.com/artlibrary" target="_blank"><img style="margin-top: 5px;"  src="{{ STATIC_URL }}theme/images/vkontakte1.png" onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'" onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'" alt="ВКонтакте"></a></div>
-			
-            <div class="search_form"><form action="http://google.com/search" name="f" target="_blank">
-                <input type="hidden" name="q" value="site:liart.ru" />
-                <input name="q" type="search" placeholder="{% if LANGUAGE_CODE == 'ru' %}Поиск по сайту{% else %}Search on site{% endif %}">
-                <input type="hidden" name=hl value="ru">
-            </FORM>
-            </div>
-        <div class="search_catalog">
-                <a href="http://liart.ru/opacg/nog.htm">{% if LANGUAGE_CODE == 'ru' %} ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ{% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}</a>
-            </div>
-            
-        
-              <div>
-			  
-		{% if LANGUAGE_CODE == 'ru' %}
-<p style="text-align: center; margin-left:44px; margin-top:3px;">
-<a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
- <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input" value="Заказать документ online!" />
-</a>
- </p>
+                {% if LANGUAGE_CODE == 'ru' %}
+                    <a href="http://liart.ru/ru/news/10">
+                        <img src="{{ STATIC_URL }}theme/images/wifi.png" width="37"
+                             height="38" align="top" style="margin-bottom: 0px;">
+                    </a>
+                {% else %}
+                    <a href="http://liart.ru/en/news/36">
+                        <img src="{{ STATIC_URL }}theme/images/wifi.png" width="37"
+                             height="38" align="top" style="margin-bottom: 0px;">
+                    </a>
+                {% endif %}
 
- {% else %} 
- <p style="text-align: center; margin-left:44px; margin-top:3px;">
-<a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
- <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input" value="Online ordering of editions!" />
-</a>
- </p>
+                <a target="_blank"
+                   href="http://www.tripadvisor.ru/Attraction_Review-g298484-d2552862-Reviews-Russian_State_Library_of_Arts-Moscow_Central_Russia.html">
+                    <img style="margin-top: 5px;" src="{{ STATIC_URL }}theme/images/trip32ser.png "
+                         onmouseover="this.src='{{ STATIC_URL }}theme/images/trip32.png'"
+                         onmouseout="this.src='{{ STATIC_URL }}theme/images/trip32ser.png'"
+                         alt="Российская Государственная Библиотека Искусств"></a>
 
-{% endif %}  
- 
-</div>
+                <a href="http://www.facebook.com/liart.ru" target="_blank">
+                    <img style="margin-top: 5px;"
+                         src="{{ STATIC_URL }}theme/images/facebook1.png"
+                         onmouseover="this.src='{{ STATIC_URL }}theme/images/facebook2.png'"
+                         onmouseout="this.src='{{ STATIC_URL }}theme/images/facebook1.png'"
+                         alt="Facebook">
+                </a>
+
+                <a href="http://art-library.livejournal.com/" target="_blank">
+                    <img style="margin-top: 5px;"
+                         src="{{ STATIC_URL }}theme/images/livejournal1.png"
+                         onmouseover="this.src='{{ STATIC_URL }}theme/images/livejournal2.png'"
+                         onmouseout="this.src='{{ STATIC_URL }}theme/images/livejournal1.png'"
+                         alt="LiveJournal">
+                </a>
+
+                <a href="http://vk.com/artlibrary" target="_blank">
+                    <img style="margin-top: 5px;"
+                         src="{{ STATIC_URL }}theme/images/vkontakte1.png"
+                         onmouseover="this.src='{{ STATIC_URL }}theme/images/vkontakte2.png'"
+                         onmouseout="this.src='{{ STATIC_URL }}theme/images/vkontakte1.png'"
+                         alt="ВКонтакте">
+                </a>
+
+                <a href="https://twitter.com/rulibart" target="_blank">
+                    <img style="margin-top: 5px;"
+                         src="http://liart.ru/media/files/some/twitter1.png"
+                         onmouseover="this.src='http://liart.ru/media/files/some/twitter.png'"
+                         onmouseout="this.src='http://liart.ru/media/files/some/twitter1.png'"
+                         alt="Твиттер">
+                </a>
+
+            </div>
+
+            <div class="search_form">
+                <form action="http://google.ru/search" name="f" target="_blank">
+                    <input type="hidden" name="q" value="site:liart.ru"/>
+                    <input name="q" type="search"
+                           placeholder="{% if LANGUAGE_CODE == 'ru' %}Поиск по сайту{% else %}Search on site{% endif %}">
+                    <input type="hidden" name=hl value="ru">
+                </FORM>
+            </div>
+            <div class="search_catalog">
+                <a href="http://opac.liart.ru/opacg/nog.htm">
+                    {% if LANGUAGE_CODE == 'ru' %}
+                    ПОИСК В ЭЛЕКТРОННОМ КАТАЛОГЕ
+                {% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}
+                </a>
+                <a style="font-size:10px;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
+                    {% if LANGUAGE_CODE == 'ru' %}
+        ЗАКАЗАТЬ ДОКУМЕНТ В ЧИТАЛЬНЫЙ ЗАЛ
+                    {% else %}
+                        Online ordering of editions!
+                    {% endif %}</a>
+            </div>
+
+{#            <div>#}
+{##}
+{#                {% if LANGUAGE_CODE == 'ru' %}#}
+{#                    <p style="text-align: center; margin-left:44px; margin-top:3px;">#}
+{#                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">#}
+{#                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"#}
+{#                                   value="Заказать документ online!"/>#}
+{#                        </a>#}
+{#                    </p>#}
+{##}
+{#                {% else %}#}
+{#                    <p style="text-align: center; margin-left:44px; margin-top:3px;">#}
+{#                        <a style="text-decoration: none;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">#}
+{#                            <input type="button" onclick="location.href('http://liart.ru/opacg/zakaz.htm')" name="input"#}
+{#                                   value="Online ordering of editions!"/>#}
+{#                        </a>#}
+{#                    </p>#}
+{##}
+{#                {% endif %}#}
+{##}
+{#            </div>#}
         </div>
     </div>
 </header>
@@ -143,43 +251,76 @@
 <section>
     <div class="container_12">
         <div class="grid_3 alpha">
-{#     <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center"> <A target="_blank" href="/ru/pages/Archive_news/new_year_2013"> Дорогие друзья! <br>Поздравляем Вас с наступающим Новым годом и Рождеством! </A>   </div> #}
-{# <div><A target="_blank" href="http://liart.ru/ru/pages/Archive_news/new_year_2013" > <img src="/media/files/ny.jpg"  title="Поздравляем с наступающим Новым Годом и Рождеством!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div> #}
-<!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div--> 
-<A href="http://liart.ru/ru/news/94" > <img src="/media/files/bibl2.jpg"  title="Акция Библионочь 19 апреля!" style="width: 160px; margin-top: 15px; margin-left: 25px;"></A>
+            {#     <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center"> <A target="_blank" href="/ru/pages/Archive_news/new_year_2013"> Дорогие друзья! <br>Поздравляем Вас с наступающим Новым годом и Рождеством! </A>   </div> #}
+            {# <div><A target="_blank" href="http://liart.ru/ru/pages/Archive_news/new_year_2013" > <img src="/media/files/ny.jpg"  title="Поздравляем с наступающим Новым Годом и Рождеством!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div> #}
+            <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div-->
+            <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div-->
 
-            {% include 'left_menu.html'%}
+            <!-- <A href="http://liart.ru/ru/news/94" > <img src="/media/files/bibl2.jpg"  title="Акция Библионочь 19 апреля!" style="width: 160px; margin-top: 15px; margin-left: 25px;"></A> -->
+            <!-- <div><A href="http://liart.ru/ru/news/208" > <img src="/media/files/noch_isk.jpg"  title="Акция Ночь Искусств 3 ноября!" style="width: 180px; margin-top: 10px; margin-left: 18px;"></A></div> -->
+            <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div-->
+            <div style="float:left; margin-top:20px; margin-left:18px;">
+					<img style="display: inline-block;" title="Победа 70 лет" src="/media/files/afisha/gm.jpg"
+						alt="Победа 70 лет" height="130"/>
+                <a target="_blank" href="https://godliteratury.ru/informaciy-orgkomiteta#about">
+                    <img style="display: inline-block;" title="Год литературы" src="/media/files/afisha/gl.jpg"
+                         alt="Год литературы" height="130"/>
+                </a>
+            </div>
+            {% include 'left_menu.html' %}
             <div class="clear"></div>
-      <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
-
+            <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
+                <!--
 {% if LANGUAGE_CODE == 'ru' %}
 <A target="_blank" href="/ru/news/42"> Нам 90 лет! <br> Нас поздравляли &gt&gt; </A>
 
  {% else %} 
 <A target="_blank" href="/en/news/59"> We turned 90! <br> We received congratulations from &gt&gt; </A>
 {% endif %}
+-->
+            </div>
+            <div style="margin: 20px 0 0 20px;" class="ask_librarian_category">
+                <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси
+                    библиографа{% else %}Ask librarian{% endif %}</a>
+                </h2>
+                <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions
+                    categories{% endif %}:</span>
+                {% cache 30 questions_category_menu LANGUAGE_CODE %}
+                    {% drow_categories_tree %}
+                {% endcache %}
+            </div>
+            <div style="margin-top: 30px;" class="events-calendar">
+                <h2><a href="{% url 'events:frontend:index' %}">Календарь событий</a></h2>
+                {% events_calendar %}
+            </div>
 
-</div>
-  <br>        <div style="margin-left: 20px;" class="ask_librarian_category">
-            <h2><a href="{% url ask_librarian:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Спроси библиографа{% else %}Ask librarian{% endif %}</a></h2>
-            <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions categories{% endif %}:</span>
-            {% cache 30 questions_category_menu LANGUAGE_CODE %}
-                {% drow_categories_tree %}
-            {% endcache %}
-            </div>'
 
-
-			
             <div class="clear"></div>
             {% poll_form %}
         </div>
         <div class="grid_6">
-        
+
             {% block content %}
 
             {% endblock %}
         </div>
         <div class="grid_3">
+
+            <div id="wdg_box_skbr2"
+                 style="display:inline-block;text-align:center;position:relative;width:210px;height:85px;background:#f6f6f6;border:solid 1px #ddd;border-radius:9px">
+                <form name="wdg_box_skbr2_form" id="wdg_box_skbr2_form" method="POST" accept-charset="UTF-8"
+                      action="//skbr2.ru/skbr/find.php" target="_blank"
+                      style="display:inline-block;text-align:center;position:relative;margin:0px;padding:0px;"><input
+                        type="hidden" name="from" value="http://skbr2.ru"/><input type="hidden" name="iddb"
+                                                                                  value="1"/><input
+                        placeholder="Искать в СКБР..." type="text" name="FT" id="FT"
+                        style="display:inline-block;border:solid 1px #ddd;background:#fff;font: italic normal 10pt/10pt Arial, sans-serif;height:28px;width:130px;position:relative;top:10px;left:0px; margin:0px;padding:0px;color:#999;text-align:center"
+                        maxLength="2000"/><input type="image" name="wdg_box_skbr2_button" id="wdg_box_skbr2_button"
+                                                 src="//skbr2.ru/skbr/skbr/img/wlogo.gif" alt="" title="Искать в СКБР"
+                                                 style="display:inline-block;position:relative;top:15px;left:0px;border:solid 1px #ddd;"/>
+                </form>
+            </div>
+            <br/><br/>
             {% cache 60 newinlib.html LANGUAGE_CODE %}
                 {% include 'newinlib.html' %}
             {% endcache %}

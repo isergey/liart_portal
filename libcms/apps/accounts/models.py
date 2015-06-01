@@ -8,7 +8,7 @@ class Permissions(User):
     Класс для создания прав достпа
     """
     class Meta:
-        proxy = True
+        abstract = True
         permissions = (
             ("view_users", "Can view users list"),
             ("view_groups", "Can view groups list"),

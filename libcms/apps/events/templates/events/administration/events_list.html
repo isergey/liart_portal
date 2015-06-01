@@ -1,0 +1,65 @@
+{% extends 'events/administration/index.html' %}
+{% load active_link %}
+{% load pagination_tag %}
+{% load breadcrumbs %}
+{% load mptt_tags %}
+{% load add_get_tag %}
+{% block breadcrumb %}
+    {% breadcrumb "События" events:administration:index %}
+    {% breadcrumb "Список" %}
+{% endblock %}
+
+{% block action_content %}
+{#    <div class="well well-sm">#}
+{#        <form style="margin: 0" method="get">#}
+{#            <span>Сортировать по</span>#}
+{#            <select name="sort">#}
+{#                <option value="">По умолчанию</option>#}
+{#                <option value="start_date">По дате начала</option>#}
+{#                <option value="end_date">По дате окончания</option>#}
+{#            </select>#}
+{##}
+{#            <span>Порядок сортировки</span>#}
+{#            <select name="order">#}
+{#                <option value="">прямой</option>#}
+{#                <option value="">обратный</option>#}
+{#            </select>#}
+{##}
+{#            <label style="display: inline"><input type="checkbox"/> активные</label>#}
+{#            <label style="display: inline"><input type="checkbox"/> не завершенные</label>#}
+{#            <a href="#">сбросить фильтр</a>#}
+{#        </form>#}
+{#    </div>#}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Событие</th>
+            <th class="span2">Дата начала</th>
+            <th class="span2">Дата окончания</th>
+            <th class="span2">Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events_list %}
+
+            <tr>
+                <td><a href="{% url 'events:administration:edit_event' event.id %}">{{ event.event_content.title }}</a>
+                </td>
+                <td>{{ event.start_date }}</td>
+                <td>{{ event.end_date }}</td>
+                <td><a class="delete btn btn-danger" href="{% url 'events:administration:delete_event' event.id %}"><i
+                        class="icon-trash icon-white" title="Удалить"></i></a></td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+    {% admin_pagination events_page %}
+    <script type="text/javascript">
+        $("a.delete").click(function () {
+            if (!confirm('Вы уверены, что хотите удалить?')) return false;
+        });
+    </script>
+{% endblock %}
+
+

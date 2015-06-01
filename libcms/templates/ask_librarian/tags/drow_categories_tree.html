@@ -2,7 +2,7 @@
 {% load ask_librarian_tags %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-{% url ask_librarian:frontend:index as ask_librarian_index %}
+{% url 'ask_librarian:frontend:index' as ask_librarian_index %}
 <ul class="items">
     {% if nodes %}
         {% recursetree nodes %}

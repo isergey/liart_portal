@@ -15,6 +15,7 @@ class PollForm(forms.ModelForm):
 
     class Meta:
         model = Poll
+        exclude = []
 
     def clean_end_poll_date(self):
         end_poll_date = self.cleaned_data['end_poll_date']
@@ -40,7 +41,7 @@ class ChoiceForm(forms.ModelForm):
 #    sort = forms.IntegerField(label=u"Сортировка", initial=0)
     class Meta:
         model = Choice
-        exclude = ('poll')
+        exclude = ('poll',)
     def clean_votes(self):
         votes = self.cleaned_data['votes']
         if votes < 0:

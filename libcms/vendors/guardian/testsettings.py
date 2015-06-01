@@ -1,8 +1,15 @@
 import os
+import random
+import string
+import django
 
 DEBUG = False
 
 ANONYMOUS_USER_ID = -1
+
+if django.VERSION >= (1, 5):
+    AUTH_USER_MODEL = "testapp.CustomUser"
+    GUARDIAN_MONKEY_PATCH = False
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -12,6 +19,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.messages',
     'guardian',
+    'guardian.testapp',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -19,7 +27,18 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend',
 )
 
-TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+# this fixes warnings in django 1.7
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+)
+
+if django.VERSION < (1, 8):
+    TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+else:
+    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 DATABASES = {
     'default': {
@@ -29,12 +48,14 @@ DATABASES = {
     },
 }
 
-ROOT_URLCONF = 'guardian.tests.urls'
+ROOT_URLCONF = 'guardian.testapp.tests.urls'
 SITE_ID = 1
 
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(__file__), 'tests', 'templates'),
 )
+
+SECRET_KEY = ''.join([random.choice(string.ascii_letters) for x in range(40)])
 
 # Database specific
 

@@ -4,11 +4,11 @@
 {% block title %}{{ poll.question }}{% endblock %}
 {% block content %}
     <div class="breadcrumb">
-        <a href="{% url index:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
         {% if request.GET.back %}
             <a href="{{ request.GET.back }}">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</a> <span class="divider">/</span>
         {% else %}
-            <a href="{% url polls:frontend:index %}">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</a> <span class="divider">/</span>
+            <a href="{% url 'polls:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Опросы{% else %}Polls{% endif %}</a> <span class="divider">/</span>
         {% endif %}
         <span class="active">{{ poll.question }}</span>
     </div>

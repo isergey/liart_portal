@@ -5,20 +5,48 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 {% block content %}
-    <div id="news">
-        <h1 id="newsblock">{% if LANGUAGE_CODE == 'ru' %}Новости 
-         <a href="/ru/news/rss"> <img src=/static/images/rss.png alt="Подписаться" title="Подписаться на новости"  style="width: 15px;"></a>
-          {% else %}News{% endif %}</h1>
-        </h1>
-        
-        {% cache 60 news_feed LANGUAGE_CODE %}
-        {% news_feed  30%}
-        {% endcache %}
-        <div>
-        {% if LANGUAGE_CODE == 'ru' %} <a href="/ru/pages/Archive_news">Остальные новости &gt;&gt;</a>
-         {% else %}<a href="/en/pages/Archive_news">Archive news &gt;&gt;</a> 
+    <div style="margin-bottom:10px; text-align:center;">
+	<!--<a href="http://liart.ru/bn2015/"><img width="480px" src="http://liart.ru/bn2015/images/some/logo2.jpg"></a>
+	<p style="font-weight:bolder;"><a href="http://liart.ru/bn2015/">Программа мероприятий</a></p> -->
+	</div>
+	<div id="news">
+      <!-- <div style="margin-bottom: 20px">
+            {% if LANGUAGE_CODE == 'ru' %}   
+			<img src="http://liart.ru/media/files/img/pozdr2.jpg">
             {% endif %}
-    {#               <a href="{% url news:frontend:index %}">Остальные новости &gt;&gt;</a> #}
+            
+        </div>
+		-->
+
+		
+		
+		
+        <h1 id="newsblock">
+            {% if LANGUAGE_CODE == 'ru' %}
+                Новости
+                <a href="/ru/news/rss">
+                    <img src=/static/images/rss.png alt="Подписаться" title="Подписаться на новости"  style="width: 15px;">
+                </a>
+            {% else %}
+                News
+                <a href="/en/news/rss">
+                    <img src=/static/images/rss.png alt="Subscribe" title="Rss subscribe"  style="width: 15px;">
+                </a>
+            {% endif %}
+        </h1>
+
+        <div class="news_feed">
+        {% cache 60 news_feed LANGUAGE_CODE %}
+            {% news_feed 10 %}
+        {% endcache %}
+        </div>
+        <div>
+            {% if LANGUAGE_CODE == 'ru' %}
+                <a href="/ru/news">Остальные новости &gt;&gt;</a>
+            {% else %}
+                <a href="/en/news">Archive news &gt;&gt;</a>
+            {% endif %}
         </div>
     </div>
+<a href="http://liart.ru/bn2015">.</a>
 {% endblock %}

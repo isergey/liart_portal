@@ -1,6 +1,7 @@
 {% extends "admin/change_form.html" %}
 {% load i18n %}
-{% load adminmedia %}
+{% load guardian_tags %}
+{% friendly_load adminmedia %}
 
 {% block extrahead %}{{ block.super }}
 <style type="text/css">
@@ -20,7 +21,7 @@
 {% block content %}
 <div id="content-main">
 
-<form action="" method="post">
+<form action="." method="post">
     {% csrf_token %}
     {% if user_form.errors %}
     <div>
@@ -58,7 +59,7 @@
                         </td>
                         {% endfor %}
                         <td>
-                            <a href="user-manage/{{ user.id }}/">{% trans "Edit" %}</a>
+                            <a href="user-manage/{{ user.id|safe }}/">{% trans "Edit" %}</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -74,7 +75,7 @@
     </fieldset>
 </form>
 
-<form action="" method="post">
+<form action="." method="post">
     {% csrf_token %}
     {% if group_form.errors %}
     <div>
@@ -112,7 +113,7 @@
                         </td>
                         {% endfor %}
                         <td>
-                            <a href="group-manage/{{ group.id }}/">{% trans "Edit" %}</a>
+                            <a href="group-manage/{{ group.id|safe }}/">{% trans "Edit" %}</a>
                         </td>            
                     </tr>
                     {% endfor %}

@@ -3,10 +3,6 @@ from django import forms
 from django.contrib.auth.models import User
 
 
-class RegistrationForm(forms.ModelForm):
-    class Meta:
-        model=User
-
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=50, label=u"Логин", help_text=u"Разрешены буквы латинского алфавита и цифры")
     password = forms.CharField( min_length=6, max_length=50,

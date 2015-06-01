@@ -6,7 +6,7 @@ from django.utils.encoding import iri_to_uri
 from django.utils.translation.trans_real import parse_accept_lang_header
 from localeurl import settings as localeurl_settings
 # Importing models ensures that reverse() is patched soon enough. Refs #5.
-from localeurl import utils
+from localeurl import models, utils
 
 # Make sure the default language is in the list of supported languages
 assert utils.supported_language(settings.LANGUAGE_CODE) is not None, \
@@ -38,15 +38,24 @@ class LocaleURLMiddleware(object):
 
     def process_request(self, request):
         locale, path = utils.strip_path(request.path_info)
+        if localeurl_settings.USE_SESSION and not locale:
+            slocale = request.session.get('django_language')
+            if slocale and utils.supported_language(slocale):
+                locale = slocale
         if localeurl_settings.USE_ACCEPT_LANGUAGE and not locale:
-            accept_langs = filter(lambda x: x, [utils.supported_language(lang[0])
-                                                for lang in
-                                                parse_accept_lang_header(
-                        request.META.get('HTTP_ACCEPT_LANGUAGE', ''))])
+            accept_lang_header = request.META.get('HTTP_ACCEPT_LANGUAGE', '')
+            header_langs = parse_accept_lang_header(accept_lang_header)
+            accept_langs = [
+                l for l in
+                (utils.supported_language(lang[0]) for lang in header_langs)
+                if l
+            ]
             if accept_langs:
                 locale = accept_langs[0]
         locale_path = utils.locale_path(path, locale)
-        if locale_path != request.path_info:
+        # locale case might be different in the two paths, that doesn't require
+        # a redirect (besides locale they'll be identical anyway)
+        if locale_path.lower() != request.path_info.lower():
             locale_url = utils.add_script_prefix(locale_path)
 
             qs = request.META.get("QUERY_STRING", "")

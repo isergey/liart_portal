@@ -1,0 +1,40 @@
+{% extends 'index/frontend/index.html' %}
+{% load pagination_tag %}
+{% block title %}{{ content.title }}{% endblock %}
+{% block content %}
+    <div class="breadcrumb">
+        <a href="{% url 'index:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Начало{% else %}Home{% endif %}</a> <span class="divider">/</span>
+        <span class="active">{% if LANGUAGE_CODE == 'ru' %}Афиша{% else %}Events{% endif %}</span>
+        {% if start_date %}<span> на {{ start_date|date:"d E Y" }} г.</span>{% endif %}
+    </div>
+    <style>
+        ul.news {
+            list-style: none;
+            margin: 0;
+        }
+        .news .title{
+            font-size: 14px;
+            /*font-weight: bold;*/
+        }
+        .news .teaser{
+            padding: 5px 0;
+        }
+        .news .create_date{
+            color: #2a2a2a;
+        }
+    </style>
+    {% if  events_list %}
+    <ul class="news">
+        {% for event in events_list %}
+            <div class="title"><a href="{% url 'events:frontend:show' event.id %}?back={{ request.get_full_path }}">{{ event.event_content.title }}</a></div>
+            <div class="teaser">{{ event.event_content.teaser }}</div>
+            <div class="create_date">Начало: <b>{{ event.start_date|date:"d E Y" }} в {{ event.start_date|date:"H:i" }}</b></div>
+{#            <a class="btn btn-small " href="{% url 'events:frontend:add_to_favorits' event.id %}"><i class="icon-star"></i> Добавть в избранное</a>#}
+            {% if not forloop.last %}<hr/>{% endif %}
+        {% endfor %}
+    </ul>
+    {% admin_pagination events_page %}
+        {% else %}
+        <p>Информация о событиях отсутствует.</p>
+    {% endif %}
+{% endblock %}

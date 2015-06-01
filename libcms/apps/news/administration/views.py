@@ -32,7 +32,7 @@ def news_list(request):
 
 @login_required
 @permission_required_or_403('news.add_news')
-@transaction.commit_on_success
+@transaction.atomic
 def create_news(request):
 
     if request.method == 'POST':
@@ -57,7 +57,7 @@ def create_news(request):
 
 @login_required
 @permission_required_or_403('news.change_news')
-@transaction.commit_on_success
+@transaction.atomic
 def edit_news(request, id):
     news = get_object_or_404(News, id=id)
     if request.method == 'POST':
@@ -85,7 +85,7 @@ def edit_news(request, id):
 
 @login_required
 @permission_required_or_403('news.delete_news')
-@transaction.commit_on_success
+@transaction.atomic
 def delete_news(request, id):
     news = get_object_or_404(News, id=id)
     news.delete()

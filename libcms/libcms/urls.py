@@ -17,12 +17,15 @@ urlpatterns = patterns('',
     (r'^gallery/', include('gallery.urls', namespace='gallery')),
     (r'^polls/', include('polls.urls', namespace='polls')),
     (r'^ask_librarian/', include('ask_librarian.urls', namespace='ask_librarian')),
+    (r'^events/', include('events.urls', namespace='events')),
     url(r'^testapp/', include('testapp.urls', namespace='testapp')),
     url(r'^radmin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^radmin/', include(admin.site.urls)),
 )
 
-
+# urlpatterns = patterns('',
+#     (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+# )
 
 from django.conf import settings
 
