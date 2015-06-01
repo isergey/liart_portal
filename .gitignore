@@ -1,6 +1,10 @@
+*.py[co]
 .idea
-var
+local_settings.py
+*.mo
+*.tmp
 *.log
-*.pyc
-uwsgi.xml
-
+*.log.*
+media_data
+orders_data
+var
