@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-from datetime import date
+from datetime import date, datetime
 import calendar
+from django.db.models import Q
 from django import template
 from django.core.cache import cache
 from ..models import Event
 from ..frontend.forms import CalendarFilterForm, get_current_month_choice, get_current_year_choice
 
 register = template.Library()
+
 
 @register.inclusion_tag('events/tags/events_calendar.html', takes_context=True)
 def events_calendar(context, y=0, m=0):
@@ -28,12 +30,19 @@ def events_calendar(context, y=0, m=0):
     if m: month = m
     weeks = calendar.monthcalendar(year, month)
     cache_key = 'events_y_m' + str(year) + str(month) + 'active=1'
+
+    month_range = calendar.monthrange(year, month)
+    start = datetime(year, month, 1)
+    end = datetime(year, month, month_range[1], 23, 59, 59)
+
+    query = Q(start_date__gte=start, start_date__lte=end, active=True)
     events = cache.get(cache_key, [])
+
     if not events:
-        events = list(Event.objects.filter(start_date__year=year, start_date__month=month, active=True))
+        events = list(Event.objects.filter(query))
         cache.set(cache_key, events)
 
-    events = Event.objects.filter(start_date__year=year, start_date__month=month, active=True)
+    events = Event.objects.filter(query)
 
     calendar_of_events = []
     for week in weeks:
@@ -43,9 +52,10 @@ def events_calendar(context, y=0, m=0):
                 'day': 0,
                 'today': False,
                 'events': [],
-                }
+            }
             day_events['day'] = day
-            if day == today.day and year == today.year and month == today.month: day_events['today'] = True
+            if day == today.day and year == today.year and month == today.month:
+                day_events['today'] = True
             for event in events:
                 if event.start_date.day == day:
                     day_events['events'].append({
@@ -55,7 +65,10 @@ def events_calendar(context, y=0, m=0):
                     })
             week_events.append(day_events)
         calendar_of_events.append(week_events)
-    return {'calendar': calendar_of_events,
-            'month': month,
-            'year': year,
-            'form': form}
+    # print calendar_of_events
+    return {
+        'calendar': calendar_of_events,
+        'month': month,
+        'year': year,
+        'form': form
+    }
