@@ -5,15 +5,22 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 {% block content %}
-    <div id="news">
-      <!--  <div style="margin-bottom: 20px">
-            {% if LANGUAGE_CODE == 'ru' %}
-                <img width="480px" src="http://liart.ru/media/files/afisha/happy_happy_joy_joy.jpg">
+    <div style="margin-bottom:10px; text-align:center;">
+	<!--<a href="http://liart.ru/bn2015/"><img width="480px" src="http://liart.ru/bn2015/images/some/logo2.jpg"></a>
+	<p style="font-weight:bolder;"><a href="http://liart.ru/bn2015/">Программа мероприятий</a></p> -->
+	</div>
+	<div id="news">
+      <!-- <div style="margin-bottom: 20px">
+            {% if LANGUAGE_CODE == 'ru' %}   
+			<img src="http://liart.ru/media/files/img/pozdr2.jpg">
             {% endif %}
-            {% if LANGUAGE_CODE == 'en' %}
-                <img width="480px" src="http://liart.ru/media/files/afisha/happy_ny.jpg">
-            {% endif %}
-        </div> -->
+            
+        </div>
+		-->
+
+		
+		
+		
         <h1 id="newsblock">
             {% if LANGUAGE_CODE == 'ru' %}
                 Новости
@@ -41,5 +48,5 @@
             {% endif %}
         </div>
     </div>
-
+<a href="http://liart.ru/bn2015">.</a>
 {% endblock %}
