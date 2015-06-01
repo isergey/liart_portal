@@ -1,0 +1,6 @@
+.idea
+var
+*.log
+*.pyc
+uwsgi.xml
+

@@ -22,7 +22,6 @@ def index(request):
 
 @login_required
 def events_list(request):
-    print request.GET.get('page', 1)
     if not request.user.has_module_perms('events'):
         return HttpResponseForbidden()
     events_page = get_page(request, Event.objects.all().order_by('-create_date'), 10)

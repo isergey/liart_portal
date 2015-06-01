@@ -7,8 +7,8 @@ from ..models import EventContent, Event
 
 class EventForm(forms.ModelForm):
     class Meta:
-        model=Event
-
+        model = Event
+        exclude = []
 
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)

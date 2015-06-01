@@ -15,6 +15,7 @@ class PollForm(forms.ModelForm):
 
     class Meta:
         model = Poll
+        exclude = []
 
     def clean_end_poll_date(self):
         end_poll_date = self.cleaned_data['end_poll_date']

@@ -279,9 +279,7 @@
 {% endif %}
 -->
             </div>
-            <br>
-
-            <div style="margin-left: 20px;" class="ask_librarian_category">
+            <div style="margin: 20px 0 0 20px;" class="ask_librarian_category">
                 <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси
                     библиографа{% else %}Ask librarian{% endif %}</a>
                 </h2>
@@ -291,8 +289,7 @@
                     {% drow_categories_tree %}
                 {% endcache %}
             </div>
-            <div class="events-calendar">
-                <hr/>
+            <div style="margin-top: 30px;" class="events-calendar">
                 <h2><a href="{% url 'events:frontend:index' %}">Календарь событий</a></h2>
                 {% events_calendar %}
             </div>

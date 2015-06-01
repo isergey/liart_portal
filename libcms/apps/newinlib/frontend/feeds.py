@@ -17,10 +17,15 @@ class LatestEntriesFeed(Feed):
         return index()
 
     def item_title(self, item):
-        return item.item_content.title
+        item_content = getattr(item, 'item_content', None)
+        if not item_content:
+            return u''
+        return item_content.title
 
     def item_description(self, item):
-        return item.item_content.title
+        item_content = getattr(item, 'item_content', None)
+        if not item_content:
+            return u''
 
 
 def index():

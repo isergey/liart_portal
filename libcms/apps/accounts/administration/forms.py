@@ -25,7 +25,8 @@ class UserForm(forms.ModelForm):
 
 class GroupForm(forms.ModelForm):
     class Meta:
-        model=Group
+        model = Group
+        fields = ['name']
     def __init__(self, *args, **kwargs):
         super(GroupForm, self).__init__(*args, **kwargs)
         self.fields['name'].help_text=u"Может содержать только латинские буквы, цифры и знак подчеркивания"
