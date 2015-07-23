@@ -10,26 +10,16 @@
 {% endblock %}
 
 {% block action_content %}
-{#    <div class="well well-sm">#}
-{#        <form style="margin: 0" method="get">#}
-{#            <span>Сортировать по</span>#}
-{#            <select name="sort">#}
-{#                <option value="">По умолчанию</option>#}
-{#                <option value="start_date">По дате начала</option>#}
-{#                <option value="end_date">По дате окончания</option>#}
-{#            </select>#}
-{##}
-{#            <span>Порядок сортировки</span>#}
-{#            <select name="order">#}
-{#                <option value="">прямой</option>#}
-{#                <option value="">обратный</option>#}
-{#            </select>#}
-{##}
-{#            <label style="display: inline"><input type="checkbox"/> активные</label>#}
-{#            <label style="display: inline"><input type="checkbox"/> не завершенные</label>#}
-{#            <a href="#">сбросить фильтр</a>#}
-{#        </form>#}
-{#    </div>#}
+
+    <div class="well well-sm">
+        <div class="btn-group" role="group" aria-label="...">
+            <button class="filter-btn btn" data-toggle="modal" data-target="#filter-modal"><i class="icon-filter" title="Удалить"></i> Фильтрация</button>
+            {% if request.GET.filter == 'on' %}
+                <a class="btn btn-warning" href="{% url 'events:administration:events_list' %}">Очистить фильтр</a>
+            {% endif %}
+        </div>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -54,12 +44,42 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="modal" style="display: none" role="dialog" id="filter-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Фильтрация</h4>
+                </div>
+                <form style="margin: 0" method="get">
+                    <div class="modal-body">
+                        {% include 'administration/base_form_fields.html' with form=filter_form %}
+                        <input type="hidden" name="filter" value="on">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default">Сбросить</button>
+                        <button type="submit" class="btn btn-primary">Фильтровать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     {% admin_pagination events_page %}
     <script type="text/javascript">
         $("a.delete").click(function () {
             if (!confirm('Вы уверены, что хотите удалить?')) return false;
         });
     </script>
+    {#    <script>#}
+    {#        $(function () {#}
+    {#            $('.filter-btn').on('click', function () {#}
+    {#                $('#myModal').modal(options)#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}
 
 
