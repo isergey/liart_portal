@@ -25,11 +25,12 @@ def index(request):
         'events_page': events_page,
         })
 
+
 def filer_by_date(request, day='', month='', year=''):
 
     start_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=0, minute=0, second=0)
     end_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=23, minute=29, second=59)
-    events_page = get_page(request, Event.objects.filter(active=True, start_date__gte=start_date, start_date__lte=end_date).order_by('-create_date'))
+    events_page = get_page(request, Event.objects.filter(active=True, start_date__lte=start_date, end_date__gte=end_date).order_by('-create_date'))
 
     event_contents = list(EventContent.objects.filter(event__in=list(events_page.object_list), lang=get_language()[:2]))
 
@@ -46,6 +47,7 @@ def filer_by_date(request, day='', month='', year=''):
 
         })
 
+
 def show(request, id):
     cur_language = translation.get_language()
     event = get_object_or_404(Event, id=id)
@@ -58,6 +60,7 @@ def show(request, id):
         'event': event,
         'content': content
     })
+
 
 @login_required
 def favorit_events(request):
@@ -80,6 +83,7 @@ def favorit_events(request):
         'events_list': events,
         'events_page': fav_events_page,
         })
+
 
 @login_required
 def add_to_favorits(request, id):

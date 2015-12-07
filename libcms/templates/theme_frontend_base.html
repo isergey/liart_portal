@@ -50,11 +50,15 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/main.css"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdown.css" media="screen"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdownv.css" media="screen"/>
+	<link rel="stylesheet" href="http://liart.ru/media/files/script/nivo/nivo-slider.css" media="screen"/>
+	<link rel="stylesheet" href="http://liart.ru/media/files/script/nivo/style.css" media="screen"/>
     <link rel="icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic'
           type='text/css'>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://liart.ru/media/files/script/nivo/jquery.nivo.slider.js"></script>
+	<script type="text/javascript" src="http://liart.ru/media/files/script/nivo/jquery.nivo.slider.pack.js"></script>
 
     <!--[if lt IE 9]>
   <script src="{{ STATIC_URL }}theme/css/html5shiv.js"></script>
@@ -221,6 +225,7 @@
                     {% else %}
                         Online ordering of editions!
                     {% endif %}</a>
+					 
             </div>
 
 {#            <div>#}
@@ -265,8 +270,14 @@
                 <a target="_blank" href="https://godliteratury.ru/informaciy-orgkomiteta#about">
                     <img style="display: inline-block;" title="Год литературы" src="/media/files/afisha/gl.jpg"
                          alt="Год литературы" height="130"/>
-                </a>
+                </a> <br /><div style="padding-top:10px;">
+				<a href="http://www.soldaty-pobedy.ru/"><img width="203px" src="http://liart.ru/media/files/img/04122015/arxiv.jpg"></a>
+				</div>
             </div>
+			
+			
+			
+			
             {% include 'left_menu.html' %}
             <div class="clear"></div>
             <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
@@ -279,35 +290,9 @@
 {% endif %}
 -->
             </div>
-            <div style="margin: 20px 0 0 20px;" class="ask_librarian_category">
-                <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси
-                    библиографа{% else %}Ask librarian{% endif %}</a>
-                </h2>
-                <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions
-                    categories{% endif %}:</span>
-                {% cache 30 questions_category_menu LANGUAGE_CODE %}
-                    {% drow_categories_tree %}
-                {% endcache %}
-            </div>
-            <div style="margin-top: 30px;" class="events-calendar">
-                <h2><a href="{% url 'events:frontend:index' %}">Календарь событий</a></h2>
-                {% events_calendar %}
-            </div>
-
-
-            <div class="clear"></div>
-            {% poll_form %}
-        </div>
-        <div class="grid_6">
-
-            {% block content %}
-
-            {% endblock %}
-        </div>
-        <div class="grid_3">
-
-            <div id="wdg_box_skbr2"
-                 style="display:inline-block;text-align:center;position:relative;width:210px;height:85px;background:#f6f6f6;border:solid 1px #ddd;border-radius:9px">
+			
+			<div id="wdg_box_skbr2"
+                 style="margin-left:10px; display:inline-block;text-align:center;position:relative;width:210px;height:85px;background:#f6f6f6;border:solid 1px #ddd;border-radius:9px">
                 <form name="wdg_box_skbr2_form" id="wdg_box_skbr2_form" method="POST" accept-charset="UTF-8"
                       action="//skbr2.ru/skbr/find.php" target="_blank"
                       style="display:inline-block;text-align:center;position:relative;margin:0px;padding:0px;"><input
@@ -320,7 +305,46 @@
                                                  style="display:inline-block;position:relative;top:15px;left:0px;border:solid 1px #ddd;"/>
                 </form>
             </div>
-            <br/><br/>
+			
+			
+            <div style="margin: 20px 0 0 20px;" class="ask_librarian_category">
+                <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси
+                    библиографа{% else %}Ask librarian{% endif %}</a>
+                </h2>
+				
+				
+                <span class="title">{% if LANGUAGE_CODE == 'ru' %}Категории вопросов{% else %}Questions
+                    categories{% endif %}:</span>
+                {% cache 30 questions_category_menu LANGUAGE_CODE %}
+                    {% drow_categories_tree %}
+                {% endcache %}
+            </div>
+            <div style="margin-top: 30px;" class="events-calendar">
+                <h2><a href="{% url 'events:frontend:index' %}">Календарь событий</a></h2>
+                {% events_calendar %}
+            </div>
+		
+            <div class="clear"></div>
+            {% poll_form %}
+			
+			<div style="text-align:center; margin-top:20px;">
+				<a href="http://culturalforum.ru/ru"><img src="http://culturalforum.ru/files/free_data/spbmkf_banner_1.jpg"></a>
+		</div>
+			
+			</div>
+		
+		
+		
+        <div class="grid_6">
+
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <div class="grid_3">
+			<div style="text-align:center;"><a target="_blank" href="http://liart.ru/zakaz"><img src="http://liart.ru/media/files/banner/iu.png"></a></div>
+            
+            
             {% cache 60 newinlib.html LANGUAGE_CODE %}
                 {% include 'newinlib.html' %}
             {% endcache %}
