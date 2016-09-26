@@ -25,7 +25,6 @@ def index(request):
         'events_page': events_page,
         })
 
-
 def filer_by_date(request, day='', month='', year=''):
     extra = u'\
 	YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s AND DAY(start_date) <= %(day)s\
