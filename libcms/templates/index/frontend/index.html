@@ -5,10 +5,25 @@
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 {% block content %}
-    <div style="margin-bottom:10px; text-align:center;">
-	<!--<a href="http://liart.ru/bn2015/"><img width="480px" src="http://liart.ru/bn2015/images/some/logo2.jpg"></a>
-	<p style="font-weight:bolder;"><a href="http://liart.ru/bn2015/">Программа мероприятий</a></p> -->
-	</div>
+    
+	
+	
+	 <div style="margin-bottom:10px; ">
+				<div id="slider">
+			
+			<a href="http://liart.ru/ru/news/935/"><img src="http://liart.ru/media/files/img/2016/06092016/gay.jpg" alt="" title="" /></a>
+			<a href="http://liart.ru/ru/news/932/"><img src="http://liart.ru/media/files/img/2016/06092016/ucheb.jpg" alt="" title="" /></a>	
+			<a href="http://liart.ru/ru/news/797/"><img src="http://liart.ru/media/files/img/2016/17032016/kino2.jpg" alt="" title="" /></a>
+            </div> 
+  
+			
+			
+        
+        </div> 
+		
+<!--p style="text-align:center; font-weight:bolder;">Прямая трансляция 9-ых Международных Михоэлсовских чтений</p>
+			<div class="iv-embed" style="margin:0 auto;padding:0;border:0;width:480px;"><div class="iv-v" style="display:block;margin:0;padding:1px;border:0;background:#000;"><iframe class="iv-i" style="display:block;margin:0;padding:0;border:0;" src="//open.ivideon.com/embed/v2/?server=100-78b08087d07524bb61fca2ae6ead0ca7&amp;camera=0&amp;width=&amp;height=&amp;lang=ru" width="480" height="360" frameborder="0" allowfullscreen></iframe></div><div class="iv-b" style="display:block;margin:0;padding:0;border:0;"><div style="float:right;text-align:right;padding:0 0 10px;line-height:10px;"></div><div style="clear:both;height:0;overflow:hidden;">&nbsp;</div><script src="http://open.ivideon.com/embed/v2/embedded.js"></script></div></div-->
+	
 	<div id="news">
       <!-- <div style="margin-bottom: 20px">
             {% if LANGUAGE_CODE == 'ru' %}   
@@ -19,7 +34,7 @@
 		-->
 
 		
-		
+	
 		
         <h1 id="newsblock">
             {% if LANGUAGE_CODE == 'ru' %}
@@ -47,6 +62,18 @@
                 <a href="/en/news">Archive news &gt;&gt;</a>
             {% endif %}
         </div>
+		
+
+	
+		
+		
+		
     </div>
-<a href="http://liart.ru/bn2015">.</a>
+	
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+    </script>
+
 {% endblock %}

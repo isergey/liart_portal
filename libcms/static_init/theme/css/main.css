@@ -290,7 +290,7 @@ img#logo {
   margin-left:5px;
 }
 .social {
-margin-top: 37px;
+margin-top: 10px;
 }
 .social img {
 margin-left: 12px;
@@ -315,4 +315,19 @@ margin-left: 12px;
   color:white;
   font-weight:bold;
   text-decoration:none;
+}
+
+.events-calendar {
+    margin-left: 20px;
+}
+
+.events-calendar table {
+    width: 100%;
+}
+
+.events-calendar table td, .events-calendar table th  {
+        text-align: center;
+}
+.events-calendar .today {
+    font-weight: bold;
 }
