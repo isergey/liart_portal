@@ -42,8 +42,8 @@ def events_calendar(context, y=0, m=0):
 	  
     query = Q(start_date__lte=start, end_date__gte=end, active=True)
     # events = cache.get(cache_key, [])
-    # events = Event.objects.extra(where=[extra])
-    events = Event.objects.filter(query)
+    events = Event.objects.extra(where=[extra])
+    # events = Event.objects.filter(query)
     if not events:
         events = list(events)
         cache.set(cache_key, events)
