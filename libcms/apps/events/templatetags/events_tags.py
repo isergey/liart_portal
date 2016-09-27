@@ -35,8 +35,8 @@ def events_calendar(context, y=0, m=0):
     start = datetime(year, month, 1)
     end = datetime(year, month, month_range[1], 23, 59, 59)
     extra = u'\
-	(YEAR(start_date) = %(year)s AND MONTH(start_date) = %(month)s)\
-	OR (YEAR(end_date) = %(year)s AND MONTH(end_date) = %(month)s)\
+	(YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s)\
+	AND (YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s)\
 	AND active=1'\
       % {'year': int(year), 'month': int(month)}	
 	  
