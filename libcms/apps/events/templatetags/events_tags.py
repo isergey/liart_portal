@@ -32,16 +32,8 @@ def events_calendar(context, y=0, m=0):
     cache_key = 'events_y_m' + str(year) + str(month) + 'active=1'
 
     month_range = calendar.monthrange(year, month)
-    start = datetime(year, month, 1)
+    start = datetime(year, month, 1, 0, 0, 0)
     end = datetime(year, month, month_range[1], 0, 0, 0)
-    extra = u'\
-	YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s\
-	AND YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s\
-	AND active=1'\
-      % {'year': int(year), 'month': int(month)}
-
-    # events = Event.objects.extra(where=[extra])
-
     events = Event.objects.filter(active=True, start_date__lte=start, end_date__gte=end)
 
 
