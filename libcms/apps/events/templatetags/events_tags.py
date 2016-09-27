@@ -40,9 +40,10 @@ def events_calendar(context, y=0, m=0):
 	AND active=1'\
       % {'year': int(year), 'month': int(month)}	
 	  
-    query = Q(start_date__gte=start, start_date__lte=end, active=True)
-    events = cache.get(cache_key, [])
-    events = Event.objects.extra(where=[extra])
+    query = Q(start_date__gte=start, end_date__gte=end, active=True)
+    # events = cache.get(cache_key, [])
+    # events = Event.objects.extra(where=[extra])
+    events = Event.objects.filter(query)
     if not events:
         events = list(events)
         cache.set(cache_key, events)
