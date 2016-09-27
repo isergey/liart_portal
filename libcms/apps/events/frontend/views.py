@@ -35,7 +35,7 @@ def filer_by_date(request, day='', month='', year=''):
     day_datetime = datetime.datetime(int(year), int(month), int(day), 0, 0, 0)
     end_day_datetime = datetime.datetime(int(year), int(month), int(day), 23, 59, 59)
     q = Q(active=True) & Q(start_date__lte=end_day_datetime) & Q(end_date__gte=day_datetime)
-    events_page = get_page(request, Event.objects.filter(q).order_by('-create_date'))
+    events_page = get_page(request, Event.objects.filter(q).order_by('-start_date'))
     event_contents = list(EventContent.objects.filter(event__in=list(events_page.object_list), lang=get_language()[:2]))
 
     t_dict = {}
