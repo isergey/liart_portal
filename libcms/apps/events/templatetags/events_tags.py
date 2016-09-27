@@ -38,7 +38,7 @@ def events_calendar(context, y=0, m=0):
 	(YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s)\
 	AND (YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s)\
 	AND active=1'\
-      % {'year': int(year), 'month': int(month)}	
+      % {'year': year, 'month': month }
 	  
     query = Q(start_date__lte=start, end_date__gte=end, active=True)
     # events = cache.get(cache_key, [])
@@ -62,8 +62,10 @@ def events_calendar(context, y=0, m=0):
             day_events['day'] = day
             if day == today.day and year == today.year and month == today.month:
                 day_events['today'] = True
+            start_date_for_day = datetime(year, month, day, 0, 0, 0)
+            end_date_for_day = datetime(year, month, day, 23, 59, 59)
             for event in events:
-                if event.start_date.day <= day and event.end_date.day >= day:
+                if event.start_date <= start_date_for_day and event.end_date >= end_date_for_day:
                     day_events['events'].append({
                         'id': event.id,
                         #                        'title': event.title,
