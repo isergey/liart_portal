@@ -34,8 +34,9 @@ def events_calendar(context, y=0, m=0):
     month_range = calendar.monthrange(year, month)
     start = datetime(year, month, 1, 0, 0, 0)
     end = datetime(year, month, month_range[1], 0, 0, 0)
-    events = Event.objects.filter(active=True, start_date__lte=start, end_date__gte=end)
-
+    q = Q(active=True) & Q(Q(start_date__lte=start) | Q(start_date__lte=end) & Q(end_date__gte=start) & Q(end_date__gte=end))
+    # events = Event.objects.filter(active=True, start_date__lte=start, end_date__gte=end)
+    events = Event.objects.filter(q)
 
     if not events:
         events = list(events)
