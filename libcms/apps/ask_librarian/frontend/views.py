@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404, Http404, urlresolvers
+from django.shortcuts import render, redirect, get_object_or_404, Http404, reverse
 from django.contrib.auth.decorators import login_required
 from common.pagination import get_page
 
@@ -131,7 +131,7 @@ def ask(request):
                 from_mail = settings.DEFAULT_FROM_EMAIL
                 send_mail(u"Спроси библиографа. Новый вопрос.",
                     u'Поступил новый вопрос. Информация находится по адресу http://%s%s' %
-                    (domain, urlresolvers.reverse('ask_librarian:administration:question_detail', args=(question.id,))),
+                    (domain, reverse('ask_librarian:administration:question_detail', args=(question.id,))),
                     from_mail,
                     [main_dispatcher],
                     fail_silently=fail_silently

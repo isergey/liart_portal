@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
+from common.pagination import get_page
 from django.conf import settings
-from django.db import transaction
-from django.utils.translation import ugettext as _
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, urlresolvers
-from django.http import HttpResponseForbidden
-from guardian.decorators import permission_required_or_403
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.contrib.sites.models import get_current_site
-from common.pagination import get_page
-from django.utils.translation import get_language
-from common.pagination import get_page
+from django.db import transaction
 from django.db.models import Q
-from ..models import Category, CategoryTitle,  Question, QuestionManager, Recomendation
-from forms import CategoryForm, CategoryTitleForm,  AnswerQuestionForm, ToManagerForm
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, reverse
+from django.utils.translation import get_language
+from guardian.decorators import permission_required_or_403
 
+from forms import CategoryForm, CategoryTitleForm,  AnswerQuestionForm, ToManagerForm
+from ..models import Category, CategoryTitle,  Question, QuestionManager
 
 
 #@permission_required_or_403('accounts.view_users')
@@ -136,7 +133,7 @@ def question_answer(request, id):
                 from_mail = settings.DEFAULT_FROM_EMAIL
                 send_mail(u"Спроси библиотекаря",
                     u'Ваш вопрос был обработан. Вы можете посмотреть ответ по адресу http://%s%s' %
-                    (domain, urlresolvers.reverse('ask_librarian:frontend:detail', args=(question.id,))),
+                    (domain, reverse('ask_librarian:frontend:detail', args=(question.id,))),
                     from_mail,
                     [question.email],
                     #                    fail_silently=True
@@ -285,7 +282,6 @@ def category_edit(request, id):
         if category_form.is_valid():
 
             category = category_form.save(commit=False)
-            category.parent = parent
             category.save()
 
             valid = False

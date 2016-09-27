@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import datetime
-from django.shortcuts import urlresolvers
+from django.shortcuts import reverse
 from django.conf import settings
 from django.db import models
 
@@ -11,7 +11,7 @@ class Item(models.Model):
     #main = models.BooleanField(verbose_name=u'Установить в качестве главного анонса',default=False ,blank=True, db_index=True)
     avatar_img_name = models.CharField(max_length=100, blank=True)
     def get_absolute_url(self):
-        return urlresolvers.reverse('newinlib:frontend:show', args=[self.id])
+        return reverse('newinlib:frontend:show', args=[self.id])
 
 #    def save(self):
 #        if self.main:

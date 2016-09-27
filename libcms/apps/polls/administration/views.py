@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, reverse
 #from django.views.decorators.csrf import csrf_exempt
-from django.core.urlresolvers import reverse
 from guardian.decorators import permission_required_or_403
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 

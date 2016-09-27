@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import hashlib
 import uuid
-from  django.shortcuts import  redirect, render, HttpResponse, get_object_or_404
-from django.core.urlresolvers import reverse
+from  django.shortcuts import  redirect, render, reverse, get_object_or_404
 
 
 from common.pagination import get_page
