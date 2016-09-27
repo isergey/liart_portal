@@ -33,8 +33,8 @@ def filer_by_date(request, day='', month='', year=''):
 	AND active=1' \
             % {'year': int(year), 'month': int(month), 'day': int(day)}
     start_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=0, minute=0, second=0)
-    end_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=23, minute=59, second=59)
-    events_page = get_page(request, Event.objects.filter(active=True, start_date__lte=start_date, end_date__gte=end_date).order_by('-create_date'))
+    # end_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=23, minute=59, second=59)
+    events_page = get_page(request, Event.objects.filter(active=True, start_date__lte=start_date, end_date__gte=start_date).order_by('-create_date'))
     # events_page = get_page(request, Event.objects.extra(where=[extra]).order_by('-create_date'))
     event_contents = list(EventContent.objects.filter(event__in=list(events_page.object_list), lang=get_language()[:2]))
 
