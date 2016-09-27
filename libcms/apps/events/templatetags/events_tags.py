@@ -62,8 +62,11 @@ def events_calendar(context, y=0, m=0):
             day_events['day'] = day
             if day == today.day and year == today.year and month == today.month:
                 day_events['today'] = True
-            start_date_for_day = datetime(year, month, day, 0, 0, 0)
-            end_date_for_day = datetime(year, month, day, 23, 59, 59)
+            max_day = day
+            if max_day > month_range[1]:
+                max_day = month_range[1]
+            start_date_for_day = datetime(year, month, max_day, 0, 0, 0)
+            end_date_for_day = datetime(year, month, max_day, 23, 59, 59)
             for event in events:
                 if event.start_date <= start_date_for_day and event.end_date >= end_date_for_day:
                     day_events['events'].append({
