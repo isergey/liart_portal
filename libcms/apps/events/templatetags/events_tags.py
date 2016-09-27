@@ -31,24 +31,17 @@ def events_calendar(context, y=0, m=0):
     weeks = calendar.monthcalendar(year, month)
     cache_key = 'events_y_m' + str(year) + str(month) + 'active=1'
 
-    month_range = calendar.monthrange(year, month)
-    start = datetime(year, month, 1)
-    end = datetime(year, month, month_range[1], 23, 59, 59)
     extra = u'\
 	YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s\
 	AND YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s\
-	AND active=1'\
-      % {'year': int(year), 'month': int(month)}
-	  
-    query = Q(start_date__lte=start, end_date__gte=end, active=True)
-    # events = cache.get(cache_key, [])
+	AND active=1' \
+            % {'year': int(year), 'month': int(month)}
+
     events = Event.objects.extra(where=[extra])
-    # events = Event.objects.filter(query)
+
     if not events:
         events = list(events)
         cache.set(cache_key, events)
-
-    #events = Event.objects.filter(query)
 
     calendar_of_events = []
     for week in weeks:
