@@ -33,7 +33,7 @@ def events_calendar(context, y=0, m=0):
 
     month_range = calendar.monthrange(year, month)
     start = datetime(year, month, 1)
-    end = datetime(year, month, month_range[1] - 1, 23, 59, 59)
+    end = datetime(year, month, month_range[1], 23, 59, 59)
     extra = u'\
 	YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s\
 	AND YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s\
@@ -63,8 +63,10 @@ def events_calendar(context, y=0, m=0):
             if day == today.day and year == today.year and month == today.month:
                 day_events['today'] = True
             for event in events:
-                if event.start_date.day <= day and event.start_date.year <= year and event.start_date.year <= year\
-                        and event.end_date.day >= day and event.end_date.year >= year and event.end_date.month >= month:
+                if day == 0: continue
+                date_for_day_start = datetime(year, month, 1)
+                date_for_day_end = datetime(year, month, day, 23, 59, 59)
+                if event.start_date.day <= date_for_day_start and event.end_date >= date_for_day_end:
                     day_events['events'].append({
                         'id': event.id,
                         #                        'title': event.title,
