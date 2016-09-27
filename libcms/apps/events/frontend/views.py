@@ -32,9 +32,9 @@ def filer_by_date(request, day='', month='', year=''):
     # start_date = datetime.datetime(year=int(year), month=int(month), day=int(day), hour=0, minute=0, second=0)
     # events_page = get_page(request, Event.objects.filter(active=True, start_date__lte=start_date, end_date__gte=start_date).order_by('-create_date'))
 
-    date = datetime(int(year), int(month), int(day), 0, 0, 0)
+    day_datetime = datetime.datetime(int(year), int(month), int(day), 0, 0, 0)
 
-    q = Q(active=True) & Q(Q(start_date__lte=date) | Q(start_date__lte=date) & Q(end_date__gte=date) & Q(end_date__gte=date))
+    q = Q(active=True) & Q(Q(start_date__lte=day_datetime) | Q(start_date__lte=day_datetime) & Q(end_date__gte=day_datetime) & Q(end_date__gte=day_datetime))
     events_page = get_page(request, Event.objects.filter(q).order_by('-create_date'))
     event_contents = list(EventContent.objects.filter(event__in=list(events_page.object_list), lang=get_language()[:2]))
 
@@ -47,7 +47,7 @@ def filer_by_date(request, day='', month='', year=''):
     return render(request, 'events/frontend/list.html', {
         'events_list': events_page.object_list,
         'events_page': events_page,
-        'start_date': date
+        'start_date': day_datetime
 
     })
 
