@@ -6,7 +6,8 @@ from django.core.mail import send_mail
 from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404, reverse
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse, Http404
 from django.utils.translation import get_language
 from guardian.decorators import permission_required_or_403
 

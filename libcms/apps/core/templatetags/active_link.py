@@ -1,7 +1,7 @@
 # -*- ecoding: utf-8 -*-
 
 from django import template
-from django.shortcuts import reverse
+from django.core.urlresolvers import reverse
 
 register = template.Library()
 

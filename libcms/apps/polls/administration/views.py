@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, reverse
-#from django.views.decorators.csrf import csrf_exempt
-from guardian.decorators import permission_required_or_403
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
-
-from ..models import Poll, Choice
-from forms import PollForm, ChoiceForm
+from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
-from django.forms.formsets import formset_factory
-from django.forms.models import BaseInlineFormSet, inlineformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from guardian.decorators import permission_required_or_403
+
+from forms import PollForm, ChoiceForm
+from ..models import Poll, Choice
+
 
 @permission_required_or_403('polls.add_poll')
 def index(request):

@@ -3,7 +3,7 @@ from django import template
 from django.template import loader, Node, Variable
 from django.utils.encoding import smart_str, smart_unicode
 from django.template.defaulttags import url
-from django.shortcuts import reverse
+from django.core.urlresolvers import reverse
 from django.template import VariableDoesNotExist
 from django.utils.translation import ugettext as _
 register = template.Library()

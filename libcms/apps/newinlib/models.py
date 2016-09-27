@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import datetime
-from django.shortcuts import reverse
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.db import models
 
