@@ -33,17 +33,17 @@ def events_calendar(context, y=0, m=0):
 
     month_range = calendar.monthrange(year, month)
     start = datetime(year, month, 1)
-    end = datetime(year, month, month_range[1], 23, 59, 59)
+    end = datetime(year, month, month_range[1] - 1, 23, 59, 59)
     extra = u'\
-	(YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s)\
-	AND (YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s)\
+	YEAR(start_date) <= %(year)s AND MONTH(start_date) <= %(month)s\
+	AND YEAR(end_date) >= %(year)s AND MONTH(end_date) >= %(month)s\
 	AND active=1'\
-      % {'year': year, 'month': month }
+      % {'year': int(year), 'month': int(month)}
 	  
     query = Q(start_date__lte=start, end_date__gte=end, active=True)
     # events = cache.get(cache_key, [])
-    events = Event.objects.extra(where=[extra])
-    # events = Event.objects.filter(query)
+    # events = Event.objects.extra(where=[extra])
+    events = Event.objects.filter(query)
     if not events:
         events = list(events)
         cache.set(cache_key, events)
@@ -62,13 +62,8 @@ def events_calendar(context, y=0, m=0):
             day_events['day'] = day
             if day == today.day and year == today.year and month == today.month:
                 day_events['today'] = True
-            max_day = day
-            if max_day > month_range[1]:
-                max_day = month_range[1]
-            start_date_for_day = datetime(year, month, max_day, 0, 0, 0)
-            end_date_for_day = datetime(year, month, max_day, 23, 59, 59)
             for event in events:
-                if event.start_date <= start_date_for_day and event.end_date >= end_date_for_day:
+                if event.start_date.day <= day and event.end_date.day >= day:
                     day_events['events'].append({
                         'id': event.id,
                         #                        'title': event.title,
