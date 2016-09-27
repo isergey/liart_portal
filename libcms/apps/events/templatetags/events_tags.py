@@ -57,8 +57,8 @@ def events_calendar(context, y=0, m=0):
             for event in events:
                 if day == 0: continue
                 date_for_day_start = datetime(year, month, day, 0, 0, 0)
-                # date_for_day_end = datetime(year, month, day, 23, 59, 59)
-                if event.start_date <= date_for_day_start and event.end_date >= date_for_day_start:
+                date_for_day_end = datetime(year, month, day, 23, 59, 59)
+                if event.start_date <= date_for_day_end and event.end_date >= date_for_day_start:
                     day_events['events'].append({
                         'id': event.id,
                         #                        'title': event.title,
