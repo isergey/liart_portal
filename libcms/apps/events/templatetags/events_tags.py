@@ -62,9 +62,8 @@ def events_calendar(context, y=0, m=0):
             day_events['day'] = day
             if day == today.day and year == today.year and month == today.month:
                 day_events['today'] = True
-            print 'calendar', day
             for event in events:
-                if event.start_date.day <= day and event.start_date.year <= year and event.start_date.year < year\
+                if event.start_date.day <= day and event.start_date.year <= year and event.start_date.year <= year\
                         and event.end_date.day >= day and event.end_date.year >= year and event.end_date.month >= month:
                     day_events['events'].append({
                         'id': event.id,
