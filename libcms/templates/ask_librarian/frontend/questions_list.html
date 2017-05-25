@@ -70,7 +70,7 @@
     <ul class="questions_list" style="">
     {% for question in questions_page.object_list %}
         <li>
-            {{ question.question }}<br/>
+            <b>{{question.id}}.</b> {{ question.question }}<br/>
             {% if question.category_id %}
                 {% if LANGUAGE_CODE == 'ru' %}Категория{% else %}Category{% endif %}: <b>
                 {% cache 30 questions_category question.category_id  LANGUAGE_CODE %}

@@ -54,15 +54,17 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}theme/css/dropdownv.css" media="screen"/>
 	<link rel="stylesheet" href="http://liart.ru/media/files/script/nivo/nivo-slider.css" media="screen"/>
 	<link rel="stylesheet" href="http://liart.ru/media/files/script/nivo/style.css" media="screen"/>
+	<link rel="stylesheet" href="http://liart.ru/media/files/script/tooltip/datatitle.css" media="screen"/>
     <link rel="icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="{{ STATIC_URL }}theme/favicon.ico" type="image/x-icon">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=latin,cyrillic'
           type='text/css'>
+	<link rel="stylesheet" type="text/css" href="http://liart.ru/media/files/script/tooltip/tooltip.css"/>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://liart.ru/media/files/script/nivo/jquery.nivo.slider.js"></script>
 	<script type="text/javascript" src="http://liart.ru/media/files/script/nivo/jquery.nivo.slider.pack.js"></script>
 	<script src="http://liart.ru/media/files/script/videogallery/jquery.youtubevideogallery.js"></script>
-    
+	
 
     <!--[if lt IE 9]>
   <script src="{{ STATIC_URL }}theme/css/html5shiv.js"></script>
@@ -101,6 +103,12 @@
 </head>
 <body>
 <!--script type="text/javascript" src="{{STATIC_URL}}theme/snow.js"></script-->
+<script data-skip-moving="true">
+        (function(w,d,u,b){
+               s=d.createElement('script');r=(Date.now()/1000|0);s.async=1;s.src=u+'?'+r;
+               h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+       })(window,document,'https://cdn.bitrix24.ru/b2366453/crm/site_button/loader_2_hkef9b.js');
+</script>
 <header>
     <div class="container_12">
         <div class="grid_3">
@@ -228,15 +236,17 @@
 <p>
 <p>
             <div class="search_catalog">
-            <a style="font-size:11px;" href="http://opac.liart.ru/opacg/nog.htm" target="_blank">
+            <a style="font-size:10.5px; font-weight:bolder" href="http://opac.liart.ru/opacg/nog.htm" target="_blank">
                     {% if LANGUAGE_CODE == 'ru' %}
                     ПОИСК В ЭЛЕКТРОННЫХ КАТАЛОГАХ РГБИ
                 {% else %}SEARCH IN ELECTRONIC CATALOG{% endif %}
                 </a>             <div class="search_catalog">
-
-                <a style="font-size:11px;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
+				
+				<a style="font-size:10.5px;" href="http://opac.liart.ru/opacg/nog.htm">ПРОСМОТР ЦИФРОВЫХ КОПИЙ</a> </div>
+ <div class="search_catalog">
+                <a style="font-size:10.5px;" href="http://liart.ru/opacg/zakaz.htm" target="_blank">
                     {% if LANGUAGE_CODE == 'ru' %}
-        ЗАКАЗАТЬ ДОКУМЕНТ В ЧИТАЛЬНЫЙ ЗАЛ
+        ЗАКАЗ ДОКУМЕНТА В ЧИТАЛЬНЫЙ ЗАЛ
                     {% else %}
                         Online ordering of editions!
                     {% endif %}</a>
@@ -281,11 +291,9 @@
             <!--div><A href="http://liart.ru/ru/pages/Archive_news/8mar2013" > <img src="/media/files/8mar2013b.jpg"  title="Поздравляем с 8 марта!" style="width: 220px; margin-top: 15px; margin-left: 5px;"></A></div-->
             <div style="float:left; margin-top:20px; margin-left:18px;">
 				<div>
-					<a href="http://god-kino2016.ru"><img width="203px" src="http://liart.ru/media/files/img/15012016/godkino.jpg"></a>
+					<a href="http://ecoyear.ru"><img width="203px" src="http://liart.ru/media/files/img/2016/17012017/eco.jpg"></a>
 				</div>
-				<div style="padding-top:10px;">
-					<a href="http://www.soldaty-pobedy.ru/"><img width="203px" src="http://liart.ru/media/files/img/04122015/arxiv.jpg"></a>
-				</div>
+				
             </div>
 			
 			
@@ -293,7 +301,7 @@
 			
             {% include 'left_menu.html' %}
             <div class="clear"></div>
-            <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 10px;" align="center">
+            <div style="font-family: 'Arial'; font-size: 14px;  margin-left: 0px; margin-top: 0px;" align="center">
                 <!--
 {% if LANGUAGE_CODE == 'ru' %}
 <A target="_blank" href="/ru/news/42"> Нам 90 лет! <br> Нас поздравляли &gt&gt; </A>
@@ -319,15 +327,13 @@
                 </form>
             </div>
 			-->
-			<div style="text-align:center; margin-top:10px;">
-				<a href="http://biblioclub.ru"><img src="http://liart.ru/media/files/img/14012016/online.jpg"></a><br />
-				<a href="http://www.bibliorossica.com"><img src="http://liart.ru/media/files/img/14012016/biblioros.jpg"></a><br />
-				<a href="http://e.lanbook.com"><img src="http://liart.ru/media/files/img/2016/11022016/lan.jpg"></a>
-			
-			</div>
 			
 			
-            <div style="margin: 20px 0 0 20px;" class="ask_librarian_category">
+			
+			<div style="text-align:center; margin: 10px 0 10px 0;"><a target="_blank" href="http://official.liart.ru"><img src="http://liart.ru/media/files/img/2017/13022017/official.png"></a></div>
+			
+			
+            <div style="margin: 0px 0 0 20px;" class="ask_librarian_category">
                 <h2><a href="{% url 'ask_librarian:frontend:index' %}">{% if LANGUAGE_CODE == 'ru' %}Спроси
                     библиографа{% else %}Ask librarian{% endif %}</a>
                 </h2>
@@ -339,17 +345,53 @@
                     {% drow_categories_tree %}
                 {% endcache %}
             </div>
-            <div style="margin-top: 30px;" class="events-calendar">
+			<br />
+			
+			
+		{% if LANGUAGE_CODE == 'ru' %}
+        <div style="text-align:center">
+            <a href="http://quality.mkrf.ru/mark/?orgid=0373100000442 "><img  width="200" src="http://mkrf.ru/upload/mkrf/images/banner.png"></a><br /><br />
+          <iframe width="200" height="300" frameborder="no" scrolling="no" src="http://quality.mkrf.ru/widget.php?orgid=0373100000442&bgcolor=6b001c&btnheight=37&btnwidth=80&btnstartwidth=100&btnhpadding=0&btnvpadding=3&btnborderradius=0&btnfsize=10&labelfsize=13&labellheight=16"></iframe>
+        </div>    
+        {% else %}{% endif %}
+			
+			
+
+			
+			
+            <div style="margin-top: 15px;" class="events-calendar">
                 <h2><a href="{% url 'events:frontend:index' %}">Календарь событий</a></h2>
                 {% events_calendar %}
             </div>
 		
+            {% if LANGUAGE_CODE == 'ru' %}
+			<div style="text-align:center;"><a href="http://nilc.ru/skk/"><img  alt="" title="Центр «ЛИБНЕТ» – базы данных в свободном доступе" src="http://nilc.ru/nilc/nilc/img/ban_145.gif" border="0" width="145" height="50"/></a></div>
+			{% else %}{% endif %}
+            
+			<div style="text-align:center; margin-top:10px;">
+				<a href="http://biblioclub.ru"><img src="http://liart.ru/media/files/img/14012016/online.jpg"></a><br />
+				<a href="http://www.bibliorossica.com"><img src="http://liart.ru/media/files/img/14012016/biblioros.jpg"></a><br />
+				<a href="http://e.lanbook.com"><img src="http://liart.ru/media/files/img/2016/11022016/lan.jpg"></a>
+			
+			</div>
+		
+		<div style="float:left; margin-top:20px; margin-left:18px;">
+        
+        {% if LANGUAGE_CODE == 'ru' %}
+         <div style=" padding-bottom:10px;">
+           <a href="http://www.soldaty-pobedy.ru/"><img width="203px" src="http://liart.ru/media/files/img/04122015/arxiv.jpg"></a>
+         </div>
+         <div style=" padding-bottom:10px;">
+           <a href="#"><img width="203px" src=" http://liart.ru/media/files/img/2017/13022017/logo_vertical.png"></a>
+         </div>
+        {% else %}{% endif %}
+        
+               
+            </div>
+		
             <div class="clear"></div>
           {# {% poll_form %} #}
-		<div style="text-align:center">
-		<a href="http://quality.mkrf.ru/mark/?orgid=0373100000442 "><img  width="200" src="http://mkrf.ru/upload/mkrf/images/banner.png"></a><br /><br />
-		  <iframe width="200" height="300" frameborder="no" scrolling="no" src="http://quality.mkrf.ru/widget.php?orgid=0373100000442&bgcolor=6b001c&btnheight=37&btnwidth=80&btnstartwidth=100&btnhpadding=0&btnvpadding=3&btnborderradius=0&btnfsize=10&labelfsize=13&labellheight=16"></iframe>
-		</div>	
+		
 			
 			</div>
         <div class="grid_6">
@@ -371,19 +413,39 @@
 		
 		
 		
-			<div style="text-align:center;"><a target="_blank" href="http://uslugi.liart.ru"><img src="http://liart.ru/media/files/banner/iu.png"></a></div> 
+			
             
-            
+				<div class="wrap_element">
+					<span>
+					<ul>
+						<li>Сканирование</li>
+						<li>Тематические списки</li>
+						<li>Подбор книг в абонементе</li>
+						<li>Копирование изображений</li>
+					</ul>
+					
+					</span>
+					<a href="http://uslugi.liart.ru"><img src="http://liart.ru/media/files/banner/iu.png"></a>
+				</div>
+			
+			
+     
             {% cache 60 newinlib.html LANGUAGE_CODE %}
                 {% include 'newinlib.html' %}
             {% endcache %}
 
         </div>
+		
+		
 		<div style="text-align:center; margin-right:20px;"><a href="http://mkrf.ru/"><img width="100" src="http://liart.ru/media/files/img/2016/09022016/MINCULT_RUS_RGB.png"></a></div>
     </div>
     <div class="clear"></div>
 </section>
 {% include 'footer.html' %}
+
+
+
+
 
 
 

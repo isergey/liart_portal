@@ -13,7 +13,8 @@
 
         <div class="alert alert-success">
             Спасибо за вопрос.
-            Информацию о вопросе Вы сможете найти по номеру. Номер Вашего вопроса: <b><a href="{% url 'ask_librarian:frontend:detail' question.id %}">{{ question.id }}</a></b>. Ответ на вопрос будет выслан на указанный Вами email.
+            Информацию о вопросе Вы сможете найти по номеру. Номер Вашего вопроса: <b>{{ question.id }}</b>. Информация о вопросе доступна по адресу  <b>
+<a href="{% url 'ask_librarian:frontend:detail' question.id %}">{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.META.HTTP_HOST }}{% url 'ask_librarian:frontend:detail' question.id %}</a></b>. Уведомление об ответе на вопрос будет выслано на указанный Вами email.
         </div>
     <a href="{% url 'ask_librarian:frontend:detail' question.id %}">{% if LANGUAGE_CODE == 'ru' %}Перейти к вопросу{% else %}Go to question{% endif %}</a>
 {% endblock %}
